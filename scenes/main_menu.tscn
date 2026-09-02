@@ -1,106 +1,82 @@
 [gd_scene format=3 uid="uid://dyf3ibcid48m"]
 
-[ext_resource type="Script" uid="uid://cpt6mtcw7qft8" path="res://scripts/MainMenu.cs" id="1_controller"]
-
-[sub_resource type="Shader" id="Shader_crt_vignette"]
-code = "shader_type canvas_item;
-
-uniform vec4 bg_color_center : source_color = vec4(0.055, 0.051, 0.078, 1.0);
-uniform vec4 bg_color_edge : source_color = vec4(0.020, 0.024, 0.031, 1.0);
-uniform float vignette_power : hint_range(0.5, 4.0) = 1.8;
-uniform float scanline_intensity : hint_range(0.0, 0.5) = 0.06;
-
-void fragment() {
-	vec2 uv = UV;
-	vec2 center = uv - vec2(0.5);
-	float dist = length(center * vec2(1.25, 1.0));
-	float vig = clamp(pow(dist, vignette_power), 0.0, 1.0);
-	vec4 col = mix(bg_color_center, bg_color_edge, vig);
-	
-	// Hardware scanline: alternates on physical screen raster lines without sine blur
-	float scanline = mod(floor(FRAGCOORD.y), 2.0) * scanline_intensity;
-	col.rgb -= scanline;
-	
-	COLOR = col;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
-shader = SubResource("Shader_crt_vignette")
-shader_parameter/bg_color_center = Color(0.055, 0.051, 0.078, 1)
-shader_parameter/bg_color_edge = Color(0.02, 0.024, 0.031, 1)
-shader_parameter/vignette_power = 1.8
-shader_parameter/scanline_intensity = 0.06
+[ext_resource type="Script" uid="uid://cpt6mtcw7qft8" path="res://scripts/UI/MainMenu.cs" id="1_controller"]
+[ext_resource type="Texture2D" uid="uid://mndqlc10psje" path="res://assets/sprites/background_1_mn.png" id="2_bg_tex"]
+[ext_resource type="Texture2D" uid="uid://btqt81p0pepyh" path="res://assets/sprites/logo_1.png" id="3_logo"]
+[ext_resource type="Script" uid="uid://di1x8xk6ynu0k" path="res://scripts/UI/Components/PrimaryMenuColumn.cs" id="4_primary"]
+[ext_resource type="Script" uid="uid://da6o31dykxpt7" path="res://scripts/UI/Components/SecondaryActionBar.cs" id="5_secondary"]
+[ext_resource type="Script" uid="uid://ctf3k1oi1wtv1" path="res://scripts/UI/Components/CampaignModePanel.cs" id="6_campaign_panel"]
+[ext_resource type="Script" uid="uid://dlft8ykavr0r4" path="res://scripts/UI/Components/SettingsModal.cs" id="7_settings_modal"]
 
 [sub_resource type="Gradient" id="Gradient_embers"]
 offsets = PackedFloat32Array(0, 0.15, 0.6, 0.85, 1)
 colors = PackedColorArray(1, 0.85, 0.35, 0, 1, 0.784314, 0.258824, 0.95, 0.85, 0.43, 0.11, 0.8, 0.7, 0.25, 0.05, 0.4, 0.25, 0.08, 0.02, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_outer_stroke"]
-bg_color = Color(0.02, 0.018, 0.022, 0.98)
+bg_color = Color(0.02, 0.018, 0.022, 0.5)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.12, 0.09, 0.06, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 shadow_color = Color(0, 0, 0, 0.85)
-shadow_size = 14
+shadow_size = 8
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inner_gold"]
-content_margin_left = 24.0
-content_margin_top = 20.0
-content_margin_right = 24.0
-content_margin_bottom = 22.0
-bg_color = Color(0.055, 0.051, 0.078, 0.96)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.055, 0.051, 0.078, 0.75)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.960784, 0.784314, 0.258824, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
-shadow_color = Color(0.960784, 0.784314, 0.258824, 0.22)
-shadow_size = 10
+shadow_color = Color(0.960784, 0.784314, 0.258824, 0.18)
+shadow_size = 6
 anti_aliasing = false
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_separator"]
 color = Color(0.701961, 0.494118, 0.101961, 0.85)
-grow_begin = -15.0
-grow_end = -15.0
+grow_begin = -8.0
+grow_end = -8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
-content_margin_top = 7.0
-content_margin_bottom = 7.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0.164706, 0.133333, 0.101961, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(0.701961, 0.494118, 0.101961, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 shadow_color = Color(0, 0, 0, 0.75)
-shadow_size = 3
-shadow_offset = Vector2(0, 2)
+shadow_size = 2
+shadow_offset = Vector2(0, 1)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
-content_margin_top = 9.0
-content_margin_bottom = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 3.0
 bg_color = Color(0.086275, 0.070588, 0.054902, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(0.75, 0.55, 0.18, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -108,28 +84,44 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 shadow_color = Color(0, 0, 0, 0.85)
 shadow_size = 1
-shadow_offset = Vector2(0, 1)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-content_margin_top = 7.0
-content_margin_bottom = 7.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0.266667, 0.196078, 0.090196, 0.98)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(0.960784, 0.784314, 0.258824, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
-shadow_color = Color(0.960784, 0.784314, 0.258824, 0.3)
-shadow_size = 4
-shadow_offset = Vector2(0, 2)
+shadow_color = Color(0.960784, 0.784314, 0.258824, 0.25)
+shadow_size = 3
+shadow_offset = Vector2(0, 1)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btn_focus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_submenu_btn"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 3.0
+bg_color = Color(0.11, 0.09, 0.07, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.38, 0.15, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
 
 [node name="MainMenu" type="Control" unique_id=1147243007]
 texture_filter = 1
@@ -141,23 +133,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_controller")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1262330452]
-material = SubResource("ShaderMaterial_bg")
+[node name="Background" type="TextureRect" parent="." unique_id=1262330452]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.054902, 0.05098, 0.078431, 1)
+texture = ExtResource("2_bg_tex")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="EmberParticles" type="CPUParticles2D" parent="." unique_id=381940182]
-position = Vector2(320, 368)
-amount = 45
+position = Vector2(320, 360)
+amount = 35
 lifetime = 3.8
 preprocess = 2.5
 emission_shape = 3
-emission_rect_extents = Vector2(330, 8)
+emission_rect_extents = Vector2(320, 6)
 direction = Vector2(0, -1)
 spread = 20.0
 gravity = Vector2(0, -14)
@@ -165,47 +159,53 @@ initial_velocity_min = 25.0
 initial_velocity_max = 55.0
 angular_velocity_min = -35.0
 angular_velocity_max = 35.0
-scale_amount_min = 1.5
-scale_amount_max = 3.0
+scale_amount_min = 1.0
+scale_amount_max = 2.5
 color = Color(0.960784, 0.784314, 0.258824, 1)
 color_ramp = SubResource("Gradient_embers")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1780979059]
+[node name="SidebarMargin" type="MarginContainer" parent="." unique_id=1780979059]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_right = 475.0
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_bottom = 22
 
-[node name="MenuPanel" type="PanelContainer" parent="CenterContainer" unique_id=2056728690]
+[node name="MenuHBox" type="HBoxContainer" parent="SidebarMargin" unique_id=1284910283]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MenuPanel" type="PanelContainer" parent="SidebarMargin/MenuHBox" unique_id=2056728690]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(420, 0)
+custom_minimum_size = Vector2(185, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_outer_stroke")
 
-[node name="InnerPanel" type="PanelContainer" parent="CenterContainer/MenuPanel" unique_id=941052187]
+[node name="InnerPanel" type="PanelContainer" parent="SidebarMargin/MenuHBox/MenuPanel" unique_id=941052187]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_inner_gold")
 
-[node name="DecorativeCorners" type="Control" parent="CenterContainer/MenuPanel/InnerPanel" unique_id=1582910471]
+[node name="DecorativeCorners" type="Control" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel" unique_id=1582910471]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CornerTL" type="Control" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners" unique_id=201948172]
+[node name="CornerTL" type="Control" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners" unique_id=201948172]
 layout_mode = 1
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="Bracket" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerTL" unique_id=129841029]
+[node name="Bracket" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerTL" unique_id=129841029]
 color = Color(0.701961, 0.494118, 0.101961, 1)
-polygon = PackedVector2Array(0, 0, 14, 0, 14, 3, 3, 3, 3, 14, 0, 14)
+polygon = PackedVector2Array(0, 0, 10, 0, 10, 2, 2, 2, 2, 10, 0, 10)
 
-[node name="Stud" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerTL" unique_id=892318491]
+[node name="Stud" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerTL" unique_id=892318491]
 color = Color(0.960784, 0.784314, 0.258824, 1)
-polygon = PackedVector2Array(2, 2, 5, 2, 5, 5, 2, 5)
+polygon = PackedVector2Array(1, 1, 3, 1, 3, 3, 1, 3)
 
-[node name="CornerTR" type="Control" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners" unique_id=184920194]
+[node name="CornerTR" type="Control" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners" unique_id=184920194]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -213,15 +213,15 @@ anchor_right = 1.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Bracket" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerTR" unique_id=741029381]
+[node name="Bracket" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerTR" unique_id=741029381]
 color = Color(0.701961, 0.494118, 0.101961, 1)
-polygon = PackedVector2Array(0, 0, -14, 0, -14, 3, -3, 3, -3, 14, 0, 14)
+polygon = PackedVector2Array(0, 0, -10, 0, -10, 2, -2, 2, -2, 10, 0, 10)
 
-[node name="Stud" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerTR" unique_id=194820194]
+[node name="Stud" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerTR" unique_id=194820194]
 color = Color(0.960784, 0.784314, 0.258824, 1)
-polygon = PackedVector2Array(-2, 2, -5, 2, -5, 5, -2, 5)
+polygon = PackedVector2Array(-1, 1, -3, 1, -3, 3, -1, 3)
 
-[node name="CornerBL" type="Control" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners" unique_id=581920491]
+[node name="CornerBL" type="Control" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners" unique_id=581920491]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -229,15 +229,15 @@ anchor_bottom = 1.0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Bracket" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerBL" unique_id=381940195]
+[node name="Bracket" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerBL" unique_id=381940195]
 color = Color(0.701961, 0.494118, 0.101961, 1)
-polygon = PackedVector2Array(0, 0, 14, 0, 14, -3, 3, -3, 3, -14, 0, -14)
+polygon = PackedVector2Array(0, 0, 10, 0, 10, -2, 2, -2, 2, -10, 0, -10)
 
-[node name="Stud" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerBL" unique_id=182940192]
+[node name="Stud" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerBL" unique_id=182940192]
 color = Color(0.960784, 0.784314, 0.258824, 1)
-polygon = PackedVector2Array(2, -2, 5, -2, 5, -5, 2, -5)
+polygon = PackedVector2Array(1, -1, 3, -1, 3, -3, 1, -3)
 
-[node name="CornerBR" type="Control" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners" unique_id=981294012]
+[node name="CornerBR" type="Control" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners" unique_id=981294012]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -248,65 +248,47 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Bracket" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerBR" unique_id=194019284]
+[node name="Bracket" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerBR" unique_id=194019284]
 color = Color(0.701961, 0.494118, 0.101961, 1)
-polygon = PackedVector2Array(0, 0, -14, 0, -14, -3, -3, -3, -3, -14, 0, -14)
+polygon = PackedVector2Array(0, 0, -10, 0, -10, -2, -2, -2, -2, -10, 0, -10)
 
-[node name="Stud" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/DecorativeCorners/CornerBR" unique_id=581029481]
+[node name="Stud" type="Polygon2D" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/DecorativeCorners/CornerBR" unique_id=581029481]
 color = Color(0.960784, 0.784314, 0.258824, 1)
-polygon = PackedVector2Array(-2, -2, -5, -2, -5, -5, -2, -5)
+polygon = PackedVector2Array(-1, -1, -3, -1, -3, -3, -1, -3)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MenuPanel/InnerPanel" unique_id=2095685787]
+[node name="VBoxContainer" type="VBoxContainer" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel" unique_id=2095685787]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="EmblemContainer" type="Control" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=1049281729]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Center" type="CenterContainer" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer" unique_id=1492019481]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Anchor" type="Control" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer/Center" unique_id=184910294]
-custom_minimum_size = Vector2(70, 32)
+[node name="EmblemContainer" type="CenterContainer" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=1049281729]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ChimLacBird" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer/Center/Anchor" unique_id=918204918]
-position = Vector2(35, 16)
-color = Color(0.960784, 0.784314, 0.258824, 1)
-polygon = PackedVector2Array(0, -14, 5, -10, 14, -8, 28, -2, 34, 4, 24, 4, 14, 2, 8, 8, 12, 15, 6, 13, 0, 10, -6, 13, -12, 15, -8, 8, -14, 2, -24, 4, -34, 4, -28, -2, -14, -8, -5, -10)
+[node name="Logo" type="TextureRect" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer" unique_id=1492019481]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="BronzeStar" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer/Center/Anchor" unique_id=819204918]
-position = Vector2(35, 16)
-color = Color(0.701961, 0.494118, 0.101961, 1)
-polygon = PackedVector2Array(0, -5, 4, 0, 0, 5, -4, 0)
-
-[node name="GoldCore" type="Polygon2D" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer/Center/Anchor" unique_id=194820184]
-position = Vector2(35, 16)
-color = Color(1, 0.92, 0.6, 1)
-polygon = PackedVector2Array(0, -2, 2, 0, 0, 2, -2, 0)
-
-[node name="TitleLabel" type="Label" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=1396662731]
+[node name="TitleLabel" type="Label" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=1396662731]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
 theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
 theme_override_colors/font_outline_color = Color(0.08, 0.06, 0.02, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 10
 text = "CHRONICLES OF THE EMPIRES"
 horizontal_alignment = 1
 
-[node name="SubtitleLabel" type="Label" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=184910283]
+[node name="SubtitleLabel" type="Label" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=184910283]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
 theme_override_colors/font_shadow_color = Color(0.08, 0.06, 0.04, 1)
@@ -314,17 +296,23 @@ theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.02, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 7
 text = "◆ MYTHIC AGES ◆"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=194820174]
+[node name="HSeparator" type="HSeparator" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=194820174]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_separator")
 
-[node name="BtnNewGame" type="Button" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=769301712]
+[node name="PrimaryColumn" type="VBoxContainer" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=769301712]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("4_primary")
+
+[node name="BtnNewGame" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/PrimaryColumn" unique_id=769301713]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
@@ -333,16 +321,16 @@ theme_override_colors/font_pressed_color = Color(0.701961, 0.494118, 0.101961, 1
 theme_override_colors/font_hover_color = Color(0.98, 0.88, 0.45, 1)
 theme_override_colors/font_outline_color = Color(0.08, 0.06, 0.02, 1)
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "New Campaign"
+text = "New Campaign ▸"
 
-[node name="BtnLoadGame" type="Button" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=1738286180]
+[node name="BtnLoadGame" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/PrimaryColumn" unique_id=1738286180]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
@@ -351,16 +339,16 @@ theme_override_colors/font_pressed_color = Color(0.701961, 0.494118, 0.101961, 1
 theme_override_colors/font_hover_color = Color(0.98, 0.88, 0.45, 1)
 theme_override_colors/font_outline_color = Color(0.08, 0.06, 0.02, 1)
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
 text = "Load Game"
 
-[node name="BtnSettings" type="Button" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=827230832]
+[node name="BtnSettings" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/PrimaryColumn" unique_id=827230832]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
@@ -369,16 +357,16 @@ theme_override_colors/font_pressed_color = Color(0.701961, 0.494118, 0.101961, 1
 theme_override_colors/font_hover_color = Color(0.98, 0.88, 0.45, 1)
 theme_override_colors/font_outline_color = Color(0.08, 0.06, 0.02, 1)
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
 text = "Settings"
 
-[node name="BtnQuit" type="Button" parent="CenterContainer/MenuPanel/InnerPanel/VBoxContainer" unique_id=1482290332]
+[node name="BtnQuit" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/PrimaryColumn" unique_id=1482290332]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
@@ -387,12 +375,238 @@ theme_override_colors/font_pressed_color = Color(0.701961, 0.494118, 0.101961, 1
 theme_override_colors/font_hover_color = Color(0.98, 0.88, 0.45, 1)
 theme_override_colors/font_outline_color = Color(0.08, 0.06, 0.02, 1)
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
 text = "Exit to Desktop"
+
+[node name="SecondarySeparator" type="HSeparator" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=194820175]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_separator")
+
+[node name="SecondaryActionBar" type="HBoxContainer" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=194820176]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("5_secondary")
+
+[node name="BtnCivilopedia" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/SecondaryActionBar" unique_id=194820177]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+tooltip_text = "Civilopedia & Archives"
+theme_override_colors/font_color = Color(0.75, 0.7, 0.62, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.78, 0.26, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "📖 Archives"
+
+[node name="BtnCredits" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/SecondaryActionBar" unique_id=194820178]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+tooltip_text = "Development Credits"
+theme_override_colors/font_color = Color(0.75, 0.7, 0.62, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.78, 0.26, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "👥 Credits"
+
+[node name="BtnCommunity" type="Button" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/SecondaryActionBar" unique_id=194820179]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+tooltip_text = "Official Community Discord"
+theme_override_colors/font_color = Color(0.75, 0.7, 0.62, 1)
+theme_override_colors/font_hover_color = Color(0.96, 0.78, 0.26, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "💬 Discord"
+
+[node name="CampaignModePanel" type="PanelContainer" parent="SidebarMargin/MenuHBox" unique_id=293810294]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_outer_stroke")
+script = ExtResource("6_campaign_panel")
+
+[node name="Inner" type="PanelContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel" unique_id=194810284]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_inner_gold")
+
+[node name="VBox" type="VBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner" unique_id=284910284]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="HBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910284]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/Header" unique_id=184910285]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
+theme_override_font_sizes/font_size = 10
+text = "SELECT CAMPAIGN MODE"
+
+[node name="BtnCloseModePanel" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/Header" unique_id=184910286]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.8, 0.7, 0.6, 1)
+theme_override_colors/font_hover_color = Color(1, 0.4, 0.3, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "✕"
+
+[node name="ModesHBox" type="HBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910287]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BtnSelectGrand" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/ModesHBox" unique_id=184910288]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "⚔ Campaign"
+
+[node name="BtnSelectSkirmish" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/ModesHBox" unique_id=184910289]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "⚡ Skirmish"
+
+[node name="BtnSelectTutorial" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/ModesHBox" unique_id=184910290]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "📜 Tutorial"
+
+[node name="DetailsPanel" type="PanelContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910291]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_submenu_btn")
+
+[node name="Margin" type="MarginContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel" unique_id=184910292]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin" unique_id=184910293]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ModeTitleLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910294]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 9
+text = "GRAND CAMPAIGN"
+
+[node name="ModeEraLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910295]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.701961, 0.494118, 0.101961, 1)
+theme_override_font_sizes/font_size = 7
+text = "◆ BRONZE AGE ERA ◆"
+
+[node name="ModeDescLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910296]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Mode description..."
+autowrap_mode = 2
+
+[node name="SpecsSeparator" type="HSeparator" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910297]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_separator")
+
+[node name="SpecsGrid" type="VBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910298]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="SpecMapLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox/SpecsGrid" unique_id=184910299]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.72, 0.65, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Map: Continental (128x128 Hex)"
+
+[node name="SpecFactionsLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox/SpecsGrid" unique_id=184910300]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.72, 0.65, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Rivals: 16 Ancient Civilizations"
+
+[node name="SpecVictoryLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox/SpecsGrid" unique_id=184910301]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.72, 0.65, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Victory: Conquest / Cultural Hegemony"
+
+[node name="Footer" type="CenterContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910302]
+layout_mode = 2
+
+[node name="BtnDeployCampaign" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/Footer" unique_id=184910303]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 24)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_colors/font_hover_color = Color(1, 0.95, 0.6, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "⚔ DEPLOY CAMPAIGN"
 
 [node name="FooterMargin" type="MarginContainer" parent="." unique_id=1948201948]
 layout_mode = 1
@@ -400,13 +614,13 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -24.0
+offset_top = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_bottom = 4
 
 [node name="FooterHBox" type="HBoxContainer" parent="FooterMargin" unique_id=184920184]
 layout_mode = 2
@@ -417,7 +631,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.48, 0.38, 0.8)
 theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.02, 1)
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 text = "EARLY ACCESS v0.2.1-EA"
 
 [node name="FooterSpacer" type="Control" parent="FooterMargin/FooterHBox" unique_id=184920193]
@@ -430,8 +644,214 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.48, 0.38, 0.8)
 theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.02, 1)
 theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 text = "GODOT CORE PROTOTYPE"
+
+[node name="SettingsModal" type="Control" parent="." unique_id=984102941]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_settings_modal")
+
+[node name="Backdrop" type="ColorRect" parent="SettingsModal" unique_id=984102942]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.015, 0.02, 0.7)
+
+[node name="Center" type="CenterContainer" parent="SettingsModal" unique_id=984102943]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsPanel" type="PanelContainer" parent="SettingsModal/Center" unique_id=984102944]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(310, 215)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_outer_stroke")
+
+[node name="Inner" type="PanelContainer" parent="SettingsModal/Center/SettingsPanel" unique_id=984102945]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_inner_gold")
+
+[node name="VBox" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner" unique_id=984102946]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="HBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox" unique_id=984102947]
+layout_mode = 2
+
+[node name="SettingsTitleLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/Header" unique_id=984102948]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
+theme_override_font_sizes/font_size = 11
+text = "SETTINGS"
+
+[node name="BtnCloseSettings" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/Header" unique_id=984102949]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.8, 0.7, 0.6, 1)
+theme_override_colors/font_hover_color = Color(1, 0.4, 0.3, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "✕"
+
+[node name="TabsHBox" type="HBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox" unique_id=984102950]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TabAudioBtn" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/TabsHBox" unique_id=984102951]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "Audio"
+
+[node name="TabVideoBtn" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/TabsHBox" unique_id=984102952]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "Display"
+
+[node name="TabLangBtn" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/TabsHBox" unique_id=984102953]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
+text = "Language"
+
+[node name="ContentPanel" type="PanelContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox" unique_id=984102954]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_submenu_btn")
+
+[node name="AudioTabContent" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel" unique_id=984102955]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MasterVolLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102956]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Master Volume"
+
+[node name="MasterVolSlider" type="HSlider" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102957]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="SfxVolLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102959]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Sound Effects"
+
+[node name="SfxVolSlider" type="HSlider" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102960]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.9
+
+[node name="MusicVolLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102962]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Music Volume"
+
+[node name="MusicVolSlider" type="HSlider" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102963]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.75
+
+[node name="VideoTabContent" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel" unique_id=984102964]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="FullscreenCheck" type="CheckBox" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/VideoTabContent" unique_id=984102965]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Fullscreen Mode"
+
+[node name="VsyncCheck" type="CheckBox" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/VideoTabContent" unique_id=984102966]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Vertical Sync (VSync)"
+
+[node name="LangTabContent" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel" unique_id=984102967]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="LanguageOptionLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/LangTabContent" unique_id=984102968]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+text = "Game Language"
+
+[node name="LanguageOptionBtn" type="OptionButton" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/LangTabContent" unique_id=984102969]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
 
 [node name="SfxHover" type="AudioStreamPlayer" parent="." unique_id=1049281749]
 unique_name_in_owner = true
