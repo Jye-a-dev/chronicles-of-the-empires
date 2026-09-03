@@ -1,0 +1,661 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" uid="uid://dlsxw14kkcuxc" path="res://scripts/UI/Components/CampaignModal.cs" id="1_campaign_modal"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_outer"]
+bg_color = Color(0.02, 0.018, 0.022, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.12, 0.09, 0.06, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.85)
+shadow_size = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_inner"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.055, 0.051, 0.078, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.960784, 0.784314, 0.258824, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0.960784, 0.784314, 0.258824, 0.18)
+shadow_size = 6
+anti_aliasing = false
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_separator"]
+color = Color(0.701961, 0.494118, 0.101961, 0.85)
+grow_begin = -2.0
+grow_end = -2.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vseparator"]
+color = Color(0.701961, 0.494118, 0.101961, 0.85)
+grow_begin = -2.0
+grow_end = -2.0
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.12, 0.1, 0.08, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.38, 0.15, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.266667, 0.196078, 0.090196, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.960784, 0.784314, 0.258824, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0.960784, 0.784314, 0.258824, 0.25)
+shadow_size = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 1.0
+bg_color = Color(0.086275, 0.070588, 0.054902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.75, 0.55, 0.18, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_panel"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(0.04, 0.035, 0.03, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.28, 0.15, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_deploy_btn"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.45, 0.32, 0.10, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.35, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(1, 0.85, 0.35, 0.3)
+shadow_size = 3
+anti_aliasing = false
+
+[node name="CampaignModal" type="Control"]
+z_index = 50
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_campaign_modal")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.015, 0.02, 0.78)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalPanel" type="PanelContainer" parent="Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(460, 255)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_outer")
+
+[node name="Inner" type="PanelContainer" parent="Center/ModalPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_inner")
+
+[node name="VBox" type="VBoxContainer" parent="Center/ModalPanel/Inner"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="Center/ModalPanel/Inner/VBox"]
+layout_mode = 2
+
+[node name="ModalTitleLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
+theme_override_font_sizes/font_size = 9
+text = "CHỌN CHẾ ĐỘ CHIẾN DỊCH"
+
+[node name="BtnCloseHeader" type="Button" parent="Center/ModalPanel/Inner/VBox/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.8, 0.7, 0.6, 1)
+theme_override_colors/font_hover_color = Color(1, 0.4, 0.3, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "✕"
+
+[node name="TabsHBox" type="HBoxContainer" parent="Center/ModalPanel/Inner/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BtnTabCampaign" type="Button" parent="Center/ModalPanel/Inner/VBox/TabsHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "⚔ Chiến Dịch (Ải)"
+
+[node name="BtnTabSkirmish" type="Button" parent="Center/ModalPanel/Inner/VBox/TabsHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "⚡ Thư Hùng (Map)"
+
+[node name="BtnTabTraining" type="Button" parent="Center/ModalPanel/Inner/VBox/TabsHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "📜 Tập Trận & Sandbox"
+
+[node name="HeaderSeparator" type="HSeparator" parent="Center/ModalPanel/Inner/VBox"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_separator")
+
+[node name="ContentContainer" type="PanelContainer" parent="Center/ModalPanel/Inner/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_panel")
+
+[node name="CampaignView" type="HBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StagesListScroll" type="ScrollContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="StagesVBox" type="VBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="BtnStage1" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.96, 0.78, 0.26, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "Ải 1: Khởi Nguồn Văn Lang"
+alignment = 0
+
+[node name="BtnStage2" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "Ải 2: Đúc Trống Đồng"
+alignment = 0
+
+[node name="BtnStage3" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "Ải 3: Nỏ Thần Cổ Loa"
+alignment = 0
+
+[node name="BtnStage4" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "Ải 4: Voi Chiến Mê Linh"
+alignment = 0
+
+[node name="BtnStage5" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "Ải 5: Thống Nhất Bách Việt"
+alignment = 0
+
+[node name="VSep1" type="VSeparator" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_vseparator")
+
+[node name="StageDetailsVBox" type="VBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="StageTitleLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 8
+text = "ẢI 1: KHỞI NGUỒN VĂN LANG"
+
+[node name="StageDescLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 0.9)
+theme_override_font_sizes/font_size = 7
+text = "Chiêu mộ nông binh, thuần hóa thủy vực sông Hồng, đặt nền móng thị tộc đầu tiên."
+autowrap_mode = 2
+
+[node name="StageObjLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Mục tiêu: Khai phá 3 khoảnh lúa nước & chiêu mộ 15 dân binh"
+autowrap_mode = 2
+
+[node name="StageMapLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.78, 0.7, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Sa bàn: Châu thổ sông Hồng (32x32 ô)"
+
+[node name="StageEnemyLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.78, 0.7, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Bộ tộc đối đầu: Man Di sông Đà (Thị tộc Hắc Thủy)"
+
+[node name="StageRewardLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.85, 0.65, 1)
+theme_override_font_sizes/font_size = 7
+text = "• Phần thưởng: Kỹ nghệ đúc đồng sơ kỳ & Nỏ nung lửa"
+
+[node name="SkirmishView" type="VBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="SkirmishGrid" type="GridContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="SkirmishMapSizeLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 7
+text = "Kích thước bản đồ"
+
+[node name="SkirmishMapSizeOptionBtn" type="OptionButton" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+
+[node name="SkirmishBiomeLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 7
+text = "Địa hình sinh thái"
+
+[node name="SkirmishBiomeOptionBtn" type="OptionButton" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+
+[node name="SkirmishRivalsLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 7
+text = "Số lượng đối thủ AI"
+
+[node name="SkirmishRivalsOptionBtn" type="OptionButton" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+
+[node name="SkirmishVictoryLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 7
+text = "Điều kiện thắng"
+
+[node name="SkirmishVictoryOptionBtn" type="OptionButton" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+
+[node name="SkirmishDifficultyLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 7
+text = "Độ khó AI"
+
+[node name="SkirmishDifficultyOptionBtn" type="OptionButton" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView/SkirmishGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+
+[node name="SkirmishSummaryLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/SkirmishView"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.85, 0.45, 0.9)
+theme_override_font_sizes/font_size = 7
+text = "• Thiết lập: 4 Phe giao tranh trên sa bàn tiêu chuẩn 64x64, địa hình lưu vực sông Hồng."
+
+[node name="TrainingView" type="HBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TutorialCard" type="PanelContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/TutorialCard"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="TutorialTitleLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/TutorialCard/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 8
+text = "📜 THAO TÁC CƠ BẢN"
+
+[node name="TutorialDescLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/TutorialCard/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 0.9)
+theme_override_font_sizes/font_size = 7
+text = "• Điều khiển camera & sa bàn lục giác\n• Quản lý lúa nước & khai khoáng đồng thiếc\n• Xây dựng chòi canh & lò đúc trống\n• Điều binh khiển tướng, bố trận cung nỏ"
+autowrap_mode = 2
+
+[node name="BtnSelectTutorial" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/TutorialCard/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.96, 0.78, 0.26, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "✓ Chọn Tập Huấn"
+
+[node name="SandboxCard" type="PanelContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/SandboxCard"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="SandboxTitleLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/SandboxCard/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
+theme_override_font_sizes/font_size = 8
+text = "🧪 SA BÀN SANDBOX TEST ĐƠN VỊ"
+
+[node name="SandboxDescLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/SandboxCard/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 0.9)
+theme_override_font_sizes/font_size = 7
+text = "• Thử nghiệm sát thương mọi đơn vị tự do\n• Tượng Binh Mê Linh càn quét bộ binh\n• Nỏ Thủ Liên Châu bắn tên liên hoàn\n• Đấu giả lập bot & thử thách phòng ngự"
+autowrap_mode = 2
+
+[node name="BtnSelectSandbox" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/SandboxCard/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "Chọn Sa Bàn"
+
+[node name="FooterSeparator" type="HSeparator" parent="Center/ModalPanel/Inner/VBox"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_separator")
+
+[node name="FooterHBox" type="HBoxContainer" parent="Center/ModalPanel/Inner/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatusInfoLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/FooterHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.85, 0.45, 0.9)
+theme_override_font_sizes/font_size = 7
+text = "• Sẵn sàng vào trận."
+
+[node name="BtnCloseModal" type="Button" parent="Center/ModalPanel/Inner/VBox/FooterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.8, 0.7, 0.6, 1)
+theme_override_colors/font_hover_color = Color(1, 0.4, 0.3, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "✕ Đóng"
+
+[node name="BtnDeploy" type="Button" parent="Center/ModalPanel/Inner/VBox/FooterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(115, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.9, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_deploy_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+text = "⚔ VÀO TRẬN (DEPLOY)"
+

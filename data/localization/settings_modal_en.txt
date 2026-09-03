@@ -1,0 +1,41 @@
+# ==============================================================================
+# Chronicles of the Old Empires: Mythic Ages - Settings Modal Localization (English)
+# ==============================================================================
+
+SETTINGS_TITLE = SETTINGS
+SETTINGS_TAB_AUDIO = 🔊 Audio
+SETTINGS_TAB_VIDEO = 🖥 Display
+SETTINGS_TAB_GAMEPLAY = 🌐 Language
+
+# Audio Sliders
+SETTINGS_MASTER_VOL = Master Volume
+SETTINGS_SFX_VOL = Sound Effects
+SETTINGS_MUSIC_VOL = Music Volume
+
+# Display & Window Settings
+SETTINGS_WINDOW_MODE = Window Mode
+SETTINGS_RESOLUTION = Resolution
+SETTINGS_VSYNC_LABEL = Vertical Sync (VSync)
+SETTINGS_MAX_FPS = Max Frame Rate
+SETTINGS_UI_SCALE = UI Scale
+
+# Window Mode Options
+SETTINGS_MODE_WINDOWED = Windowed
+SETTINGS_MODE_BORDERLESS = Borderless Window
+SETTINGS_MODE_FULLSCREEN = Fullscreen
+SETTINGS_MODE_EXCLUSIVE = Exclusive Fullscreen
+
+# VSync Options
+SETTINGS_VSYNC_DISABLED = Disabled
+SETTINGS_VSYNC_ENABLED = Enabled
+SETTINGS_VSYNC_ADAPTIVE = Adaptive
+
+# Framerate Options
+SETTINGS_FPS_UNLIMITED = Unlimited
+
+# Language & Buttons
+SETTINGS_LANGUAGE = Game Language
+SETTINGS_BTN_CLOSE = ✕ Close
+SETTINGS_BTN_SAVE = 💾 Save & Apply
+SETTINGS_STATUS_SAVED = Settings saved & applied!
+

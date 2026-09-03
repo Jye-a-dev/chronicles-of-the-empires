@@ -27,7 +27,7 @@ public partial class MainMenu : Control
 
     private PrimaryMenuColumn? _primaryColumn;
     private SecondaryActionBar? _secondaryActionBar;
-    private CampaignModePanel? _campaignPanel;
+    private CampaignModal? _campaignModal;
     private SettingsModal? _settingsModal;
 
     private AudioStreamPlayer _sfxHover = null!;
@@ -67,11 +67,33 @@ public partial class MainMenu : Control
         _secondaryActionBar = GetNodeOrNull<SecondaryActionBar>("%SecondaryActionBar")
             ?? _menuPanel.GetNodeOrNull<SecondaryActionBar>("InnerPanel/VBoxContainer/SecondaryActionBar");
 
-        _campaignPanel = GetNodeOrNull<CampaignModePanel>("%CampaignModePanel")
-            ?? GetNodeOrNull<CampaignModePanel>("SidebarMargin/MenuHBox/CampaignModePanel");
+        _campaignModal = GetNodeOrNull<CampaignModal>("%CampaignModal")
+            ?? GetNodeOrNull<CampaignModal>("CampaignModal");
+
+        if (_campaignModal == null)
+        {
+            var campaignScene = GD.Load<PackedScene>("res://scenes/campaign_modal.tscn");
+            if (campaignScene != null)
+            {
+                _campaignModal = campaignScene.Instantiate<CampaignModal>();
+                _campaignModal.Name = "CampaignModal";
+                AddChild(_campaignModal);
+            }
+        }
 
         _settingsModal = GetNodeOrNull<SettingsModal>("%SettingsModal")
             ?? GetNodeOrNull<SettingsModal>("SettingsModal");
+
+        if (_settingsModal == null)
+        {
+            var modalScene = GD.Load<PackedScene>("res://scenes/settings_modal.tscn");
+            if (modalScene != null)
+            {
+                _settingsModal = modalScene.Instantiate<SettingsModal>();
+                _settingsModal.Name = "SettingsModal";
+                AddChild(_settingsModal);
+            }
+        }
 
         if (_primaryColumn != null)
         {
@@ -94,16 +116,19 @@ public partial class MainMenu : Control
             _secondaryActionBar.InitializeInteractions(_sfxHover, _sfxClick);
         }
 
-        if (_campaignPanel != null)
+        if (_campaignModal != null)
         {
-            _campaignPanel.CampaignStarted += OnCampaignModeSelected;
-            _campaignPanel.InitializeInteractions(_sfxHover, _sfxClick);
+            _campaignModal.CampaignStarted += OnCampaignModalStarted;
+            _campaignModal.InitializeInteractions(_sfxHover, _sfxClick);
         }
 
         if (_settingsModal != null)
         {
             _settingsModal.InitializeInteractions(_sfxHover, _sfxClick);
         }
+
+        // Synchronize and apply persistent configuration from local settings.txt
+        SettingsManager.Apply(SettingsManager.Load(), GetTree());
 
         LocalizationManager.LanguageChanged += UpdateLocalizedStrings;
         UpdateLocalizedStrings();
@@ -124,10 +149,24 @@ public partial class MainMenu : Control
 
     private void OnNewCampaignRequested()
     {
+        _settingsModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
-        if (_campaignPanel != null)
+        if (_campaignModal == null)
         {
-            _campaignPanel.Toggle();
+            var campaignScene = GD.Load<PackedScene>("res://scenes/campaign_modal.tscn");
+            if (campaignScene != null)
+            {
+                _campaignModal = campaignScene.Instantiate<CampaignModal>();
+                _campaignModal.Name = "CampaignModal";
+                AddChild(_campaignModal);
+                _campaignModal.CampaignStarted += OnCampaignModalStarted;
+                _campaignModal.InitializeInteractions(_sfxHover, _sfxClick);
+            }
+        }
+
+        if (_campaignModal != null)
+        {
+            _campaignModal.Open();
         }
         else
         {
@@ -135,10 +174,10 @@ public partial class MainMenu : Control
         }
     }
 
-    private void OnCampaignModeSelected(string mode)
+    private void OnCampaignModalStarted(string mode, string stageId, string mapSize, string biome, int rivals, string victory, string difficulty)
     {
         MenuAudioHelper.PlaySound(_sfxClick);
-        GD.Print($"[Chronicles] Starting campaign mode: '{mode}' via loading screen...");
+        GD.Print($"[Chronicles] Starting game session: mode={mode}, stage={stageId}, map={mapSize}, rivals={rivals}...");
 
         SetInputLocked(true);
 
@@ -150,30 +189,47 @@ public partial class MainMenu : Control
         }));
     }
 
+    private void OnCampaignModeSelected(string mode)
+    {
+        OnCampaignModalStarted(mode, "stage_1", "32x32", "red_river", 2, "conquest", "normal");
+    }
+
     private void OnLoadGameRequested()
     {
-        _campaignPanel?.Close();
+        _campaignModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
         GD.Print("[Chronicles] Opening load game dialog...");
     }
 
     private void OnSettingsRequested()
     {
-        _campaignPanel?.Close();
+        _campaignModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
+        if (_settingsModal == null)
+        {
+            var modalScene = GD.Load<PackedScene>("res://scenes/settings_modal.tscn");
+            if (modalScene != null)
+            {
+                _settingsModal = modalScene.Instantiate<SettingsModal>();
+                _settingsModal.Name = "SettingsModal";
+                AddChild(_settingsModal);
+                _settingsModal.InitializeInteractions(_sfxHover, _sfxClick);
+            }
+        }
+
         if (_settingsModal != null)
         {
             _settingsModal.Open();
         }
         else
         {
-            GD.Print("[Chronicles] SettingsModal node not found in scene tree.");
+            GD.PrintErr("[Chronicles] SettingsModal node not found in scene tree.");
         }
     }
 
     private void OnQuitRequested()
     {
-        _campaignPanel?.Close();
+        _campaignModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
         GD.Print("[Chronicles] Exiting application to desktop...");
         GetTree().Quit();
@@ -181,21 +237,21 @@ public partial class MainMenu : Control
 
     private void OnCivilopediaRequested()
     {
-        _campaignPanel?.Close();
+        _campaignModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
         GD.Print("[Chronicles] Opening Civilopedia / Archives...");
     }
 
     private void OnCreditsRequested()
     {
-        _campaignPanel?.Close();
+        _campaignModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
         GD.Print("[Chronicles] Opening Credits...");
     }
 
     private void OnCommunityRequested()
     {
-        _campaignPanel?.Close();
+        _campaignModal?.Close();
         MenuAudioHelper.PlaySound(_sfxClick);
         GD.Print($"[Chronicles] Opening Community Discord link: {_communityUrl}");
         OS.ShellOpen(_communityUrl);

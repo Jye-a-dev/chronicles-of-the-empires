@@ -17,15 +17,10 @@ public partial class LoadingScreen : Control
     [Export(PropertyHint.File, "*.tscn")]
     private string _defaultScenePath = "res://scenes/main_menu.tscn";
 
-    [Export]
-    private string[] _statusStages =
-[
-    "Forging continental provinces & waterways...",
-    "Decoding sixteen civilization doctrines...",
-    "Deploying grand tacticians & pathfinding...",
-    "Kindling mythic embers & battle shaders...",
-    "The mythic age begins..."
-];
+    [Export(PropertyHint.File, "*.txt")]
+    private string _statusStagesPath = "res://data/loading_stages.txt";
+
+    private string[] _statusStages = [];
 
     public static string TargetScenePath { get; set; } = string.Empty;
 
@@ -33,6 +28,8 @@ public partial class LoadingScreen : Control
     private ProgressBar _progressBar = null!;
     private Label _percentLabel = null!;
     private Label _statusLabel = null!;
+    private Label? _titleLabel;
+    private Label? _subtitleLabel;
 
     private string _activeScenePath = string.Empty;
     private float _elapsedTime;
@@ -61,9 +58,22 @@ public partial class LoadingScreen : Control
         _statusLabel = GetNodeOrNull<Label>("%StatusLabel")
             ?? GetNode<Label>("CenterContainer/ContentVBox/StatusLabel");
 
+        _titleLabel = GetNodeOrNull<Label>("%TitleLabel")
+            ?? GetNodeOrNull<Label>("CenterContainer/ContentVBox/TitleLabel");
+
+        _subtitleLabel = GetNodeOrNull<Label>("%SubtitleLabel")
+            ?? GetNodeOrNull<Label>("CenterContainer/ContentVBox/SubtitleLabel");
+
         // Keep spinner pivot dynamically centered for smooth rotation
         _spinner.Resized += () => _spinner.PivotOffset = _spinner.Size / 2.0f;
         _spinner.PivotOffset = _spinner.Size / 2.0f;
+
+        // Load and apply persistent settings from local text file
+        SettingsManager.Apply(SettingsManager.Load(), GetTree());
+
+        // Load status stage strings and localized headers
+        LocalizationManager.LanguageChanged += OnLanguageChanged;
+        OnLanguageChanged();
 
         // Reset visual progress
         _displayedProgress = 0.0f;
@@ -212,5 +222,62 @@ public partial class LoadingScreen : Control
                 GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
             }
         }));
+    }
+
+    private void OnLanguageChanged()
+    {
+        LoadStatusStages();
+        if (_titleLabel != null) _titleLabel.Text = LocalizationManager.Get("MENU_TITLE");
+        if (_subtitleLabel != null) _subtitleLabel.Text = LocalizationManager.Get("MENU_SUBTITLE");
+    }
+
+    private void LoadStatusStages()
+    {
+        string path = _statusStagesPath;
+        if (LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese && path.EndsWith(".txt"))
+        {
+            string viPath = path.Insert(path.Length - 4, "_vi");
+            if (FileAccess.FileExists(viPath))
+            {
+                path = viPath;
+            }
+        }
+
+        if (FileAccess.FileExists(path))
+        {
+            using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+            if (file != null)
+            {
+                var lines = new System.Collections.Generic.List<string>();
+                while (!file.EofReached())
+                {
+                    string line = file.GetLine().Trim();
+                    if (!string.IsNullOrEmpty(line) && !line.StartsWith('#'))
+                    {
+                        lines.Add(line);
+                    }
+                }
+                if (lines.Count > 0)
+                {
+                    _statusStages = [.. lines];
+                    return;
+                }
+            }
+        }
+
+        // Fallback default stages
+        _statusStages =
+        [
+            "Inscribing continental provinces & ancient scroll maps...",
+            "Awakening eighteen mythic dynasties across four cultural spheres...",
+            "Mustering armored regiments & deploying tactical pathfinding...",
+            "Igniting pixel shaders, dynamic shadows & mystic embers...",
+            "Chronicles of the Old Empires begins..."
+        ];
+    }
+
+    public override void _ExitTree()
+    {
+        LocalizationManager.LanguageChanged -= OnLanguageChanged;
     }
 }

@@ -18,6 +18,9 @@ public static class MenuButtonAnimator
         float hoverScale = 1.05f,
         float pressScale = 0.96f)
     {
+        // Ensure interactive button always uses pointing hand cursor
+        btn.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+
         // Maintain centered pivot during size alterations to prevent off-center scale distortion
         btn.Resized += () => btn.PivotOffset = btn.Size / 2.0f;
         btn.PivotOffset = btn.CustomMinimumSize / 2.0f;

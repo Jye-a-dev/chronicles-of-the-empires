@@ -1,0 +1,22 @@
+# ==============================================================================
+# Vạn Quốc Phong Vân Ký - Bản Dịch Menu Chính (Tiếng Việt)
+# ==============================================================================
+
+# Tiêu Đề & Thương Hiệu
+MENU_TITLE = VẠN QUỐC PHONG VÂN KÝ
+MENU_SUBTITLE = ◆ THỜI KỲ HUYỀN SỬ ◆
+
+# Cột Tác Vụ Chính
+MENU_NEW_CAMPAIGN = Chiến Dịch Mới ▸
+MENU_LOAD_GAME = Tải Bản Lưu
+MENU_SETTINGS = Cài Đặt
+MENU_EXIT = Thoát Trò Chơi
+
+# Thanh Tác Vụ Tiện Ích
+MENU_ARCHIVES = 📖 Thư Khố
+MENU_CREDITS = 👥 Đội Ngũ
+MENU_DISCORD = 💬 Cộng Đồng
+MENU_ARCHIVES_TOOLTIP = Thư Khố & Bách Khoa Toàn Thư Vạn Quốc
+MENU_CREDITS_TOOLTIP = Đội Ngũ Phát Triển & Bảng Vinh Danh
+MENU_DISCORD_TOOLTIP = Kênh Discord Cộng Đồng Chính Thức
+

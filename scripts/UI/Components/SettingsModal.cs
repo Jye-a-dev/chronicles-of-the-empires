@@ -6,8 +6,9 @@ using System;
 namespace ChroniclesOfTheEmpires.UI;
 
 /// <summary>
-/// Modal settings panel for audio volume, display mode, and real-time English/Vietnamese language switching.
-/// Designed for 640x360 canvas resolution with Đông Sơn bronze styling.
+/// Controls the system settings modal dialog.
+/// Supports Audio sliders, Display settings (Window mode, Resolution, VSync, Max FPS, UI Scale),
+/// Language switcher, and persistent local storage synchronization via plain text file.
 /// </summary>
 public partial class SettingsModal : Control
 {
@@ -15,42 +16,90 @@ public partial class SettingsModal : Control
 	public delegate void ClosedEventHandler();
 
 	private PanelContainer _modalPanel = null!;
-	private Button _btnClose = null!;
 	private Label _titleLabel = null!;
+	private Button _btnCloseSettings = null!;
 
-	// Tabs
+	// Sidebar
 	private Button _tabAudioBtn = null!;
 	private Button _tabVideoBtn = null!;
 	private Button _tabLangBtn = null!;
+
+	// Content Tabs
 	private Control _audioTab = null!;
 	private Control _videoTab = null!;
 	private Control _langTab = null!;
 
-	// Audio controls
-	private Label _masterLabel = null!;
+	// Audio Controls
+	private Label _masterVolLabel = null!;
 	private HSlider _masterSlider = null!;
-	private Label _sfxLabel = null!;
+	private Label _masterVolValLabel = null!;
+
+	private Label _sfxVolLabel = null!;
 	private HSlider _sfxSlider = null!;
-	private Label _musicLabel = null!;
+	private Label _sfxVolValLabel = null!;
+
+	private Label _musicVolLabel = null!;
 	private HSlider _musicSlider = null!;
+	private Label _musicVolValLabel = null!;
 
-	// Video controls
-	private CheckBox _fullscreenCheck = null!;
-	private CheckBox _vsyncCheck = null!;
+	// Display Controls
+	private Label _windowModeLabel = null!;
+	private OptionButton _windowModeOptionBtn = null!;
 
-	// Language controls
-	private Label _langLabel = null!;
+	private Label _resolutionLabel = null!;
+	private OptionButton _resolutionOptionBtn = null!;
+
+	private Label _vsyncLabel = null!;
+	private OptionButton _vsyncOptionBtn = null!;
+
+	private Label _maxFpsLabel = null!;
+	private OptionButton _maxFpsOptionBtn = null!;
+
+	private Label _uiScaleLabel = null!;
+	private OptionButton _uiScaleOptionBtn = null!;
+
+	// Language Controls
+	private Label _languageOptionLabel = null!;
 	private OptionButton _langOptionBtn = null!;
 
+	// Footer
+	private Label _statusFeedbackLabel = null!;
+	private Button _btnSaveSettings = null!;
+	private Button _btnCloseModal = null!;
+
 	private Tween? _tween;
+	private Tween? _feedbackTween;
+	private int _currentTabIndex = 0;
+	private SettingsData _stagedSettings = new();
+	private bool _isPopulating;
+
+	private static readonly (int W, int H, string Label)[] ResolutionPresets =
+	[
+		(640, 360, "640 x 360 (Native 1x)"),
+		(960, 540, "960 x 540 (1.5x)"),
+		(1280, 720, "1280 x 720 (HD 2x)"),
+		(1600, 900, "1600 x 900 (2.5x)"),
+		(1920, 1080, "1920 x 1080 (FHD 3x)"),
+		(2560, 1440, "2560 x 1440 (2K 4x)")
+	];
+
+	private static readonly int[] MaxFpsPresets = [30, 60, 120, 144, 240, 0];
+	private static readonly (float Scale, string Label)[] UiScalePresets =
+	[
+		(0.80f, "80% (Compact)"),
+		(1.00f, "100% (Standard)"),
+		(1.25f, "125% (Large)"),
+		(1.50f, "150% (Extra Large)"),
+		(2.00f, "200% (Huge)")
+	];
 
 	public bool IsOpen => Visible && Modulate.A > 0.05f;
 
 	public override void _Ready()
 	{
 		_modalPanel = GetNode<PanelContainer>("%SettingsPanel");
-		_btnClose = GetNode<Button>("%BtnCloseSettings");
 		_titleLabel = GetNode<Label>("%SettingsTitleLabel");
+		_btnCloseSettings = GetNode<Button>("%BtnCloseSettings");
 
 		_tabAudioBtn = GetNode<Button>("%TabAudioBtn");
 		_tabVideoBtn = GetNode<Button>("%TabVideoBtn");
@@ -60,27 +109,53 @@ public partial class SettingsModal : Control
 		_videoTab = GetNode<Control>("%VideoTabContent");
 		_langTab = GetNode<Control>("%LangTabContent");
 
-		_masterLabel = GetNode<Label>("%MasterVolLabel");
+		_masterVolLabel = GetNode<Label>("%MasterVolLabel");
 		_masterSlider = GetNode<HSlider>("%MasterVolSlider");
-		_sfxLabel = GetNode<Label>("%SfxVolLabel");
+		_masterVolValLabel = GetNode<Label>("%MasterVolValLabel");
+
+		_sfxVolLabel = GetNode<Label>("%SfxVolLabel");
 		_sfxSlider = GetNode<HSlider>("%SfxVolSlider");
-		_musicLabel = GetNode<Label>("%MusicVolLabel");
+		_sfxVolValLabel = GetNode<Label>("%SfxVolValLabel");
+
+		_musicVolLabel = GetNode<Label>("%MusicVolLabel");
 		_musicSlider = GetNode<HSlider>("%MusicVolSlider");
+		_musicVolValLabel = GetNode<Label>("%MusicVolValLabel");
 
-		_fullscreenCheck = GetNode<CheckBox>("%FullscreenCheck");
-		_vsyncCheck = GetNode<CheckBox>("%VsyncCheck");
+		_windowModeLabel = GetNode<Label>("%WindowModeLabel");
+		_windowModeOptionBtn = GetNode<OptionButton>("%WindowModeOptionBtn");
 
-		_langLabel = GetNode<Label>("%LanguageOptionLabel");
+		_resolutionLabel = GetNode<Label>("%ResolutionLabel");
+		_resolutionOptionBtn = GetNode<OptionButton>("%ResolutionOptionBtn");
+
+		_vsyncLabel = GetNode<Label>("%VsyncLabel");
+		_vsyncOptionBtn = GetNode<OptionButton>("%VsyncOptionBtn");
+
+		_maxFpsLabel = GetNode<Label>("%MaxFpsLabel");
+		_maxFpsOptionBtn = GetNode<OptionButton>("%MaxFpsOptionBtn");
+
+		_uiScaleLabel = GetNode<Label>("%UiScaleLabel");
+		_uiScaleOptionBtn = GetNode<OptionButton>("%UiScaleOptionBtn");
+
+		_languageOptionLabel = GetNode<Label>("%LanguageOptionLabel");
 		_langOptionBtn = GetNode<OptionButton>("%LanguageOptionBtn");
 
-		// Populate Language Options
-		_langOptionBtn.Clear();
-		_langOptionBtn.AddItem("English", 0);
-		_langOptionBtn.AddItem("Tiếng Việt", 1);
-		_langOptionBtn.Selected = LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese ? 1 : 0;
+		_statusFeedbackLabel = GetNode<Label>("%StatusFeedbackLabel");
+		_btnSaveSettings = GetNode<Button>("%BtnSaveSettings");
+		_btnCloseModal = GetNode<Button>("%BtnCloseModal");
 
-		// Bind events
-		_btnClose.Pressed += Close;
+		// Style OptionButton popups for compact display
+		StylePopup(_windowModeOptionBtn);
+		StylePopup(_resolutionOptionBtn);
+		StylePopup(_vsyncOptionBtn);
+		StylePopup(_maxFpsOptionBtn);
+		StylePopup(_uiScaleOptionBtn);
+		StylePopup(_langOptionBtn);
+
+		// Event bindings
+		_btnCloseSettings.Pressed += Close;
+		_btnCloseModal.Pressed += Close;
+		_btnSaveSettings.Pressed += OnSaveClicked;
+
 		_tabAudioBtn.Pressed += () => SwitchTab(0);
 		_tabVideoBtn.Pressed += () => SwitchTab(1);
 		_tabLangBtn.Pressed += () => SwitchTab(2);
@@ -89,44 +164,81 @@ public partial class SettingsModal : Control
 		_sfxSlider.ValueChanged += OnSfxVolumeChanged;
 		_musicSlider.ValueChanged += OnMusicVolumeChanged;
 
-		_fullscreenCheck.Toggled += OnFullscreenToggled;
-		_vsyncCheck.Toggled += OnVsyncToggled;
+		_windowModeOptionBtn.ItemSelected += OnWindowModeSelected;
+		_resolutionOptionBtn.ItemSelected += OnResolutionSelected;
+		_vsyncOptionBtn.ItemSelected += OnVsyncSelected;
+		_maxFpsOptionBtn.ItemSelected += OnMaxFpsSelected;
+		_uiScaleOptionBtn.ItemSelected += OnUiScaleSelected;
 		_langOptionBtn.ItemSelected += OnLanguageSelected;
 
 		LocalizationManager.LanguageChanged += UpdateLocalizedStrings;
-		UpdateLocalizedStrings();
-		SwitchTab(0);
+
+		// Center pivot dynamically
+		_modalPanel.Resized += () => _modalPanel.PivotOffset = _modalPanel.Size / 2.0f;
+		_modalPanel.PivotOffset = _modalPanel.CustomMinimumSize / 2.0f;
 
 		Visible = false;
 		Modulate = new Color(1, 1, 1, 0);
+
+		// Initial load & application of saved settings on startup
+		_stagedSettings = SettingsManager.Load();
+		SettingsManager.Apply(_stagedSettings, GetTree());
+
+		UpdateLocalizedStrings();
+		SwitchTab(0);
 	}
 
 	public void InitializeInteractions(AudioStreamPlayer? sfxHover, AudioStreamPlayer? sfxClick)
 	{
-		Button[] buttons = [_btnClose, _tabAudioBtn, _tabVideoBtn, _tabLangBtn];
+		Button[] buttons =
+		[
+			_btnCloseSettings,
+			_btnCloseModal,
+			_btnSaveSettings,
+			_tabAudioBtn,
+			_tabVideoBtn,
+			_tabLangBtn,
+			_windowModeOptionBtn,
+			_resolutionOptionBtn,
+			_vsyncOptionBtn,
+			_maxFpsOptionBtn,
+			_uiScaleOptionBtn,
+			_langOptionBtn
+		];
+
 		foreach (var btn in buttons)
 		{
-			MenuButtonAnimator.Attach(btn, sfxHover, sfxClick);
+			if (btn != null)
+			{
+				MenuButtonAnimator.Attach(btn, sfxHover, sfxClick);
+				btn.MouseDefaultCursorShape = CursorShape.PointingHand;
+			}
 		}
 	}
 
 	public void Open()
 	{
 		Visible = true;
-		_fullscreenCheck.ButtonPressed = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen;
-		_vsyncCheck.ButtonPressed = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
+		Modulate = new Color(1, 1, 1, 0.0f);
+		_modalPanel.PivotOffset = _modalPanel.Size.X > 0 ? _modalPanel.Size / 2.0f : _modalPanel.CustomMinimumSize / 2.0f;
+		_modalPanel.Scale = new Vector2(0.95f, 0.95f);
+		_statusFeedbackLabel.Text = string.Empty;
+
+		// Load latest persistent settings
+		_stagedSettings = SettingsManager.Load();
+		PopulateUiFromSettings(_stagedSettings);
 
 		_tween?.Kill();
 		_tween = CreateTween().SetParallel(true).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
-		_tween.TweenProperty(this, "modulate:a", 1.0f, 0.20f);
-		_tween.TweenProperty(_modalPanel, "scale", Vector2.One, 0.20f);
+		_tween.TweenProperty(this, "modulate:a", 1.0f, 0.18f);
+		_tween.TweenProperty(_modalPanel, "scale", Vector2.One, 0.18f);
 	}
 
 	public void Close()
 	{
 		_tween?.Kill();
 		_tween = CreateTween().SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
-		_tween.TweenProperty(this, "modulate:a", 0.0f, 0.15f);
+		_tween.TweenProperty(this, "modulate:a", 0.0f, 0.14f);
 		_tween.TweenCallback(Callable.From(() =>
 		{
 			Visible = false;
@@ -134,11 +246,27 @@ public partial class SettingsModal : Control
 		}));
 	}
 
+	private void OnSaveClicked()
+	{
+		SettingsManager.Save(_stagedSettings);
+		SettingsManager.Apply(_stagedSettings, GetTree());
+
+		_statusFeedbackLabel.Text = LocalizationManager.Get("SETTINGS_STATUS_SAVED");
+		_statusFeedbackLabel.Modulate = Colors.White;
+
+		_feedbackTween?.Kill();
+		_feedbackTween = CreateTween().SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
+		_feedbackTween.TweenInterval(2.0);
+		_feedbackTween.TweenProperty(_statusFeedbackLabel, "modulate:a", 0.0f, 0.8f);
+	}
+
 	private void SwitchTab(int tabIndex)
 	{
-		_audioTab.Visible = tabIndex == 0;
-		_videoTab.Visible = tabIndex == 1;
-		_langTab.Visible = tabIndex == 2;
+		_currentTabIndex = tabIndex;
+
+		_audioTab.Visible = (tabIndex == 0);
+		_videoTab.Visible = (tabIndex == 1);
+		_langTab.Visible = (tabIndex == 2);
 
 		HighlightTabButton(_tabAudioBtn, tabIndex == 0);
 		HighlightTabButton(_tabVideoBtn, tabIndex == 1);
@@ -147,58 +275,153 @@ public partial class SettingsModal : Control
 
 	private static void HighlightTabButton(Button btn, bool active)
 	{
-		btn.Modulate = active ? new Color(1.0f, 0.92f, 0.5f, 1.0f) : new Color(0.7f, 0.68f, 0.65f, 0.8f);
-	}
-
-	private void OnMasterVolumeChanged(double value)
-	{
-		SetBusVolume(0, (float)value);
-	}
-
-	private void OnSfxVolumeChanged(double value)
-	{
-		int busIdx = AudioServer.GetBusIndex("SFX");
-		if (busIdx >= 0) SetBusVolume(busIdx, (float)value);
-	}
-
-	private void OnMusicVolumeChanged(double value)
-	{
-		int busIdx = AudioServer.GetBusIndex("Music");
-		if (busIdx >= 0) SetBusVolume(busIdx, (float)value);
-	}
-
-	private static void SetBusVolume(int busIndex, float linearVal)
-	{
-		linearVal = Mathf.Clamp(linearVal, 0.0f, 1.0f);
-		if (linearVal <= 0.001f)
+		if (active)
 		{
-			AudioServer.SetBusMute(busIndex, true);
+			btn.AddThemeColorOverride("font_color", new Color(0.96f, 0.78f, 0.26f, 1f));
+			btn.Modulate = Colors.White;
 		}
 		else
 		{
-			AudioServer.SetBusMute(busIndex, false);
-			AudioServer.SetBusVolumeDb(busIndex, Mathf.LinearToDb(linearVal));
+			btn.AddThemeColorOverride("font_color", new Color(0.87f, 0.83f, 0.75f, 0.85f));
+			btn.Modulate = new Color(0.85f, 0.85f, 0.85f, 1f);
 		}
 	}
 
-	private static void OnFullscreenToggled(bool isFullscreen)
+	private void PopulateUiFromSettings(SettingsData data)
 	{
-		DisplayServer.WindowSetMode(isFullscreen
-			? DisplayServer.WindowMode.Fullscreen
-			: DisplayServer.WindowMode.Windowed);
+		_isPopulating = true;
+
+		// Audio
+		_masterSlider.Value = data.MasterVolume;
+		_masterVolValLabel.Text = $"{Mathf.RoundToInt(data.MasterVolume * 100)}%";
+
+		_sfxSlider.Value = data.SfxVolume;
+		_sfxVolValLabel.Text = $"{Mathf.RoundToInt(data.SfxVolume * 100)}%";
+
+		_musicSlider.Value = data.MusicVolume;
+		_musicVolValLabel.Text = $"{Mathf.RoundToInt(data.MusicVolume * 100)}%";
+
+		// Window mode
+		_windowModeOptionBtn.Selected = Mathf.Clamp(data.WindowMode, 0, _windowModeOptionBtn.ItemCount - 1);
+
+		// Resolution
+		int resIndex = 2; // Default 1280x720
+		for (int i = 0; i < ResolutionPresets.Length; i++)
+		{
+			if (ResolutionPresets[i].W == data.ResolutionWidth && ResolutionPresets[i].H == data.ResolutionHeight)
+			{
+				resIndex = i;
+				break;
+			}
+		}
+		_resolutionOptionBtn.Selected = resIndex;
+
+		// VSync
+		_vsyncOptionBtn.Selected = Mathf.Clamp(data.Vsync, 0, _vsyncOptionBtn.ItemCount - 1);
+
+		// Max FPS
+		int fpsIndex = 1; // Default 60
+		for (int i = 0; i < MaxFpsPresets.Length; i++)
+		{
+			if (MaxFpsPresets[i] == data.MaxFps)
+			{
+				fpsIndex = i;
+				break;
+			}
+		}
+		_maxFpsOptionBtn.Selected = fpsIndex;
+
+		// UI Scale
+		int scaleIndex = 1; // Default 1.0x
+		for (int i = 0; i < UiScalePresets.Length; i++)
+		{
+			if (Mathf.IsEqualApprox(UiScalePresets[i].Scale, data.UiScale))
+			{
+				scaleIndex = i;
+				break;
+			}
+		}
+		_uiScaleOptionBtn.Selected = scaleIndex;
+
+		// Language
+		_langOptionBtn.Selected = (data.Language == LocalizationManager.LangVietnamese) ? 1 : 0;
+
+		_isPopulating = false;
 	}
 
-	private static void OnVsyncToggled(bool isVsync)
+	private void OnMasterVolumeChanged(double val)
 	{
-		DisplayServer.WindowSetVsyncMode(isVsync
-			? DisplayServer.VSyncMode.Enabled
-			: DisplayServer.VSyncMode.Disabled);
+		_stagedSettings.MasterVolume = (float)val;
+		_masterVolValLabel.Text = $"{Mathf.RoundToInt(_stagedSettings.MasterVolume * 100)}%";
+		SettingsManager.SetBusVolume(0, _stagedSettings.MasterVolume);
+	}
+
+	private void OnSfxVolumeChanged(double val)
+	{
+		_stagedSettings.SfxVolume = (float)val;
+		_sfxVolValLabel.Text = $"{Mathf.RoundToInt(_stagedSettings.SfxVolume * 100)}%";
+		int bus = AudioServer.GetBusIndex("SFX");
+		if (bus >= 0) SettingsManager.SetBusVolume(bus, _stagedSettings.SfxVolume);
+	}
+
+	private void OnMusicVolumeChanged(double val)
+	{
+		_stagedSettings.MusicVolume = (float)val;
+		_musicVolValLabel.Text = $"{Mathf.RoundToInt(_stagedSettings.MusicVolume * 100)}%";
+		int bus = AudioServer.GetBusIndex("Music");
+		if (bus >= 0) SettingsManager.SetBusVolume(bus, _stagedSettings.MusicVolume);
+	}
+
+	private void OnWindowModeSelected(long index)
+	{
+		if (_isPopulating) return;
+		_stagedSettings.WindowMode = (int)index;
+		SettingsManager.Apply(_stagedSettings, GetTree());
+	}
+
+	private void OnResolutionSelected(long index)
+	{
+		if (_isPopulating) return;
+		if (index >= 0 && index < ResolutionPresets.Length)
+		{
+			_stagedSettings.ResolutionWidth = ResolutionPresets[index].W;
+			_stagedSettings.ResolutionHeight = ResolutionPresets[index].H;
+			SettingsManager.Apply(_stagedSettings, GetTree());
+		}
+	}
+
+	private void OnVsyncSelected(long index)
+	{
+		if (_isPopulating) return;
+		_stagedSettings.Vsync = (int)index;
+		SettingsManager.Apply(_stagedSettings, GetTree());
+	}
+
+	private void OnMaxFpsSelected(long index)
+	{
+		if (_isPopulating) return;
+		if (index >= 0 && index < MaxFpsPresets.Length)
+		{
+			_stagedSettings.MaxFps = MaxFpsPresets[index];
+			SettingsManager.Apply(_stagedSettings, GetTree());
+		}
+	}
+
+	private void OnUiScaleSelected(long index)
+	{
+		if (_isPopulating) return;
+		if (index >= 0 && index < UiScalePresets.Length)
+		{
+			_stagedSettings.UiScale = UiScalePresets[index].Scale;
+			SettingsManager.Apply(_stagedSettings, GetTree());
+		}
 	}
 
 	private void OnLanguageSelected(long index)
 	{
-		string newLang = index == 1 ? LocalizationManager.LangVietnamese : LocalizationManager.LangEnglish;
-		LocalizationManager.SetLanguage(newLang);
+		if (_isPopulating) return;
+		_stagedSettings.Language = (index == 1) ? LocalizationManager.LangVietnamese : LocalizationManager.LangEnglish;
+		LocalizationManager.SetLanguage(_stagedSettings.Language);
 	}
 
 	private void UpdateLocalizedStrings()
@@ -208,14 +431,92 @@ public partial class SettingsModal : Control
 		_tabVideoBtn.Text = LocalizationManager.Get("SETTINGS_TAB_VIDEO");
 		_tabLangBtn.Text = LocalizationManager.Get("SETTINGS_TAB_GAMEPLAY");
 
-		_masterLabel.Text = LocalizationManager.Get("SETTINGS_MASTER_VOL");
-		_sfxLabel.Text = LocalizationManager.Get("SETTINGS_SFX_VOL");
-		_musicLabel.Text = LocalizationManager.Get("SETTINGS_MUSIC_VOL");
+		_masterVolLabel.Text = LocalizationManager.Get("SETTINGS_MASTER_VOL");
+		_sfxVolLabel.Text = LocalizationManager.Get("SETTINGS_SFX_VOL");
+		_musicVolLabel.Text = LocalizationManager.Get("SETTINGS_MUSIC_VOL");
 
-		_fullscreenCheck.Text = LocalizationManager.Get("SETTINGS_FULLSCREEN");
-		_vsyncCheck.Text = LocalizationManager.Get("SETTINGS_VSYNC");
+		_windowModeLabel.Text = LocalizationManager.Get("SETTINGS_WINDOW_MODE");
+		_resolutionLabel.Text = LocalizationManager.Get("SETTINGS_RESOLUTION");
+		_vsyncLabel.Text = LocalizationManager.Get("SETTINGS_VSYNC_LABEL");
+		_maxFpsLabel.Text = LocalizationManager.Get("SETTINGS_MAX_FPS");
+		_uiScaleLabel.Text = LocalizationManager.Get("SETTINGS_UI_SCALE");
+		_languageOptionLabel.Text = LocalizationManager.Get("SETTINGS_LANGUAGE");
 
-		_langLabel.Text = LocalizationManager.Get("SETTINGS_LANGUAGE");
+		_btnSaveSettings.Text = LocalizationManager.Get("SETTINGS_BTN_SAVE");
+		_btnCloseModal.Text = LocalizationManager.Get("SETTINGS_BTN_CLOSE");
+
+		PopulateDropdownItems();
+	}
+
+	private void PopulateDropdownItems()
+	{
+		bool prevPopulating = _isPopulating;
+		_isPopulating = true;
+
+		// 1. Window Mode
+		int prevMode = _windowModeOptionBtn.Selected;
+		_windowModeOptionBtn.Clear();
+		_windowModeOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_MODE_WINDOWED"), 0);
+		_windowModeOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_MODE_BORDERLESS"), 1);
+		_windowModeOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_MODE_FULLSCREEN"), 2);
+		_windowModeOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_MODE_EXCLUSIVE"), 3);
+		_windowModeOptionBtn.Selected = prevMode >= 0 ? prevMode : _stagedSettings.WindowMode;
+
+		// 2. Resolutions
+		int prevRes = _resolutionOptionBtn.Selected;
+		_resolutionOptionBtn.Clear();
+		for (int i = 0; i < ResolutionPresets.Length; i++)
+		{
+			_resolutionOptionBtn.AddItem(ResolutionPresets[i].Label, i);
+		}
+		_resolutionOptionBtn.Selected = prevRes >= 0 ? prevRes : 2;
+
+		// 3. VSync
+		int prevVsync = _vsyncOptionBtn.Selected;
+		_vsyncOptionBtn.Clear();
+		_vsyncOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_VSYNC_DISABLED"), 0);
+		_vsyncOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_VSYNC_ENABLED"), 1);
+		_vsyncOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_VSYNC_ADAPTIVE"), 2);
+		_vsyncOptionBtn.Selected = prevVsync >= 0 ? prevVsync : _stagedSettings.Vsync;
+
+		// 4. Max FPS
+		int prevFps = _maxFpsOptionBtn.Selected;
+		_maxFpsOptionBtn.Clear();
+		_maxFpsOptionBtn.AddItem("30 FPS", 0);
+		_maxFpsOptionBtn.AddItem("60 FPS", 1);
+		_maxFpsOptionBtn.AddItem("120 FPS", 2);
+		_maxFpsOptionBtn.AddItem("144 FPS", 3);
+		_maxFpsOptionBtn.AddItem("240 FPS", 4);
+		_maxFpsOptionBtn.AddItem(LocalizationManager.Get("SETTINGS_FPS_UNLIMITED"), 5);
+		_maxFpsOptionBtn.Selected = prevFps >= 0 ? prevFps : 1;
+
+		// 5. UI Scale
+		int prevScale = _uiScaleOptionBtn.Selected;
+		_uiScaleOptionBtn.Clear();
+		for (int i = 0; i < UiScalePresets.Length; i++)
+		{
+			_uiScaleOptionBtn.AddItem(UiScalePresets[i].Label, i);
+		}
+		_uiScaleOptionBtn.Selected = prevScale >= 0 ? prevScale : 1;
+
+		// 6. Language
+		int prevLang = _langOptionBtn.Selected;
+		_langOptionBtn.Clear();
+		_langOptionBtn.AddItem("English", 0);
+		_langOptionBtn.AddItem("Tiếng Việt", 1);
+		_langOptionBtn.Selected = prevLang >= 0 ? prevLang : (_stagedSettings.Language == LocalizationManager.LangVietnamese ? 1 : 0);
+
+		_isPopulating = prevPopulating;
+	}
+
+	private static void StylePopup(OptionButton btn)
+	{
+		var popup = btn.GetPopup();
+		popup.AddThemeFontSizeOverride("font_size", 7);
+		popup.AddThemeFontSizeOverride("font_separator_size", 7);
+		popup.AddThemeColorOverride("font_color", new Color(0.88f, 0.84f, 0.76f, 1f));
+		popup.AddThemeColorOverride("font_hover_color", new Color(0.96f, 0.78f, 0.26f, 1f));
+		popup.AddThemeColorOverride("font_separator_color", new Color(0.70f, 0.50f, 0.15f, 1f));
 	}
 
 	public override void _ExitTree()

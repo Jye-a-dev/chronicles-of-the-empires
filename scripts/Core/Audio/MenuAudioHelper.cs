@@ -23,14 +23,24 @@ public static class MenuAudioHelper
     /// </summary>
     public static void EnsureProceduralStreams(AudioStreamPlayer? hoverPlayer, AudioStreamPlayer? clickPlayer)
     {
-        if (hoverPlayer != null && hoverPlayer.Stream == null)
+        SettingsManager.EnsureAudioBuses();
+
+        if (hoverPlayer != null)
         {
-            hoverPlayer.Stream = GenerateSyntheticTone(frequency: 880.0f, durationSec: 0.045f, isMetallic: false);
+            hoverPlayer.Bus = "SFX";
+            if (hoverPlayer.Stream == null)
+            {
+                hoverPlayer.Stream = GenerateSyntheticTone(frequency: 880.0f, durationSec: 0.045f, isMetallic: false);
+            }
         }
 
-        if (clickPlayer != null && clickPlayer.Stream == null)
+        if (clickPlayer != null)
         {
-            clickPlayer.Stream = GenerateSyntheticTone(frequency: 380.0f, durationSec: 0.12f, isMetallic: true);
+            clickPlayer.Bus = "SFX";
+            if (clickPlayer.Stream == null)
+            {
+                clickPlayer.Stream = GenerateSyntheticTone(frequency: 380.0f, durationSec: 0.12f, isMetallic: true);
+            }
         }
     }
 

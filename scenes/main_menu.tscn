@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://btqt81p0pepyh" path="res://assets/sprites/logo_1.png" id="3_logo"]
 [ext_resource type="Script" uid="uid://di1x8xk6ynu0k" path="res://scripts/UI/Components/PrimaryMenuColumn.cs" id="4_primary"]
 [ext_resource type="Script" uid="uid://da6o31dykxpt7" path="res://scripts/UI/Components/SecondaryActionBar.cs" id="5_secondary"]
-[ext_resource type="Script" uid="uid://ctf3k1oi1wtv1" path="res://scripts/UI/Components/CampaignModePanel.cs" id="6_campaign_panel"]
-[ext_resource type="Script" uid="uid://dlft8ykavr0r4" path="res://scripts/UI/Components/SettingsModal.cs" id="7_settings_modal"]
+[ext_resource type="PackedScene" path="res://scenes/campaign_modal.tscn" id="8_campaign_modal_scene"]
+[ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="7_settings_modal_scene"]
 
 [sub_resource type="Gradient" id="Gradient_embers"]
 offsets = PackedFloat32Array(0, 0.15, 0.6, 0.85, 1)
@@ -284,7 +284,7 @@ theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 10
-text = "CHRONICLES OF THE EMPIRES"
+text = "CHRONICLES OF THE OLD EMPIRES"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=184910283]
@@ -314,6 +314,7 @@ script = ExtResource("4_primary")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
 theme_override_colors/font_focus_color = Color(0.960784, 0.784314, 0.258824, 1)
@@ -332,6 +333,7 @@ text = "New Campaign ▸"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
 theme_override_colors/font_focus_color = Color(0.960784, 0.784314, 0.258824, 1)
@@ -350,6 +352,7 @@ text = "Load Game"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
 theme_override_colors/font_focus_color = Color(0.960784, 0.784314, 0.258824, 1)
@@ -368,6 +371,7 @@ text = "Settings"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
 theme_override_colors/font_focus_color = Color(0.960784, 0.784314, 0.258824, 1)
@@ -398,6 +402,7 @@ script = ExtResource("5_secondary")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 focus_mode = 0
 tooltip_text = "Civilopedia & Archives"
 theme_override_colors/font_color = Color(0.75, 0.7, 0.62, 1)
@@ -413,6 +418,7 @@ text = "📖 Archives"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 focus_mode = 0
 tooltip_text = "Development Credits"
 theme_override_colors/font_color = Color(0.75, 0.7, 0.62, 1)
@@ -428,6 +434,7 @@ text = "👥 Credits"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 focus_mode = 0
 tooltip_text = "Official Community Discord"
 theme_override_colors/font_color = Color(0.75, 0.7, 0.62, 1)
@@ -438,175 +445,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
 text = "💬 Discord"
-
-[node name="CampaignModePanel" type="PanelContainer" parent="SidebarMargin/MenuHBox" unique_id=293810294]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_outer_stroke")
-script = ExtResource("6_campaign_panel")
-
-[node name="Inner" type="PanelContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel" unique_id=194810284]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_inner_gold")
-
-[node name="VBox" type="VBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner" unique_id=284910284]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="Header" type="HBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910284]
-layout_mode = 2
-
-[node name="HeaderLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/Header" unique_id=184910285]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
-theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
-theme_override_font_sizes/font_size = 10
-text = "SELECT CAMPAIGN MODE"
-
-[node name="BtnCloseModePanel" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/Header" unique_id=184910286]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 18)
-layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_color = Color(0.8, 0.7, 0.6, 1)
-theme_override_colors/font_hover_color = Color(1, 0.4, 0.3, 1)
-theme_override_font_sizes/font_size = 9
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "✕"
-
-[node name="ModesHBox" type="HBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910287]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="BtnSelectGrand" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/ModesHBox" unique_id=184910288]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 22)
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "⚔ Campaign"
-
-[node name="BtnSelectSkirmish" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/ModesHBox" unique_id=184910289]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 22)
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "⚡ Skirmish"
-
-[node name="BtnSelectTutorial" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/ModesHBox" unique_id=184910290]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 22)
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "📜 Tutorial"
-
-[node name="DetailsPanel" type="PanelContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910291]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_submenu_btn")
-
-[node name="Margin" type="MarginContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel" unique_id=184910292]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
-
-[node name="VBox" type="VBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin" unique_id=184910293]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="ModeTitleLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910294]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
-theme_override_font_sizes/font_size = 9
-text = "GRAND CAMPAIGN"
-
-[node name="ModeEraLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910295]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.701961, 0.494118, 0.101961, 1)
-theme_override_font_sizes/font_size = 7
-text = "◆ BRONZE AGE ERA ◆"
-
-[node name="ModeDescLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910296]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Mode description..."
-autowrap_mode = 2
-
-[node name="SpecsSeparator" type="HSeparator" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910297]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_separator")
-
-[node name="SpecsGrid" type="VBoxContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox" unique_id=184910298]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="SpecMapLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox/SpecsGrid" unique_id=184910299]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.72, 0.65, 1)
-theme_override_font_sizes/font_size = 7
-text = "• Map: Continental (128x128 Hex)"
-
-[node name="SpecFactionsLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox/SpecsGrid" unique_id=184910300]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.72, 0.65, 1)
-theme_override_font_sizes/font_size = 7
-text = "• Rivals: 16 Ancient Civilizations"
-
-[node name="SpecVictoryLabel" type="Label" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/DetailsPanel/Margin/VBox/SpecsGrid" unique_id=184910301]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.72, 0.65, 1)
-theme_override_font_sizes/font_size = 7
-text = "• Victory: Conquest / Cultural Hegemony"
-
-[node name="Footer" type="CenterContainer" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox" unique_id=184910302]
-layout_mode = 2
-
-[node name="BtnDeployCampaign" type="Button" parent="SidebarMargin/MenuHBox/CampaignModePanel/Inner/VBox/Footer" unique_id=184910303]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 24)
-layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
-theme_override_colors/font_hover_color = Color(1, 0.95, 0.6, 1)
-theme_override_font_sizes/font_size = 9
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "⚔ DEPLOY CAMPAIGN"
 
 [node name="FooterMargin" type="MarginContainer" parent="." unique_id=1948201948]
 layout_mode = 1
@@ -647,214 +485,19 @@ theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 8
 text = "GODOT CORE PROTOTYPE"
 
-[node name="SettingsModal" type="Control" parent="." unique_id=984102941]
+[node name="CampaignModal" parent="." unique_id=984102942 instance=ExtResource("8_campaign_modal_scene")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_settings_modal")
 
-[node name="Backdrop" type="ColorRect" parent="SettingsModal" unique_id=984102942]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.02, 0.015, 0.02, 0.7)
-
-[node name="Center" type="CenterContainer" parent="SettingsModal" unique_id=984102943]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SettingsPanel" type="PanelContainer" parent="SettingsModal/Center" unique_id=984102944]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(310, 215)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_outer_stroke")
-
-[node name="Inner" type="PanelContainer" parent="SettingsModal/Center/SettingsPanel" unique_id=984102945]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_inner_gold")
-
-[node name="VBox" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner" unique_id=984102946]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="Header" type="HBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox" unique_id=984102947]
-layout_mode = 2
-
-[node name="SettingsTitleLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/Header" unique_id=984102948]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
-theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
-theme_override_font_sizes/font_size = 11
-text = "SETTINGS"
-
-[node name="BtnCloseSettings" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/Header" unique_id=984102949]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 18)
-layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_color = Color(0.8, 0.7, 0.6, 1)
-theme_override_colors/font_hover_color = Color(1, 0.4, 0.3, 1)
-theme_override_font_sizes/font_size = 9
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "✕"
-
-[node name="TabsHBox" type="HBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox" unique_id=984102950]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="TabAudioBtn" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/TabsHBox" unique_id=984102951]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "Audio"
-
-[node name="TabVideoBtn" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/TabsHBox" unique_id=984102952]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "Display"
-
-[node name="TabLangBtn" type="Button" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/TabsHBox" unique_id=984102953]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
-text = "Language"
-
-[node name="ContentPanel" type="PanelContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox" unique_id=984102954]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_submenu_btn")
-
-[node name="AudioTabContent" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel" unique_id=984102955]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="MasterVolLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102956]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Master Volume"
-
-[node name="MasterVolSlider" type="HSlider" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102957]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 1.0
-step = 0.05
-value = 0.8
-
-[node name="SfxVolLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102959]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Sound Effects"
-
-[node name="SfxVolSlider" type="HSlider" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102960]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 1.0
-step = 0.05
-value = 0.9
-
-[node name="MusicVolLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102962]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Music Volume"
-
-[node name="MusicVolSlider" type="HSlider" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/AudioTabContent" unique_id=984102963]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 1.0
-step = 0.05
-value = 0.75
-
-[node name="VideoTabContent" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel" unique_id=984102964]
+[node name="SettingsModal" parent="." unique_id=984102941 instance=ExtResource("7_settings_modal_scene")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
-theme_override_constants/separation = 6
 
-[node name="FullscreenCheck" type="CheckBox" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/VideoTabContent" unique_id=984102965]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Fullscreen Mode"
-
-[node name="VsyncCheck" type="CheckBox" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/VideoTabContent" unique_id=984102966]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Vertical Sync (VSync)"
-
-[node name="LangTabContent" type="VBoxContainer" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel" unique_id=984102967]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="LanguageOptionLabel" type="Label" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/LangTabContent" unique_id=984102968]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 1)
-theme_override_font_sizes/font_size = 8
-text = "Game Language"
-
-[node name="LanguageOptionBtn" type="OptionButton" parent="SettingsModal/Center/SettingsPanel/Inner/VBox/ContentPanel/LangTabContent" unique_id=984102969]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 22)
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_submenu_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btn_focus")
 
 [node name="SfxHover" type="AudioStreamPlayer" parent="." unique_id=1049281749]
 unique_name_in_owner = true
+bus = &"SFX"
 
 [node name="SfxClick" type="AudioStreamPlayer" parent="." unique_id=1948201849]
 unique_name_in_owner = true
+bus = &"SFX"

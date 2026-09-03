@@ -1,0 +1,115 @@
+# ==============================================================================
+# Vạn Quốc Phong Vân Ký - Bản Dịch Chiến Dịch & Sa Bàn (Tiếng Việt Dã Sử Vạn Quốc)
+# ==============================================================================
+
+# Tiêu Đề Modal & Thẻ Điều Hướng
+CAMPAIGN_MODAL_TITLE = QUÂN CƠ DOANH & SA BÀN CHIẾN DỊCH
+CAMPAIGN_HEADER = QUÂN CƠ DOANH & ĐIỀU ĐỘNG VẠN BANG
+CAMPAIGN_TAB_CAMPAIGN = ⚔ Thiên Sử Thi Vạn Quốc
+CAMPAIGN_TAB_SKIRMISH = ⚡ Quần Hùng Tranh Phong
+CAMPAIGN_TAB_TRAINING = 📜 Binh Pháp & Diễn Võ Trường
+
+# Nút Thao Tác & Điều Lệnh
+CAMPAIGN_BTN_GRAND = ⚔ Thiên Sử Thi Vạn Quốc
+CAMPAIGN_BTN_SKIRMISH = ⚡ Quần Hùng Tranh Phong
+CAMPAIGN_BTN_TUTORIAL = 📜 Diễn Võ Điểm Binh
+CAMPAIGN_DEPLOY = ⚔ HẠ LỆNH XUẤT CHINH
+CAMPAIGN_START_SKIRMISH = ⚡ KHỞI CHIẾN TRANH BÁ
+CAMPAIGN_START_TRAINING = 📜 NHẬP TRẬN DIỄN VÕ
+
+# Tiền Tố Thông Số
+SPEC_MAP_PREFIX = Chiến địa: 
+SPEC_RIVALS_PREFIX = Kình địch: 
+SPEC_VICTORY_PREFIX = Chiến lược: 
+SPEC_REWARD_PREFIX = Chiến lợi: 
+
+# Thông Số Chi Tiết Chế Độ (Dành cho CampaignModePanel)
+MODE_GRAND_NAME = Thiên Sử Thi Vạn Quốc
+MODE_GRAND_ERA = Kỷ Nguyên Tứ Đại Cương Vực (Đại Thao Lược Vĩ Mô & Chỉ Huy Chiến Trận Tạm Dừng)
+MODE_GRAND_DESC = Khởi lập vương triều thần thoại, kinh qua bốn khối văn minh vĩ đại của cổ giới. Khai hoang lưu vực sông mẹ, vượt bão cát cơ giới, phá vỡ cự thạch khiên giáo và chinh phục lãnh nguyên băng giá để đăng cơ Bá Chủ Thiên Hạ.
+MODE_GRAND_MAP = Toàn Cảnh Đại Lục Tranh Cuộn Cổ Họa
+MODE_GRAND_RIVALS = Mười Tám Vương Triều Thuộc Tứ Đại Văn Khối
+MODE_GRAND_VICTORY = Bá Nghiệp Thiên Hạ hoặc Thần Khí Trấn Quốc
+
+MODE_SKIRMISH_NAME = Quần Hùng Tranh Phong
+MODE_SKIRMISH_ERA = Sa Bàn Tùy Biến (Tự Do Thao Lược)
+MODE_SKIRMISH_DESC = Khai màn huyết chiến tức thì trên các sa bàn địa đồ phân vùng hoặc lưới thoi cổ phong. Tự do ấn định thế lực kình địch, hình thế non sông và điều kiện định đoạt thắng bại.
+MODE_SKIRMISH_MAP = Hình Thế Sa Bàn (Tiểu Trận, Quân Khu, Đại Lục)
+MODE_SKIRMISH_RIVALS = 2 đến 8 Đại Đế Bang Tranh Đoạt
+MODE_SKIRMISH_VICTORY = Bá Nghiệp Thôn Tính, Kỳ Đài Thần Khí, Trảm Tướng Đoạt Kỳ
+
+MODE_TUTORIAL_NAME = Binh Pháp Điểm Binh & Diễn Võ Trường
+MODE_TUTORIAL_ERA = Thao Trường Diễn Tập & Khảo Nghiệm Quân Cơ
+MODE_TUTORIAL_DESC = Thấu suốt thuật điều phối các trung đoàn tác chiến, chủ động vận dụng quân lệnh Tạm Dừng Tác Chiến (Phím Cách), khai thác địa hình cao hiểm và nắm vững tương sinh tương khắc giữa các binh chủng.
+MODE_TUTORIAL_MAP = Võ Trường Điểm Binh & Đấu Sa Bàn Đẳng Cự
+MODE_TUTORIAL_RIVALS = 1 Đại Đội Diễn Tập Đối Kháng
+MODE_TUTORIAL_VICTORY = Lĩnh Hội Toàn Vẹn Binh Pháp
+
+# Tiến Trình Ải Chiến Dịch Dã Sử (Hành Trình Qua Tứ Đại Khối Văn Hóa Cổ Giới)
+STAGE_1_TITLE = Ải 1: Phù Sa Thần Tích (Bách Thần & Phù Sa)
+STAGE_1_DESC = Khai mở vương nghiệp tại châu thổ các dòng sông mẹ phương Nam. Đắp đê chế ngự lũ lụt, dựng bẫy cọc lòng sông, thờ phụng thủy thần và rèn vũ khí đồng sơ kỳ để tạo dựng lãnh thổ khởi nguyên.
+STAGE_1_OBJ = Khai hoang 3 đại bãi phù sa màu mỡ, lập tiền đồn bến sông & huấn luyện 15 dân binh tiên phong
+STAGE_1_ENEMY = Hắc Thủy Man Tộc Ven Sông
+STAGE_1_REWARD = Lĩnh hội: Kỹ Thuật Đúc Đồng Thần Tích & Xạ Thủ Nỏ Máy Liên Châu
+
+STAGE_2_TITLE = Ải 2: Vó Ngựa & Hỏa Cơ (Thiết Kỷ & Thiên Mệnh)
+STAGE_2_DESC = Hành quân tiến về thảo nguyên Đông Bắc Á bao la. Chống trả những đợt bôn tập thần tốc của kỵ xạ du mục và công phá trận địa xe bắn hỏa tiễn, nỏ cơ giới khổng lồ của các triều đình giáp sắt.
+STAGE_2_OBJ = Đập tan 3 cỗ Hỏa Xa Hwacha, bẻ gãy đợt kỵ xạ Keshik bôn tập & chiếm giữ ải khẩu thảo nguyên
+STAGE_2_ENEMY = Thiết Kỵ Hãn Quốc & Quân Cơ Giới Phương Bắc
+STAGE_2_REWARD = Lĩnh hội: Chiến Xa Hỏa Pháo & Trận Đồ Kỵ Xạ Du Mục
+
+STAGE_3_TITLE = Ải 3: Trọng Thép & Phương Trận (Thánh Huy & Trọng Thép)
+STAGE_3_DESC = Vượt biển tiến vào vùng đất Địa Trung Hải và Tây Âu. Đối diện tường đồng lũy thép của trận đồ giáo dài Phalanx kiên cố và phá vỡ cú húc long trời lở đất của các đoàn kỵ sĩ giáp sắt hoàng gia.
+STAGE_3_OBJ = Xuyên phá phương trận Hoplite Phalanx, cản phá đòn thiết kỵ húc trận & hạ thành trì cự thạch
+STAGE_3_ENEMY = Quân Đoàn Thánh Huy & Thiết Giáp Kỵ Sĩ
+STAGE_3_REWARD = Lĩnh hội: Kỹ Thuật Trọng Giáp Toàn Thân & Phương Trận Trường Thương
+
+STAGE_4_TITLE = Ải 4: Tuyết Phủ Rừng Thiêng (Hoang Thần & Băng Lãnh)
+STAGE_4_DESC = Tiến sâu vào rừng già Taiga và đầm lầy băng giá Bắc Cương. Chống chọi cơn bão tuyết gầm thét, càn quét sào huyệt dũng sĩ man tộc tôn sùng cổ thần sấm sét và chiến binh cuồng nộ mang cánh đại bàng.
+STAGE_4_OBJ = Vượt bão tuyết lãnh nguyên, đánh bại đại dũng sĩ Vityaz & tiêu diệt chiến binh cuồng nộ
+STAGE_4_ENEMY = Bộ Tộc Băng Lãnh & Cổ Thần Tế Lễ
+STAGE_4_REWARD = Lĩnh hội: Khí Chất Băng Hàn Kháng Bão & Dũng Khí Cuồng Nộ Huyết Thệ
+
+STAGE_5_TITLE = Ải 5: Vạn Quốc Tranh Hùng (Đại Chiến Đỉnh Phong)
+STAGE_5_DESC = Hội chiến vĩ đại tại trung tâm thế giới. Mười tám vương triều từ cả bốn khối đại lục cùng dàn quân quyết đấu; đánh bại liên quân các đại đế, hưng kiến Kỳ Đài Vạn Thế và định đoạt thiên mệnh ngàn năm.
+STAGE_5_OBJ = Đánh bại tam đại liên minh đế quốc hoặc hoàn thành Kỳ Đài Vạn Bang Trấn Quốc
+STAGE_5_ENEMY = Tứ Đại Khối Văn Minh Hợp Kháng Đồng Minh
+STAGE_5_REWARD = Tôn hiệu: ĐẠI ĐẾ VẠN QUỐC & Thống Nhất Bát Hoang Thiên Hạ
+
+# Cấu Hình Thư Hùng
+SKIRMISH_MAP_SIZE = Quy mô sa bàn cương vực
+SKIRMISH_BIOME = Thổ nhưỡng & Địa mạo non sông
+SKIRMISH_RIVALS = Số lượng đế bang kình địch
+SKIRMISH_VICTORY = Đại định quy ước định thắng
+SKIRMISH_DIFFICULTY = Độ khó quân cơ địch quốc
+
+MAP_SMALL = Tiểu Cương Vực (32x32) - Giao phong thần tốc
+MAP_MEDIUM = Trung Sa Bàn (64x64) - Dàn trận thao lược
+MAP_LARGE = Đại Lục Bao La (128x128) - Huyết chiến vạn bang
+
+BIOME_RED_RIVER = Châu thổ Đại Hà (Lưu vực phù sa màu mỡ, bẫy cọc ngầm lòng sông)
+BIOME_JUNGLE = U Tịch Rừng Già (Sương mù phục kích, đầm lầy cạm bẫy)
+BIOME_HIGHLANDS = Hiểm Địa Cao Nguyên (Khoáng thạch trù phú, quan ải cheo leo)
+BIOME_STEPPE = Đại Thảo Nguyên Cương Vực (Bình nguyên gió lộng, kỵ binh bôn tập)
+BIOME_TAIGA = Lãnh Nguyên Băng Giá (Bão tuyết thét gào, hành quân gian nan)
+BIOME_MEDITERRANEAN = Hải Ngạn Phong Vân (Cảng khẩu kiên cố, chiến hạm tung hoành)
+
+RIVALS_2 = Song Hùng Đoạt Bá (2 Thế Lực)
+RIVALS_4 = Tứ Phương Tranh Phong (4 Thế Lực)
+RIVALS_6 = Lục Cương Phân Huyết (6 Thế Lực)
+RIVALS_8 = Bát Hoang Hỗn Chiến (8 Thế Lực)
+
+VICTORY_CONQUEST = Bá Nghiệp Thôn Tính (Tiêu diệt toàn quân)
+VICTORY_CULTURE = Kỳ Đài Vạn Thế (Thần Khí Trấn Quốc)
+VICTORY_REGICIDE = Trảm Tướng Đoạt Kỳ (Diệt thủ lĩnh địch)
+
+DIFF_EASY = Sơ Khởi (Tập sự quân cơ)
+DIFF_NORMAL = Hùng Binh (Thống soái thao lược)
+DIFF_HARD = Thiết Huyết (Kiêu hùng mưu độc)
+DIFF_LEGEND = Thiên Mệnh Thần Võ (Đại đế xuất thế)
+
+# Tập Trận & Thực Nghiệm
+TRAINING_SELECT = Chọn Trận Đồ
+TRAINING_SELECTED = Đã Chọn Trận
+TRAINING_TUTORIAL_NAME = Binh Pháp Điểm Binh Diễn Võ
+TRAINING_SANDBOX_NAME = Sa Bàn Khảo Nghiệm Chiến Binh

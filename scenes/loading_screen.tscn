@@ -120,7 +120,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 18
-text = "CHRONICLES OF THE EMPIRES"
+text = "CHRONICLES OF THE OLD EMPIRES"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="CenterContainer/ContentVBox" unique_id=2000000008]

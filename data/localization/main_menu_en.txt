@@ -1,0 +1,22 @@
+# ==============================================================================
+# Chronicles of the Old Empires: Mythic Ages - Main Menu Localization (English)
+# ==============================================================================
+
+# Header & Branding
+MENU_TITLE = CHRONICLES OF THE OLD EMPIRES
+MENU_SUBTITLE = ◆ MYTHIC AGES ◆
+
+# Primary Action Column
+MENU_NEW_CAMPAIGN = New Campaign ▸
+MENU_LOAD_GAME = Load Game
+MENU_SETTINGS = Settings
+MENU_EXIT = Exit to Desktop
+
+# Secondary Action Bar
+MENU_ARCHIVES = 📖 Archives
+MENU_CREDITS = 👥 Credits
+MENU_DISCORD = 💬 Discord
+MENU_ARCHIVES_TOOLTIP = Civilopedia & Chronicles Archives
+MENU_CREDITS_TOOLTIP = Development Credits & Honor Roll
+MENU_DISCORD_TOOLTIP = Official Community Discord
+

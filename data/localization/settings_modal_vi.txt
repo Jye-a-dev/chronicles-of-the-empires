@@ -1,0 +1,41 @@
+# ==============================================================================
+# Vạn Quốc Phong Vân Ký - Bản Dịch Cài Đặt Hệ Thống (Tiếng Việt)
+# ==============================================================================
+
+SETTINGS_TITLE = CÀI ĐẶT HỆ THỐNG
+SETTINGS_TAB_AUDIO = 🔊 Âm Thanh
+SETTINGS_TAB_VIDEO = 🖥 Hiển Thị
+SETTINGS_TAB_GAMEPLAY = 🌐 Ngôn Ngữ
+
+# Thanh Kéo Âm Lượng
+SETTINGS_MASTER_VOL = Âm Lượng Tổng
+SETTINGS_SFX_VOL = Hiệu Ứng Âm (SFX)
+SETTINGS_MUSIC_VOL = Nhạc Nền (BGM)
+
+# Thiết Lập Màn Hình & Cửa Sổ
+SETTINGS_WINDOW_MODE = Chế Độ Cửa Sổ
+SETTINGS_RESOLUTION = Độ Phân Giải
+SETTINGS_VSYNC_LABEL = Đồng Bộ Khung Hình (VSync)
+SETTINGS_MAX_FPS = Giới Hạn Khung Hình (FPS)
+SETTINGS_UI_SCALE = Tỉ Lệ Giao Diện (UI Scale)
+
+# Tùy Chọn Cửa Sổ
+SETTINGS_MODE_WINDOWED = Cửa Sổ (Windowed)
+SETTINGS_MODE_BORDERLESS = Không Viền (Borderless)
+SETTINGS_MODE_FULLSCREEN = Toàn Màn Hình (Fullscreen)
+SETTINGS_MODE_EXCLUSIVE = Toàn Màn Hình Độc Quyền
+
+# Tùy Chọn VSync
+SETTINGS_VSYNC_DISABLED = Tắt
+SETTINGS_VSYNC_ENABLED = Bật
+SETTINGS_VSYNC_ADAPTIVE = Thích Ứng (Adaptive)
+
+# Tùy Chọn Khung Hình
+SETTINGS_FPS_UNLIMITED = Không Giới Hạn
+
+# Ngôn Ngữ & Phím Bấm
+SETTINGS_LANGUAGE = Ngôn Ngữ Trò Chơi
+SETTINGS_BTN_CLOSE = ✕ Đóng
+SETTINGS_BTN_SAVE = 💾 Lưu & Áp Dụng
+SETTINGS_STATUS_SAVED = Đã lưu & áp dụng cài đặt!
+
