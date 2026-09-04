@@ -1,0 +1,52 @@
+﻿# ==============================================================================
+# VẠN QUỐC PHONG VÂN KÝ - CẤU HÌNH ĐƠN VỊ TÁC CHIẾN (UNIT SETTINGS)
+# ==============================================================================
+# Định dạng mỗi loại quân:
+# [UNIT_ID]
+# name = Tên đơn vị
+# description = Mô tả binh chủng và vai trò tác chiến
+# faction_id = 0 (0: Quân Hoàng Gia phe ta, 1: Quân đối địch)
+# hp_max = Lượng máu tối đa
+# attack = Chỉ số sát thương tấn công
+# defense = Chỉ số phòng ngự giảm thương
+# movement_max = Tầm di chuyển mỗi lượt (số bước)
+# symbol = Ký tự biểu trưng hiển thị trên quân cờ (★, ◆, 🏹, 🛡, 🗡, v.v.)
+# visual_color = Mã màu thân quân cờ (#RRGGBB)
+# border_color = Mã màu viền cờ (#f5c842 cho phe ta, #e03b24 cho địch)
+# ==============================================================================
+
+[cam_ve_quan]
+name = Cấm Vệ Quân Đại Việt
+description = Binh chủng cận vệ hoàng triều tinh nhuệ, trang bị hộ tâm phiến đồng Đông Sơn và giáp mây kiên cố, xông xáo nơi tiền tuyến.
+faction_id = 0
+hp_max = 25
+attack = 7
+defense = 4
+movement_max = 4
+symbol = ★
+visual_color = #2d241e
+border_color = #f5c842
+
+[cung_thu]
+name = Cung Thủ Rừng Rậm
+description = Thiện xạ Bách Việt sử dụng nỏ liên châu cơ động, thoắt ẩn thoắt hiện trong rừng già và đầm lầy để phục kích kẻ thù.
+faction_id = 0
+hp_max = 18
+attack = 8
+defense = 2
+movement_max = 5
+symbol = 🏹
+visual_color = #1a291e
+border_color = #f5c842
+
+[tien_phong_dich]
+name = Tiên Phong Địch Quốc
+description = Quân đoàn thám thính hung hãn của kình địch ngoại bang, mang giáo dài và khiên sắt, luôn rình rập đột kích biên giới.
+faction_id = 1
+hp_max = 22
+attack = 6
+defense = 3
+movement_max = 4
+symbol = ◆
+visual_color = #2e1614
+border_color = #e03b24

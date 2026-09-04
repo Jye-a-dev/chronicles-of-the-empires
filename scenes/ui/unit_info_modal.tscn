@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://b1m7x5k8y3v4q"]
+
+[ext_resource type="Script" path="res://scripts/UI/Modals/UnitInfoModal.cs" id="1_unitmodal"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.08, 0.08, 0.1, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.38, 0.22, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpbg"]
+bg_color = Color(0.18, 0.18, 0.2, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpfill"]
+bg_color = Color(0.35, 0.75, 0.38, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="UnitInfoModal" type="PanelContainer"]
+custom_minimum_size = Vector2(230, 0)
+offset_right = 230.0
+offset_bottom = 125.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+script = ExtResource("1_unitmodal")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="UnitTitle" type="Label" parent="Margin/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.96, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 11
+text = "CẤM VỆ QUÂN ĐẠI VIỆT"
+text_overrun_behavior = 3
+
+[node name="BtnCloseUnit" type="Button" parent="Margin/VBox/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 16)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "✕"
+
+[node name="UnitFaction" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 9
+text = "★ QUÂN ĐỘI HOÀNG GIA"
+
+[node name="HpContainer" type="VBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HpLabel" type="Label" parent="Margin/VBox/HpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 8
+text = "Máu: 20 / 20"
+
+[node name="HpBar" type="ProgressBar" parent="Margin/VBox/HpContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hpbg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hpfill")
+value = 100.0
+show_percentage = false
+
+[node name="HSeparator" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="UnitDesc" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.76, 0.68, 1)
+theme_override_font_sizes/font_size = 8
+text = "Mô tả chiến thuật"
+autowrap_mode = 2
+
+[node name="UnitCombatStats" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 9
+text = "⚔ Tấn công: 6   |   🛡 Phòng ngự: 3"
+
+[node name="UnitMoves" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.85, 0.55, 1)
+theme_override_font_sizes/font_size = 9
+text = "⚡ Bước đi còn lại: 4 / 4"
+
+[node name="UnitStatus" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+theme_override_font_sizes/font_size = 8
+text = "Trạng thái: Sẵn sàng nhận lệnh tác chiến"
+

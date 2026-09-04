@@ -1,55 +1,356 @@
 [gd_scene format=3 uid="uid://b7v8x2p4q1w0e"]
 
-[ext_resource type="Script" uid="uid://bdsadf600fyh8" path="res://scripts/Gameplay/WorldMap.cs" id="1_controller"]
+[ext_resource type="Script" uid="uid://bdsadf600fyh8" path="res://scripts/Gameplay/WorldMap.cs" id="1_worldmap"]
+[ext_resource type="Script" uid="uid://ba8ds0qur2xnq" path="res://scripts/Gameplay/Grid/GridMapManager.cs" id="2_gridmap"]
+[ext_resource type="Script" uid="uid://cdfw8rm6ydaaf" path="res://scripts/Gameplay/Grid/BoardBackdrop.cs" id="3_backdrop"]
+[ext_resource type="Script" uid="uid://d4hf228m8lx1s" path="res://scripts/Gameplay/Pathfinding/PathVisualizer.cs" id="4_pathvis"]
+[ext_resource type="Script" uid="uid://bt67srly2hvgx" path="res://scripts/Gameplay/Camera/RTSCamera2D.cs" id="5_camera"]
+[ext_resource type="Script" uid="uid://dlj6feewwf66i" path="res://scripts/Gameplay/Grid/HexSelectionIndicator.cs" id="6_hexindicator"]
+[ext_resource type="Script" uid="uid://lr5ua1081u0u" path="res://scripts/Gameplay/Turn/TurnManager.cs" id="7_turnmgr"]
+[ext_resource type="PackedScene" uid="uid://c5n8x4m1v2y3q" path="res://scenes/ui/tile_info_modal.tscn" id="8_tilemodal"]
+[ext_resource type="PackedScene" uid="uid://b1m7x5k8y3v4q" path="res://scenes/ui/unit_info_modal.tscn" id="9_unitmodal"]
+[ext_resource type="Theme" uid="uid://cx6gqm1q8d2yv" path="res://ui/hud_theme.tres" id="10_hudtheme"]
+[ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="11_settingsmodal"]
 
-[node name="WorldMap" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_bar"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.08, 0.07, 0.08, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.54, 0.42, 0.18, 1)
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stage_badge"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+content_margin_bottom = 1.0
+bg_color = Color(0.29, 0.07, 0.07, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.54, 0.42, 0.18, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_turn_seal"]
+content_margin_left = 3.0
+content_margin_top = 1.0
+content_margin_right = 3.0
+content_margin_bottom = 1.0
+bg_color = Color(0.16, 0.07, 0.08, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.54, 0.42, 0.18, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_square"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.11, 0.09, 0.13, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.54, 0.42, 0.18, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_square_hover"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.18, 0.15, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.96, 0.78, 0.26, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_square_pressed"]
+content_margin_left = 2.0
+content_margin_top = 3.0
+content_margin_right = 2.0
+content_margin_bottom = 1.0
+bg_color = Color(0.07, 0.06, 0.08, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.36, 0.27, 0.11, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_endturn_normal"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.54, 0.13, 0.08, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.96, 0.78, 0.26, 1)
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_endturn_hover"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.65, 0.17, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.47, 1)
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_endturn_pressed"]
+content_margin_left = 6.0
+content_margin_top = 3.0
+content_margin_right = 6.0
+content_margin_bottom = 1.0
+bg_color = Color(0.33, 0.07, 0.04, 1)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.73, 0.55, 0.15, 1)
+
+[node name="WorldMap" type="Node2D"]
+script = ExtResource("1_worldmap")
+
+[node name="WorldRoot" type="Node2D" parent="."]
+
+[node name="BoardBackdrop" type="Node2D" parent="WorldRoot"]
+script = ExtResource("3_backdrop")
+
+[node name="GridMapManager" type="Node2D" parent="WorldRoot"]
+script = ExtResource("2_gridmap")
+
+[node name="TerrainLayer" type="TileMapLayer" parent="WorldRoot/GridMapManager"]
+
+[node name="HexHoverIndicator" type="Line2D" parent="WorldRoot"]
+points = PackedVector2Array(0, -16, 14.5, -8, 14.5, 8, 0, 16, -14.5, 8, -14.5, -8, 0, -16)
+width = 1.2
+default_color = Color(0.85, 0.72, 0.45, 0.28)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="HexSelectionIndicator" type="Line2D" parent="WorldRoot"]
+script = ExtResource("6_hexindicator")
+
+[node name="PathVisualizer" type="Line2D" parent="WorldRoot"]
+script = ExtResource("4_pathvis")
+
+[node name="UnitContainer" type="Node2D" parent="WorldRoot"]
+
+[node name="RTSCamera2D" type="Camera2D" parent="WorldRoot"]
+script = ExtResource("5_camera")
+
+[node name="TurnManager" type="Node" parent="."]
+script = ExtResource("7_turnmgr")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UILayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_controller")
+mouse_filter = 2
+theme = ExtResource("10_hudtheme")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ResourceBar" type="PanelContainer" parent="UILayer/HUD"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.055, 0.051, 0.078, 1)
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 312.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_bar")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="Margin" type="MarginContainer" parent="UILayer/HUD/ResourceBar"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 1
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="HBox" type="HBoxContainer" parent="UILayer/HUD/ResourceBar/Margin"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
-theme_override_font_sizes/font_size = 20
-text = "WORLD MAP"
-horizontal_alignment = 1
+theme_override_constants/separation = 6
 
-[node name="DescLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="SessionBadge" type="PanelContainer" parent="UILayer/HUD/ResourceBar/Margin/HBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
-theme_override_font_sizes/font_size = 12
-text = "Campaign scene loaded successfully via Loading Screen."
-horizontal_alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_stage_badge")
 
-[node name="BtnBack" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="SessionLabel" type="Label" parent="UILayer/HUD/ResourceBar/Margin/HBox/SessionBadge"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Return to Main Menu"
+theme_override_colors/font_color = Color(0.96, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 9
+text = "⚔ VĂN LANG"
+vertical_alignment = 1
 
+[node name="FoodLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 16)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "🌾 150 [color=#68b87d]+12[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ProdLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 16)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "🔨 80 [color=#68b87d]+8[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="GoldLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 16)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "🪙 120 [color=#68b87d]+10[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="TurnBadge" type="PanelContainer" parent="UILayer/HUD/ResourceBar/Margin/HBox"]
+custom_minimum_size = Vector2(24, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_turn_seal")
+
+[node name="VBox" type="VBoxContainer" parent="UILayer/HUD/ResourceBar/Margin/HBox/TurnBadge"]
+layout_mode = 2
+theme_override_constants/separation = -2
+alignment = 1
+
+[node name="TurnTitleLabel" type="Label" parent="UILayer/HUD/ResourceBar/Margin/HBox/TurnBadge/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.77, 0.64, 0.49, 1)
+theme_override_font_sizes/font_size = 6
+text = "LƯỢT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnLabel" type="Label" parent="UILayer/HUD/ResourceBar/Margin/HBox/TurnBadge/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.78, 0.26, 1)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FunctionBar" type="PanelContainer" parent="UILayer/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -148.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = 28.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_bar")
+
+[node name="Margin" type="MarginContainer" parent="UILayer/HUD/FunctionBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 1
+
+[node name="HBox" type="HBoxContainer" parent="UILayer/HUD/FunctionBar/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BtnSettings" type="Button" parent="UILayer/HUD/FunctionBar/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "Cài đặt"
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_square")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_square_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_square_pressed")
+text = "⚙"
+
+[node name="BtnBack" type="Button" parent="UILayer/HUD/FunctionBar/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "Thoát ra Menu"
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_square")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_square_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_square_pressed")
+text = "⏏"
+
+[node name="BtnEndTurn" type="Button" parent="UILayer/HUD/FunctionBar/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_endturn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_endturn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_endturn_pressed")
+text = "🚩 HẾT LƯỢT"
+
+[node name="ModalContainer" type="Control" parent="UILayer/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TileInfoModal" parent="UILayer/HUD/ModalContainer" instance=ExtResource("8_tilemodal")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+offset_right = 246.0
+offset_bottom = -8.0
+grow_vertical = 0
+
+[node name="UnitInfoModal" parent="UILayer/HUD/ModalContainer" instance=ExtResource("9_unitmodal")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_bottom = 150.0
+grow_vertical = 0
+
+[node name="SettingsModal" parent="UILayer" instance=ExtResource("11_settingsmodal")]
+unique_name_in_owner = true
+visible = false

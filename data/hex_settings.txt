@@ -1,0 +1,69 @@
+﻿# ==============================================================================
+# VẠN QUỐC PHONG VÂN KÝ - CẤU HÌNH ĐỊA HÌNH SA BÀN (HEX TERRAIN SETTINGS)
+# ==============================================================================
+# Định dạng mỗi ô địa hình:
+# [TERRAIN_KEY]
+# name = Tên địa hình
+# description = Mô tả chiến thuật & kinh tế
+# move_cost = Tiêu hao bước đi (1-99)
+# food_yield = Lương thực thu hoạch mỗi lượt
+# prod_yield = Điểm sản xuất mỗi lượt
+# gold_yield = Vàng cống nạp mỗi lượt
+# is_solid = true/false (vật cản không thể vượt qua)
+# base_color = Mã màu nền hex (#RRGGBB)
+# border_color = Mã màu viền lưới hex (#RRGGBB)
+# extra_colors = Tùy chọn phối màu (nước cạn, bờ phù sa, đỉnh núi, v.v.)
+# ==============================================================================
+
+[plains]
+name = Đồng Bằng Phù Sa
+description = Vùng đất bồi phì nhiêu ven sông, trù phú lúa nước và tài nguyên khai khẩn.
+move_cost = 1
+food_yield = 2
+prod_yield = 0
+gold_yield = 1
+is_solid = false
+base_color = #3e732c
+grass_light_color = #54963c
+grass_warm_color = #6da339
+border_color = #346028
+
+[forest]
+name = Rừng Rậm Nhiệt Đới
+description = Rừng rậm bạt ngàn che chở quân đội, sản sinh dồi dào gỗ lim và lâm thổ sản.
+move_cost = 2
+food_yield = 1
+prod_yield = 2
+gold_yield = 0
+is_solid = false
+base_color = #1c4519
+canopy_light_color = #2b6127
+canopy_dark_color = #122e10
+border_color = #143313
+
+[river]
+name = Dòng Sông
+description = Dòng sông mẹ đỏ nặng phù sa, ranh giới tự nhiên chia cắt địa hình và giao thương đường thủy.
+move_cost = 3
+food_yield = 1
+prod_yield = 0
+gold_yield = 2
+is_solid = true
+base_color = #2b5c8f
+shallow_color = #417bb8
+bank_color = #734b22
+wave_color = #5696d9
+border_color = #21466d
+
+[mountain]
+name = Núi non
+description = Đỉnh non hùng vĩ hiểm trở bất khả xâm phạm, lòng núi ẩn chứa quặng đồng và kim thạch quý hiếm.
+move_cost = 99
+food_yield = 0
+prod_yield = 3
+gold_yield = 1
+is_solid = true
+base_color = #545c63
+peak_color = #b4c2ce
+base_dark_color = #1f2225
+border_color = #383d42
