@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using ChroniclesOfTheEmpires.UI;
-using ChroniclesOfTheEmpires.UI.Modals;
+using ChroniclesOfTheEmpires.UI.Components;
 
 #nullable enable
 
@@ -11,7 +10,7 @@ namespace ChroniclesOfTheEmpires.Gameplay;
 /// <summary>
 /// Master tactical world map coordinator.
 /// Orchestrates GridMapManager, PathfindingManager, UnitController, RTSCamera2D, TurnManager,
-/// HexSelectionIndicator, and modal UI components (TileInfoModal, UnitInfoModal).
+/// HexSelectionIndicator, and decoupled TacticalHUD UI components.
 /// </summary>
 public partial class WorldMap : Node2D
 {
@@ -22,25 +21,10 @@ public partial class WorldMap : Node2D
     private RTSCamera2D _camera = null!;
     private TurnManager _turnManager = null!;
     private Node2D _unitContainer = null!;
+    private TacticalHUD _hud = null!;
 
     private BoardBackdrop? _boardBackdrop;
     private Line2D? _hoverIndicator;
-
-    private PanelContainer? _resourceBar;
-    private PanelContainer? _functionBar;
-    private Label? _sessionLabel;
-    private RichTextLabel? _foodLabel;
-    private RichTextLabel? _prodLabel;
-    private RichTextLabel? _goldLabel;
-    private Label? _turnTitleLabel;
-    private Label? _turnLabel;
-    private Button? _btnSettings;
-    private Button? _btnEndTurn;
-    private Button? _btnBack;
-
-    private TileInfoModal? _tileInfoModal;
-    private UnitInfoModal? _unitInfoModal;
-    private SettingsModal? _settingsModal;
 
     private UnitController? _selectedUnit;
     private readonly List<UnitController> _allUnits = new();
@@ -56,46 +40,7 @@ public partial class WorldMap : Node2D
         _camera = GetNode<RTSCamera2D>("WorldRoot/RTSCamera2D");
         _turnManager = GetNode<TurnManager>("TurnManager");
         _unitContainer = GetNode<Node2D>("WorldRoot/UnitContainer");
-
-        _sessionLabel = GetNodeOrNull<Label>("%SessionLabel");
-        _foodLabel = GetNodeOrNull<RichTextLabel>("%FoodLabel");
-        _prodLabel = GetNodeOrNull<RichTextLabel>("%ProdLabel");
-        _goldLabel = GetNodeOrNull<RichTextLabel>("%GoldLabel");
-        _turnTitleLabel = GetNodeOrNull<Label>("%TurnTitleLabel");
-        _turnLabel = GetNodeOrNull<Label>("%TurnLabel");
-        _btnSettings = GetNodeOrNull<Button>("%BtnSettings");
-        _btnEndTurn = GetNodeOrNull<Button>("%BtnEndTurn");
-        _btnBack = GetNodeOrNull<Button>("%BtnBack");
-
-        _tileInfoModal = GetNodeOrNull<TileInfoModal>("%TileInfoModal");
-        _unitInfoModal = GetNodeOrNull<UnitInfoModal>("%UnitInfoModal");
-        _settingsModal = GetNodeOrNull<SettingsModal>("%SettingsModal");
-
-        // Apply antique bronze plate style with sharp pixel corners (#8a6a2e / #141214)
-        _resourceBar = GetNodeOrNull<PanelContainer>("UILayer/HUD/ResourceBar");
-        _functionBar = GetNodeOrNull<PanelContainer>("UILayer/HUD/FunctionBar");
-        var plateStyle = new StyleBoxFlat
-        {
-            BgColor = new Color(0.08f, 0.07f, 0.08f, 0.92f), // Màu sáp than cổ 92% alpha
-            BorderWidthTop = 1,
-            BorderWidthBottom = 2,
-            BorderWidthLeft = 1,
-            BorderWidthRight = 1,
-            BorderColor = new Color("#8a6a2e"), // Màu vàng đồng thau cổ
-            CornerRadiusTopLeft = 0,
-            CornerRadiusTopRight = 0,
-            CornerRadiusBottomLeft = 3,
-            CornerRadiusBottomRight = 3,
-            ContentMarginLeft = 6,
-            ContentMarginRight = 6,
-            ContentMarginTop = 2,
-            ContentMarginBottom = 2,
-            ShadowColor = new Color(0, 0, 0, 0.6f),
-            ShadowSize = 2,
-            ShadowOffset = new Vector2(0, 2)
-        };
-        _resourceBar?.AddThemeStyleboxOverride("panel", plateStyle);
-        _functionBar?.AddThemeStyleboxOverride("panel", plateStyle);
+        _hud = GetNode<TacticalHUD>("UILayer/HUD");
 
         // 2. Initialize Tactical Grid and Dimensions from GameSession
         var session = ChroniclesOfTheEmpires.UI.GameSession.ActiveConfig;
@@ -122,33 +67,15 @@ public partial class WorldMap : Node2D
         // 5. Spawn Initial Units from customizable txt settings
         SpawnInitialUnits();
 
-        // 6. Connect UI Events
-        // 6. Connect UI Events & Localization
-        if (_btnSettings != null)
-        {
-            _btnSettings.Pressed += () => _settingsModal?.Open();
-        }
-
-        if (_btnEndTurn != null)
-        {
-            _btnEndTurn.Pressed += OnEndTurnPressed;
-        }
-
-        if (_btnBack != null)
-        {
-            _btnBack.Pressed += () => GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
-        }
+        // 6. Connect UI Events & HUD
+        _hud.Initialize(session.StageTitle);
+        _hud.EndTurnRequested += OnEndTurnPressed;
+        _hud.ExitToMenuRequested += () => GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
 
         _turnManager.TurnChanged += OnTurnChanged;
-        LocalizationManager.LanguageChanged += UpdateLocalizedTexts;
 
         // 7. Initial UI Refresh
-        if (_sessionLabel != null)
-        {
-            _sessionLabel.Text = $"⚔ {session.StageTitle.ToUpperInvariant()}";
-        }
-        UpdateLocalizedTexts();
-        UpdateEconomyUI();
+        RefreshEconomyUI();
     }
 
     private void SpawnInitialUnits()
@@ -181,7 +108,7 @@ public partial class WorldMap : Node2D
         rival.SnapToGrid(rivalPos);
         RegisterUnit(rival);
 
-        // Focus camera on first player unit
+        // Focus camera on first player     
         _camera.Position = GridMapManager.GridToWorldCenter(p1Pos);
     }
 
@@ -247,8 +174,7 @@ public partial class WorldMap : Node2D
         _selectedUnit.SetSelected(true);
 
         _hexIndicator.SelectHex(unit.Position);
-        _tileInfoModal?.CloseModal();
-        _unitInfoModal?.DisplayUnit(unit);
+        _hud.DisplayUnit(unit);
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -272,16 +198,16 @@ public partial class WorldMap : Node2D
         {
             if (key.Keycode == Key.Space)
             {
-                if (_settingsModal == null || !_settingsModal.IsOpen)
+                if (!_hud.IsSettingsOpen)
                 {
                     OnEndTurnPressed();
                 }
             }
             else if (key.Keycode == Key.Escape)
             {
-                if (_settingsModal != null && _settingsModal.IsOpen)
+                if (_hud.IsSettingsOpen)
                 {
-                    _settingsModal.Close();
+                    _hud.CloseSettings();
                 }
                 else
                 {
@@ -311,11 +237,10 @@ public partial class WorldMap : Node2D
         }
 
         _pathVisualizer.ClearPath();
-        _unitInfoModal?.CloseModal();
 
-        // Highlight selected hex and open TileInfoModal
+        // Highlight selected hex and display tile details in TacticalHUD
         _hexIndicator.SelectHex(hexCell.WorldPosition);
-        _tileInfoModal?.DisplayCell(hexCell);
+        _hud.DisplayTile(hexCell);
     }
 
     private void HandleRightClickMove()
@@ -338,7 +263,7 @@ public partial class WorldMap : Node2D
                 _selectedUnit.MoveAlongPath(path, cost, () =>
                 {
                     _hexIndicator.SelectHex(_selectedUnit.Position);
-                    _unitInfoModal?.RefreshMovementInfo();
+                    _hud.RefreshUnitInfo();
                 });
                 _pathVisualizer.ClearPath();
                 return;
@@ -404,8 +329,7 @@ public partial class WorldMap : Node2D
         }
         _hexIndicator.ClearSelection();
         _pathVisualizer.ClearPath();
-        _tileInfoModal?.CloseModal();
-        _unitInfoModal?.CloseModal();
+        _hud.DeselectAll();
     }
 
     private void OnEndTurnPressed()
@@ -416,45 +340,20 @@ public partial class WorldMap : Node2D
 
     private void OnTurnChanged(int turn, int food, int prod, int gold, int dFood, int dProd, int dGold)
     {
-        UpdateEconomyUI();
-        _unitInfoModal?.RefreshMovementInfo();
+        RefreshEconomyUI();
+        _hud.RefreshUnitInfo();
     }
 
-    private void UpdateLocalizedTexts()
+    private void RefreshEconomyUI()
     {
-        var session = ChroniclesOfTheEmpires.UI.GameSession.ActiveConfig;
-        if (_sessionLabel != null)
-        {
-            _sessionLabel.Text = $"⚔ {session.StageTitle.ToUpperInvariant()}";
-        }
-        if (_turnTitleLabel != null)
-        {
-            _turnTitleLabel.Text = LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese ? "LƯỢT" : "TURN";
-        }
-        if (_btnEndTurn != null)
-        {
-            _btnEndTurn.Text = LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese ? "🚩 HẾT LƯỢT" : "🚩 END TURN";
-        }
-        if (_btnSettings != null)
-        {
-            _btnSettings.TooltipText = LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese ? "Cài đặt" : "Settings";
-        }
-        if (_btnBack != null)
-        {
-            _btnBack.TooltipText = LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese ? "Thoát ra Menu" : "Exit to Menu";
-        }
-    }
-
-    private void UpdateEconomyUI()
-    {
-        if (_foodLabel != null) _foodLabel.Text = $"🌾 {_turnManager.Food} [color=#68b87d]+{_turnManager.FoodYield}[/color]";
-        if (_prodLabel != null) _prodLabel.Text = $"🔨 {_turnManager.Production} [color=#68b87d]+{_turnManager.ProductionYield}[/color]";
-        if (_goldLabel != null) _goldLabel.Text = $"🪙 {_turnManager.Gold} [color=#68b87d]+{_turnManager.GoldYield}[/color]";
-        if (_turnLabel != null) _turnLabel.Text = $"{_turnManager.TurnCount}";
-    }
-
-    public override void _ExitTree()
-    {
-        LocalizationManager.LanguageChanged -= UpdateLocalizedTexts;
+        _hud.UpdateEconomy(
+            _turnManager.Food,
+            _turnManager.FoodYield,
+            _turnManager.Production,
+            _turnManager.ProductionYield,
+            _turnManager.Gold,
+            _turnManager.GoldYield,
+            _turnManager.TurnCount
+        );
     }
 }

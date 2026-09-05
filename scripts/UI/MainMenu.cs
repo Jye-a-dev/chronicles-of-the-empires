@@ -22,8 +22,9 @@ public partial class MainMenu : Control
     private string _communityUrl = "https://discord.gg/chronicles-of-the-empires";
 
     private Control _menuPanel = null!;
-    private Label _titleLabel = null!;
-    private Label _subtitleLabel = null!;
+    private Label? _titleLabel;
+    private Label? _subtitleLabel;
+    private ChroniclesOfTheEmpires.UI.Components.MenuTitle? _menuTitle;
 
     private PrimaryMenuColumn? _primaryColumn;
     private SecondaryActionBar? _secondaryActionBar;
@@ -46,11 +47,16 @@ public partial class MainMenu : Control
             ?? GetNodeOrNull<Control>("SidebarMargin/MenuPanel")
             ?? GetNode<Control>("CenterContainer/MenuPanel");
 
+        _menuTitle = GetNodeOrNull<ChroniclesOfTheEmpires.UI.Components.MenuTitle>("%MenuTitle")
+            ?? _menuPanel.GetNodeOrNull<ChroniclesOfTheEmpires.UI.Components.MenuTitle>("InnerPanel/VBoxContainer/MenuTitle");
+
         _titleLabel = GetNodeOrNull<Label>("%TitleLabel")
-            ?? _menuPanel.GetNode<Label>("InnerPanel/VBoxContainer/TitleLabel");
+            ?? _menuPanel.GetNodeOrNull<Label>("InnerPanel/VBoxContainer/MenuTitle/TitleLabel")
+            ?? _menuPanel.GetNodeOrNull<Label>("InnerPanel/VBoxContainer/TitleLabel");
 
         _subtitleLabel = GetNodeOrNull<Label>("%SubtitleLabel")
-            ?? _menuPanel.GetNode<Label>("InnerPanel/VBoxContainer/SubtitleLabel");
+            ?? _menuPanel.GetNodeOrNull<Label>("InnerPanel/VBoxContainer/MenuTitle/SubtitleLabel")
+            ?? _menuPanel.GetNodeOrNull<Label>("InnerPanel/VBoxContainer/SubtitleLabel");
 
         _sfxHover = GetNodeOrNull<AudioStreamPlayer>("%SfxHover")
             ?? GetNode<AudioStreamPlayer>("SfxHover");

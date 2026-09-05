@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://da6o31dykxpt7" path="res://scripts/UI/Components/SecondaryActionBar.cs" id="5_secondary"]
 [ext_resource type="PackedScene" path="res://scenes/campaign_modal.tscn" id="8_campaign_modal_scene"]
 [ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="7_settings_modal_scene"]
+[ext_resource type="PackedScene" uid="uid://c6y7m1t8le0title" path="res://scenes/ui/menu_title.tscn" id="9_menutitle"]
 
 [sub_resource type="Gradient" id="Gradient_embers"]
 offsets = PackedFloat32Array(0, 0.15, 0.6, 0.85, 1)
@@ -260,49 +261,8 @@ polygon = PackedVector2Array(-1, -1, -3, -1, -3, -3, -1, -3)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="EmblemContainer" type="CenterContainer" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=1049281729]
-custom_minimum_size = Vector2(0, 32)
+[node name="MenuTitle" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=1396662731 instance=ExtResource("9_menutitle")]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="Logo" type="TextureRect" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer/EmblemContainer" unique_id=1492019481]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-mouse_filter = 2
-texture_filter = 1
-texture = ExtResource("3_logo")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="TitleLabel" type="Label" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=1396662731]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
-theme_override_colors/font_shadow_color = Color(0.18, 0.12, 0.02, 1)
-theme_override_colors/font_outline_color = Color(0.08, 0.06, 0.02, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 10
-text = "CHRONICLES OF THE OLD EMPIRES"
-horizontal_alignment = 1
-
-[node name="SubtitleLabel" type="Label" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=184910283]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.87451, 0.835294, 0.752941, 1)
-theme_override_colors/font_shadow_color = Color(0.08, 0.06, 0.04, 1)
-theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.02, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 7
-text = "◆ MYTHIC AGES ◆"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=194820174]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_separator")
 
 [node name="PrimaryColumn" type="VBoxContainer" parent="SidebarMargin/MenuHBox/MenuPanel/InnerPanel/VBoxContainer" unique_id=769301712]
 unique_name_in_owner = true

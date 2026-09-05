@@ -24,6 +24,17 @@ public partial class GridMapManager : Node2D
     public static readonly Vector2 CellSize = new(CellDimension, CellDimension);
 
     [Export] public NodePath? TileMapLayerPath;
+    [Export] public NodePath? TileContainerPath;
+    [Export] public PackedScene? TileScene;
+    [Export] public bool UseManualMap = false;
+    [Export] public bool SpawnTileInstances = true;
+
+    /// <summary>
+    /// Custom map layout array editable directly in the Godot inspector.
+    /// Format: Each row contains characters separated by spaces or continuous:
+    /// 'P' = Plains (Đồng Bằng), 'F' = Forest (Rừng Rậm), 'R' = River (Sông Hồng), 'M' = Mountain (Núi)
+    /// </summary>
+    [Export] public Godot.Collections.Array<string> ManualMapLayout = new();
 
     public int MapWidth { get; private set; } = 32;
     public int MapHeight { get; private set; } = 32;
@@ -31,6 +42,7 @@ public partial class GridMapManager : Node2D
 
     private HexCell[,] _cells = new HexCell[0, 0];
     private TileMapLayer? _tileMapLayer;
+    private Node2D? _tileContainer;
 
     public static GridMapManager? Instance { get; private set; }
 
@@ -47,24 +59,46 @@ public partial class GridMapManager : Node2D
         {
             AddChild(_tileMapLayer);
         }
+
+        if (TileContainerPath != null)
+        {
+            _tileContainer = GetNodeOrNull<Node2D>(TileContainerPath);
+        }
+        _tileContainer ??= GetNodeOrNull<Node2D>("TileContainer");
+        if (_tileContainer == null && SpawnTileInstances)
+        {
+            _tileContainer = new Node2D { Name = "TileContainer" };
+            AddChild(_tileContainer);
+        }
     }
 
     /// <summary>
-    /// Initializes map dimensions and terrain according to active session configuration.
+    /// Initializes map dimensions and terrain according to active session configuration or manual array.
     /// </summary>
     public void InitializeFromSession(string mode, string stageId, string mapSize, string biome)
     {
         Instance = this;
         ActiveBiome = string.IsNullOrWhiteSpace(biome) ? "red_river" : biome.ToLowerInvariant();
+
         var (w, h) = ResolveDimensions(mode, stageId, mapSize);
         MapWidth = w;
         MapHeight = h;
 
-        _cells = new HexCell[MapWidth, MapHeight];
+        bool hasManualLayout = ManualMapLayout != null && ManualMapLayout.Count > 0;
+        bool hasPaintedCells = _tileMapLayer != null && _tileMapLayer.GetUsedCells().Count > 0;
 
-        BuildProceduralTileSet();
-        GenerateTerrain();
-        RenderTileMap();
+        if (UseManualMap || hasManualLayout || hasPaintedCells)
+        {
+            ScanMapArray();
+        }
+        else
+        {
+            _cells = new HexCell[MapWidth, MapHeight];
+            BuildProceduralTileSet();
+            GenerateTerrain();
+            RenderTileMap();
+            SpawnOrSyncTiles();
+        }
     }
 
     public static (int Width, int Height) ResolveDimensions(string mode, string stageId, string mapSize)
@@ -96,6 +130,7 @@ public partial class GridMapManager : Node2D
     private void BuildProceduralTileSet()
     {
         if (_tileMapLayer == null) return;
+        if (_tileMapLayer.TileSet != null) return;
 
         ChroniclesOfTheEmpires.Core.Config.GameConfigManager.EnsureLoaded();
 
@@ -321,6 +356,163 @@ public partial class GridMapManager : Node2D
         if (rand.NextDouble() < 0.04) return TerrainType.River;
         if (rand.NextDouble() < 0.05) return TerrainType.Mountain;
         return TerrainType.Plains;
+    }
+
+    /// <summary>
+    /// Scans the map from ManualMapLayout array or from painted TileMapLayer cells.
+    /// Allows designers to author maps directly in the Godot Inspector or 2D TileMap editor.
+    /// </summary>
+    public void ScanMapArray()
+    {
+        bool hasManualArray = ManualMapLayout != null && ManualMapLayout.Count > 0;
+        bool hasPaintedCells = _tileMapLayer != null && _tileMapLayer.GetUsedCells().Count > 0;
+
+        if (hasManualArray)
+        {
+            ScanFromLayoutArray();
+            BuildProceduralTileSet();
+            RenderTileMap();
+        }
+        else if (hasPaintedCells && _tileMapLayer != null)
+        {
+            ScanFromTileMapLayer();
+        }
+        else
+        {
+            GenerateTerrain();
+            BuildProceduralTileSet();
+            RenderTileMap();
+        }
+
+        SpawnOrSyncTiles();
+    }
+
+    private void ScanFromLayoutArray()
+    {
+        if (ManualMapLayout == null || ManualMapLayout.Count == 0) return;
+
+        MapHeight = ManualMapLayout.Count;
+        var parsedRows = new List<TerrainType[]>();
+        int maxW = 0;
+
+        foreach (string row in ManualMapLayout)
+        {
+            var tokens = ParseRowTokens(row);
+            if (tokens.Length > maxW) maxW = tokens.Length;
+            parsedRows.Add(tokens);
+        }
+
+        MapWidth = Math.Max(1, maxW);
+        _cells = new HexCell[MapWidth, MapHeight];
+
+        for (int y = 0; y < MapHeight; y++)
+        {
+            var row = parsedRows[y];
+            for (int x = 0; x < MapWidth; x++)
+            {
+                TerrainType terrain = x < row.Length ? row[x] : TerrainType.Plains;
+                var coords = new Vector2I(x, y);
+                Vector2 worldPos = GridToWorldCenter(coords);
+                _cells[x, y] = new HexCell(coords, worldPos, terrain);
+            }
+        }
+    }
+
+    private void ScanFromTileMapLayer()
+    {
+        if (_tileMapLayer == null) return;
+        var used = _tileMapLayer.GetUsedCells();
+        if (used.Count == 0) return;
+
+        int maxX = 0, maxY = 0;
+        foreach (var pos in used)
+        {
+            if (pos.X > maxX) maxX = pos.X;
+            if (pos.Y > maxY) maxY = pos.Y;
+        }
+
+        MapWidth = Math.Max(MapWidth, maxX + 1);
+        MapHeight = Math.Max(MapHeight, maxY + 1);
+        _cells = new HexCell[MapWidth, MapHeight];
+
+        for (int x = 0; x < MapWidth; x++)
+        {
+            for (int y = 0; y < MapHeight; y++)
+            {
+                var coords = new Vector2I(x, y);
+                TerrainType terrain = TerrainType.Plains;
+
+                if (_tileMapLayer.GetCellSourceId(coords) != -1)
+                {
+                    int atlasX = _tileMapLayer.GetCellAtlasCoords(coords).X;
+                    terrain = (TerrainType)Math.Clamp(atlasX, 0, 3);
+                }
+
+                Vector2 worldPos = GridToWorldCenter(coords);
+                _cells[x, y] = new HexCell(coords, worldPos, terrain);
+            }
+        }
+    }
+
+    private static TerrainType[] ParseRowTokens(string row)
+    {
+        var tokens = row.Split(new[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+        if (tokens.Length <= 1 && row.Trim().Length > 1)
+        {
+            string clean = row.Trim();
+            var list = new TerrainType[clean.Length];
+            for (int i = 0; i < clean.Length; i++)
+            {
+                list[i] = CharToTerrain(clean[i]);
+            }
+            return list;
+        }
+
+        var result = new TerrainType[tokens.Length];
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            result[i] = CharToTerrain(tokens[i][0]);
+        }
+        return result;
+    }
+
+    private static TerrainType CharToTerrain(char c) => char.ToUpperInvariant(c) switch
+    {
+        'P' or '0' => TerrainType.Plains,
+        'F' or '1' => TerrainType.Forest,
+        'R' or '2' => TerrainType.River,
+        'M' or '3' => TerrainType.Mountain,
+        _ => TerrainType.Plains
+    };
+
+    public void SpawnOrSyncTiles()
+    {
+        if (!SpawnTileInstances || _tileContainer == null) return;
+
+        TileScene ??= GD.Load<PackedScene>("res://scenes/tile.tscn");
+        if (TileScene == null) return;
+
+        foreach (Node child in _tileContainer.GetChildren())
+        {
+            child.QueueFree();
+        }
+
+        for (int x = 0; x < MapWidth; x++)
+        {
+            for (int y = 0; y < MapHeight; y++)
+            {
+                var cell = _cells[x, y];
+                if (cell == null) continue;
+
+                var tile = TileScene.Instantiate<HexTile>();
+                tile.GridPosition = cell.Coords;
+                tile.Position = cell.WorldPosition;
+                tile.Terrain = cell.Terrain;
+                tile.AssociatedCell = cell;
+
+                _tileContainer.AddChild(tile);
+            }
+        }
     }
 
     private void RenderTileMap()
