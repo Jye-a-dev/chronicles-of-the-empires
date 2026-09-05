@@ -1,0 +1,55 @@
+# ==============================================================================
+# VẠN QUỐC PHONG VÂN KÝ - CẤU HÌNH PHE PHÁI (FACTION SETTINGS)
+# ==============================================================================
+# Định dạng mỗi phe phái:
+# [FACTION_KEY]
+# id = Mã số định danh (0: Phe người chơi, 1..18: Các thế lực đối địch hoặc chư hầu)
+# name = Danh xưng quốc hiệu
+# cultural_sphere = Khối văn hóa (EastAsian, SoutheastAsian, Nomadic, Indianized)
+# treasury_food = Lượng lương thực khởi đầu
+# treasury_prod = Lượng điểm sản xuất khởi đầu
+# treasury_gold = Lượng vàng khởi đầu
+# treasury_sci = Lượng điểm khoa học khởi đầu
+# treasury_faith = Lượng điểm tín ngưỡng khởi đầu
+# ==============================================================================
+
+[dai_viet]
+id = 0
+name = Đại Việt Hoàng Triều
+cultural_sphere = EastAsian
+treasury_food = 150
+treasury_prod = 80
+treasury_gold = 120
+treasury_sci = 20
+treasury_faith = 30
+
+[champa]
+id = 1
+name = Chiêm Thành Vương Quốc
+cultural_sphere = SoutheastAsian
+treasury_food = 130
+treasury_prod = 70
+treasury_gold = 160
+treasury_sci = 15
+treasury_faith = 40
+
+[lan_xang]
+id = 2
+name = Vạn Tượng Vương Triều
+cultural_sphere = SoutheastAsian
+treasury_food = 140
+treasury_prod = 75
+treasury_gold = 110
+treasury_sci = 10
+treasury_faith = 35
+
+[da_ly]
+id = 3
+name = Đại Lý Quốc
+cultural_sphere = EastAsian
+treasury_food = 120
+treasury_prod = 90
+treasury_gold = 130
+treasury_sci = 25
+treasury_faith = 45
+

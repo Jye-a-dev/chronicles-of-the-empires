@@ -1,15 +1,20 @@
-﻿# ==============================================================================
+# ==============================================================================
 # VẠN QUỐC PHONG VÂN KÝ - CẤU HÌNH ĐƠN VỊ TÁC CHIẾN (UNIT SETTINGS)
 # ==============================================================================
 # Định dạng mỗi loại quân:
 # [UNIT_ID]
 # name = Tên đơn vị
 # description = Mô tả binh chủng và vai trò tác chiến
-# faction_id = 0 (0: Quân Hoàng Gia phe ta, 1: Quân đối địch)
+# faction_id = 0 (0: Quân Hoàng Gia phe ta, 1..18: Quân đối địch)
 # hp_max = Lượng máu tối đa
 # attack = Chỉ số sát thương tấn công
 # defense = Chỉ số phòng ngự giảm thương
 # movement_max = Tầm di chuyển mỗi lượt (số bước)
+# cost_food = Chi phí lương thực để chiêu mộ
+# cost_prod = Chi phí sản xuất để chiêu mộ
+# cost_gold = Chi phí vàng để chiêu mộ
+# upkeep_food = Tiêu hao lương thực mỗi lượt (Upkeep Cấp 3)
+# upkeep_gold = Tiêu hao vàng mỗi lượt (Upkeep Cấp 3)
 # symbol = Ký tự biểu trưng hiển thị trên quân cờ (★, ◆, 🏹, 🛡, 🗡, v.v.)
 # visual_color = Mã màu thân quân cờ (#RRGGBB)
 # border_color = Mã màu viền cờ (#f5c842 cho phe ta, #e03b24 cho địch)
@@ -23,6 +28,11 @@ hp_max = 25
 attack = 7
 defense = 4
 movement_max = 4
+cost_food = 30
+cost_prod = 50
+cost_gold = 25
+upkeep_food = 2
+upkeep_gold = 1
 symbol = ★
 visual_color = #2d241e
 border_color = #f5c842
@@ -35,6 +45,11 @@ hp_max = 18
 attack = 8
 defense = 2
 movement_max = 5
+cost_food = 20
+cost_prod = 45
+cost_gold = 20
+upkeep_food = 1
+upkeep_gold = 1
 symbol = 🏹
 visual_color = #1a291e
 border_color = #f5c842
@@ -47,6 +62,11 @@ hp_max = 22
 attack = 6
 defense = 3
 movement_max = 4
+cost_food = 25
+cost_prod = 40
+cost_gold = 20
+upkeep_food = 2
+upkeep_gold = 1
 symbol = ◆
 visual_color = #2e1614
 border_color = #e03b24

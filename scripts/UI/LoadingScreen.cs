@@ -15,10 +15,10 @@ public partial class LoadingScreen : Control
     private float _minLoadingDuration = 3.0f;
 
     [Export(PropertyHint.File, "*.tscn")]
-    private string _defaultScenePath = "res://scenes/main_menu.tscn";
+    private string _defaultScenePath = "res://scenes/ui/screens/main_menu.tscn";
 
     [Export(PropertyHint.File, "*.txt")]
-    private string _statusStagesPath = "res://data/loading_stages.txt";
+    private string _statusStagesPath = "res://data/config/loading_stages.txt";
 
     private string[] _statusStages = [];
 
@@ -37,7 +37,7 @@ public partial class LoadingScreen : Control
     private bool _isLoadingActive;
     private bool _isTransitioningOut;
 
-    public static void TransitionTo(SceneTree tree, string targetScenePath, string loadingScreenPath = "res://scenes/loading_screen.tscn")
+    public static void TransitionTo(SceneTree tree, string targetScenePath, string loadingScreenPath = "res://scenes/ui/screens/loading_screen.tscn")
     {
         TargetScenePath = targetScenePath;
         tree.ChangeSceneToFile(loadingScreenPath);
@@ -219,7 +219,7 @@ public partial class LoadingScreen : Control
             else
             {
                 GD.PrintErr($"[LoadingScreen] Cannot switch to nonexistent scene: '{_activeScenePath}'. Returning to Main Menu.");
-                GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
+                GetTree().ChangeSceneToFile("res://scenes/ui/screens/main_menu.tscn");
             }
         }));
     }
@@ -234,6 +234,14 @@ public partial class LoadingScreen : Control
     private void LoadStatusStages()
     {
         string path = _statusStagesPath;
+        if (!FileAccess.FileExists(path))
+        {
+            if (FileAccess.FileExists("res://data/config/loading_stages.txt"))
+                path = "res://data/config/loading_stages.txt";
+            else if (FileAccess.FileExists("res://data/loading_stages.txt"))
+                path = "res://data/loading_stages.txt";
+        }
+
         if (LocalizationManager.CurrentLanguage == LocalizationManager.LangVietnamese && path.EndsWith(".txt"))
         {
             string viPath = path.Insert(path.Length - 4, "_vi");

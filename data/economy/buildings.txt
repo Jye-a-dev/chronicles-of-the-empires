@@ -1,0 +1,110 @@
+# ==============================================================================
+# VẠN QUỐC PHONG VÂN KÝ - CẤU HÌNH CÔNG TRÌNH NÂNG CẤP (BUILDINGS & IMPROVEMENTS)
+# ==============================================================================
+# Định dạng mỗi công trình:
+# [BUILDING_ID]
+# name = Tên công trình
+# category = infrastructure / military / religious / commercial
+# cost_food = Chi phí lương thực để xây dựng
+# cost_prod = Chi phí sản xuất để xây dựng
+# cost_gold = Chi phí vàng để xây dựng
+# upkeep_food = Tiêu hao lương thực mỗi lượt duy trì
+# upkeep_gold = Tiêu hao vàng mỗi lượt duy trì
+# yield_food = Sản lượng lương thực sinh ra mỗi lượt
+# yield_prod = Sản lượng sản xuất sinh ra mỗi lượt
+# yield_gold = Sản lượng vàng sinh ra mỗi lượt
+# yield_sci = Sản lượng khoa học sinh ra mỗi lượt
+# yield_faith = Sản lượng tín ngưỡng sinh ra mỗi lượt
+# is_defense = true / false (nếu true, đóng vai trò chướng ngại vật cản đường trong A*)
+# ==============================================================================
+
+[mine]
+name = Khai Trường Hầm Mỏ
+category = infrastructure
+cost_food = 10
+cost_prod = 50
+cost_gold = 30
+upkeep_food = 1
+upkeep_gold = 2
+yield_food = 0
+yield_prod = 3
+yield_gold = 1
+yield_sci = 0
+yield_faith = 0
+is_defense = false
+
+[granary]
+name = Vựa Thóc Trữ Lương
+category = infrastructure
+cost_food = 20
+cost_prod = 40
+cost_gold = 20
+upkeep_food = 0
+upkeep_gold = 1
+yield_food = 3
+yield_prod = 0
+yield_gold = 0
+yield_sci = 0
+yield_faith = 0
+is_defense = false
+
+[sawmill]
+name = Xưởng Cưa Xẻ Gỗ
+category = infrastructure
+cost_food = 10
+cost_prod = 45
+cost_gold = 25
+upkeep_food = 1
+upkeep_gold = 1
+yield_food = 0
+yield_prod = 4
+yield_gold = 0
+yield_sci = 0
+yield_faith = 0
+is_defense = false
+
+[market]
+name = Phố Chợ Sầm Uất
+category = commercial
+cost_food = 0
+cost_prod = 60
+cost_gold = 50
+upkeep_food = 0
+upkeep_gold = 0
+yield_food = 0
+yield_prod = 0
+yield_gold = 5
+yield_sci = 1
+yield_faith = 0
+is_defense = false
+
+[temple]
+name = Đền Thờ Quốc Tự
+category = religious
+cost_food = 0
+cost_prod = 55
+cost_gold = 40
+upkeep_food = 1
+upkeep_gold = 2
+yield_food = 0
+yield_prod = 0
+yield_gold = 0
+yield_sci = 1
+yield_faith = 4
+is_defense = false
+
+[watchtower]
+name = Tiền Tiêu Thành Lũy
+category = military
+cost_food = 0
+cost_prod = 70
+cost_gold = 30
+upkeep_food = 1
+upkeep_gold = 3
+yield_food = 0
+yield_prod = 1
+yield_gold = 0
+yield_sci = 0
+yield_faith = 0
+is_defense = true
+

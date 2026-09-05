@@ -7,14 +7,14 @@
 [ext_resource type="Script" uid="uid://bt67srly2hvgx" path="res://scripts/Gameplay/Camera/RTSCamera2D.cs" id="5_camera"]
 [ext_resource type="Script" uid="uid://dlj6feewwf66i" path="res://scripts/Gameplay/Grid/HexSelectionIndicator.cs" id="6_hexindicator"]
 [ext_resource type="Script" uid="uid://lr5ua1081u0u" path="res://scripts/Gameplay/Turn/TurnManager.cs" id="7_turnmgr"]
-[ext_resource type="PackedScene" uid="uid://c5n8x4m1v2y3q" path="res://scenes/ui/tile_info_modal.tscn" id="8_tilemodal"]
-[ext_resource type="PackedScene" uid="uid://b1m7x5k8y3v4q" path="res://scenes/ui/unit_info_modal.tscn" id="9_unitmodal"]
+[ext_resource type="PackedScene" uid="uid://c5n8x4m1v2y3q" path="res://scenes/ui/modals/tile_info_modal.tscn" id="8_tilemodal"]
+[ext_resource type="PackedScene" uid="uid://b1m7x5k8y3v4q" path="res://scenes/ui/modals/unit_info_modal.tscn" id="9_unitmodal"]
 [ext_resource type="Theme" uid="uid://lp36scx5nnwo" path="res://ui/hud_theme.tres" id="10_hudtheme"]
-[ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="11_settingsmodal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/modals/settings_modal.tscn" id="11_settingsmodal"]
 [ext_resource type="Script" path="res://scripts/UI/Components/TacticalHUD.cs" id="12_tacticalhud"]
 [ext_resource type="Script" path="res://scripts/UI/Components/TacticalResourceBar.cs" id="13_resourcebar"]
 [ext_resource type="Script" path="res://scripts/UI/Components/TacticalFunctionBar.cs" id="14_functionbar"]
-[ext_resource type="PackedScene" uid="uid://ci84t1le00hex" path="res://scenes/tile.tscn" id="15_tilescene"]
+[ext_resource type="PackedScene" uid="uid://ci84t1le00hex" path="res://scenes/gameplay/tile.tscn" id="15_tilescene"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_bar"]
 content_margin_left = 6.0
@@ -203,13 +203,15 @@ script = ExtResource("12_tacticalhud")
 layout_mode = 1
 offset_left = 6.0
 offset_top = 4.0
-offset_right = 312.0
+offset_right = 416.0
 offset_bottom = 28.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hud_bar")
 script = ExtResource("13_resourcebar")
 
 [node name="Margin" type="MarginContainer" parent="UILayer/HUD/ResourceBar" unique_id=837926224]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 4
@@ -217,24 +219,32 @@ theme_override_constants/margin_bottom = 1
 
 [node name="HBox" type="HBoxContainer" parent="UILayer/HUD/ResourceBar/Margin" unique_id=765042258]
 layout_mode = 2
-theme_override_constants/separation = 6
+mouse_filter = 2
+theme_override_constants/separation = 5
 
 [node name="SessionBadge" type="PanelContainer" parent="UILayer/HUD/ResourceBar/Margin/HBox" unique_id=1951885135]
+custom_minimum_size = Vector2(86, 18)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_stage_badge")
 
 [node name="SessionLabel" type="Label" parent="UILayer/HUD/ResourceBar/Margin/HBox/SessionBadge" unique_id=896462483]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 14)
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.96, 0.82, 0.35, 1)
 theme_override_font_sizes/font_size = 9
 text = "⚔ VĂN LANG"
 vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
 
 [node name="FoodLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox" unique_id=2077209376]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(56, 16)
+custom_minimum_size = Vector2(50, 16)
 layout_mode = 2
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 9
 bbcode_enabled = true
 text = "🌾 150 [color=#68b87d]+12[/color]"
@@ -243,8 +253,9 @@ autowrap_mode = 0
 
 [node name="ProdLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox" unique_id=1727936529]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 16)
+custom_minimum_size = Vector2(48, 16)
 layout_mode = 2
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 9
 bbcode_enabled = true
 text = "🔨 80 [color=#68b87d]+8[/color]"
@@ -253,11 +264,34 @@ autowrap_mode = 0
 
 [node name="GoldLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox" unique_id=1542323353]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(56, 16)
+custom_minimum_size = Vector2(50, 16)
 layout_mode = 2
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 9
 bbcode_enabled = true
 text = "🪙 120 [color=#68b87d]+10[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SciLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox" unique_id=2088334411]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "🔬 20 [color=#68b87d]+0[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="FaithLabel" type="RichTextLabel" parent="UILayer/HUD/ResourceBar/Margin/HBox" unique_id=2099445522]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 16)
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "📿 30 [color=#68b87d]+0[/color]"
 fit_content = true
 autowrap_mode = 0
 

@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Config;
+using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Gameplay.Economy;
 using ChroniclesOfTheEmpires.UI.Components;
+using ChroniclesOfTheEmpires.UI.Controllers;
 
 #nullable enable
 
@@ -10,7 +14,7 @@ namespace ChroniclesOfTheEmpires.Gameplay;
 /// <summary>
 /// Master tactical world map coordinator.
 /// Orchestrates GridMapManager, PathfindingManager, UnitController, RTSCamera2D, TurnManager,
-/// HexSelectionIndicator, and decoupled TacticalHUD UI components.
+/// EconomyManager, EconomyHUDController, HexSelectionIndicator, and decoupled TacticalHUD UI components.
 /// </summary>
 public partial class WorldMap : Node2D
 {
@@ -22,6 +26,10 @@ public partial class WorldMap : Node2D
     private TurnManager _turnManager = null!;
     private Node2D _unitContainer = null!;
     private TacticalHUD _hud = null!;
+
+    private EconomyManager _economyManager = null!;
+    private EconomyHUDController _economyHUDController = null!;
+    private FactionData _playerFaction = null!;
 
     private BoardBackdrop? _boardBackdrop;
     private Line2D? _hoverIndicator;
@@ -64,23 +72,71 @@ public partial class WorldMap : Node2D
         _camera.SetBounds(mapPixelW, mapPixelH);
         _boardBackdrop?.SetDimensions(mapPixelW, mapPixelH);
 
-        // 5. Spawn Initial Units from customizable txt settings
+        // 5. Setup Economy Engine & Faction State from TXT
+        _economyManager = new EconomyManager { Name = "EconomyManager" };
+        AddChild(_economyManager);
+
+        _economyHUDController = new EconomyHUDController { Name = "EconomyHUDController" };
+        AddChild(_economyHUDController);
+
+        _economyManager.SetTileDataProvider(pos => _gridMapManager.GetTileTerrainData(pos));
+
+        var playerCfg = GameConfigManager.GetFactionConfig(0);
+        _playerFaction = new FactionData
+        {
+            FactionId = 0,
+            Name = playerCfg?.Name ?? "Đại Việt Hoàng Triều",
+            CulturalSphere = playerCfg?.CulturalSphere ?? "EastAsian",
+            Treasury = playerCfg?.StartingTreasury ?? new ResourceBundle(150, 80, 120, 20, 30)
+        };
+
+        for (int x = 0; x <= 4; x++)
+        {
+            for (int y = 0; y <= 4; y++)
+            {
+                var coord = new Vector2I(x, y);
+                _playerFaction.ControlledTiles.Add(coord);
+                var cell = _gridMapManager.GetCell(coord);
+                if (cell != null) cell.OwnerFactionId = 0;
+            }
+        }
+        _economyManager.RegisterFaction(_playerFaction);
+
+        foreach (var (_, cfg) in GameConfigManager.GetAllFactionConfigs())
+        {
+            if (cfg.Id != 0)
+            {
+                var rival = new FactionData
+                {
+                    FactionId = cfg.Id,
+                    Name = cfg.Name,
+                    CulturalSphere = cfg.CulturalSphere,
+                    Treasury = cfg.StartingTreasury
+                };
+                _economyManager.RegisterFaction(rival);
+            }
+        }
+
+        _economyHUDController.Bind(_economyManager, _hud, _turnManager);
+        _turnManager.Initialize(_playerFaction, _economyManager);
+
+        // 6. Spawn Initial Units from customizable txt settings
         SpawnInitialUnits();
 
-        // 6. Connect UI Events & HUD
+        // 7. Connect UI Events & HUD
         _hud.Initialize(session.StageTitle);
         _hud.EndTurnRequested += OnEndTurnPressed;
-        _hud.ExitToMenuRequested += () => GetTree().ChangeSceneToFile("res://scenes/main_menu.tscn");
+        _hud.ExitToMenuRequested += () => GetTree().ChangeSceneToFile("res://scenes/ui/screens/main_menu.tscn");
 
         _turnManager.TurnChanged += OnTurnChanged;
 
-        // 7. Initial UI Refresh
+        // 8. Initial UI Refresh
         RefreshEconomyUI();
     }
 
     private void SpawnInitialUnits()
     {
-        var unitScene = GD.Load<PackedScene>("res://scenes/unit.tscn");
+        var unitScene = GD.Load<PackedScene>("res://scenes/gameplay/unit.tscn");
         if (unitScene == null) return;
 
         Vector2I p1Pos = FindWalkableCell(new Vector2I(2, 2));
@@ -123,6 +179,23 @@ public partial class WorldMap : Node2D
         if (unit.FactionId == 0)
         {
             _turnManager.RegisterPlayerUnit(unit);
+
+            var uCfg = GameConfigManager.GetUnitConfig(unit.UnitConfigId);
+            _playerFaction.Units.Add(new UnitData
+            {
+                Id = unit.UnitConfigId,
+                Name = unit.UnitName,
+                FactionId = unit.FactionId,
+                HpMax = unit.HpMax,
+                CurrentHp = unit.HpCurrent,
+                Attack = unit.Attack,
+                Defense = unit.Defense,
+                MovementMax = unit.MovementRangeMax,
+                MovementRemaining = unit.MovementRangeRemaining,
+                GridPosition = unit.GridPosition,
+                Upkeep = uCfg?.Upkeep ?? ResourceBundle.Zero,
+                ProductionCost = uCfg?.Cost ?? ResourceBundle.Zero
+            });
         }
 
         unit.UnitSelected += OnUnitSelected;
@@ -238,9 +311,9 @@ public partial class WorldMap : Node2D
 
         _pathVisualizer.ClearPath();
 
-        // Highlight selected hex and display tile details in TacticalHUD
+        // Highlight selected hex and display tile details in TacticalHUD via EconomyHUDController
         _hexIndicator.SelectHex(hexCell.WorldPosition);
-        _hud.DisplayTile(hexCell);
+        _economyHUDController.OnTileSelected(hexCell);
     }
 
     private void HandleRightClickMove()
@@ -346,14 +419,7 @@ public partial class WorldMap : Node2D
 
     private void RefreshEconomyUI()
     {
-        _hud.UpdateEconomy(
-            _turnManager.Food,
-            _turnManager.FoodYield,
-            _turnManager.Production,
-            _turnManager.ProductionYield,
-            _turnManager.Gold,
-            _turnManager.GoldYield,
-            _turnManager.TurnCount
-        );
+        var (_, _, netIncome) = _economyManager.CalculateTurnIncome(_playerFaction);
+        _hud.UpdateEconomy(_playerFaction.Treasury, netIncome, _turnManager.TurnCount);
     }
 }

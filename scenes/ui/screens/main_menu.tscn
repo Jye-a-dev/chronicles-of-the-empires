@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://btqt81p0pepyh" path="res://assets/sprites/logo_1.png" id="3_logo"]
 [ext_resource type="Script" uid="uid://di1x8xk6ynu0k" path="res://scripts/UI/Components/PrimaryMenuColumn.cs" id="4_primary"]
 [ext_resource type="Script" uid="uid://da6o31dykxpt7" path="res://scripts/UI/Components/SecondaryActionBar.cs" id="5_secondary"]
-[ext_resource type="PackedScene" path="res://scenes/campaign_modal.tscn" id="8_campaign_modal_scene"]
-[ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="7_settings_modal_scene"]
-[ext_resource type="PackedScene" uid="uid://c6y7m1t8le0title" path="res://scenes/ui/menu_title.tscn" id="9_menutitle"]
+[ext_resource type="PackedScene" path="res://scenes/ui/modals/campaign_modal.tscn" id="8_campaign_modal_scene"]
+[ext_resource type="PackedScene" path="res://scenes/ui/modals/settings_modal.tscn" id="7_settings_modal_scene"]
+[ext_resource type="PackedScene" uid="uid://c6y7m1t8le0title" path="res://scenes/ui/components/menu_title.tscn" id="9_menutitle"]
 
 [sub_resource type="Gradient" id="Gradient_embers"]
 offsets = PackedFloat32Array(0, 0.15, 0.6, 0.85, 1)

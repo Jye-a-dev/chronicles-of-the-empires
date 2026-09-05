@@ -1,0 +1,71 @@
+# ==============================================================================
+# VẠN QUỐC PHONG VÂN KÝ - CẤU HÌNH MỎ TÀI NGUYÊN SA BÀN (RESOURCE DEPOSITS)
+# ==============================================================================
+# Định dạng mỗi loại mỏ tài nguyên:
+# [DEPOSIT_ID]
+# name = Tên mỏ tài nguyên
+# category = Mineral / Agricultural / Cultural
+# required_improvement = Mã công trình bắt buộc để khai thác (e.g. mine, granary, sawmill)
+# food = Sản lượng lương thực cộng thêm
+# prod = Sản lượng sản xuất cộng thêm
+# gold = Sản lượng vàng cộng thêm
+# sci = Sản lượng khoa học cộng thêm
+# faith = Sản lượng tín ngưỡng cộng thêm
+# is_tradeable = true / false (cho phép trao đổi thương mại giữa các phe)
+# ==============================================================================
+
+[iron_mine]
+name = Mỏ Quặng Sắt
+category = Mineral
+required_improvement = mine
+food = 0
+prod = 3
+gold = 1
+sci = 1
+faith = 0
+is_tradeable = true
+
+[gold_vein]
+name = Mạch Vàng Sa Khoáng
+category = Mineral
+required_improvement = mine
+food = 0
+prod = 1
+gold = 5
+sci = 0
+faith = 0
+is_tradeable = true
+
+[paddy_field]
+name = Thửa Ruộng Màu Mỡ
+category = Agricultural
+required_improvement = granary
+food = 4
+prod = 0
+gold = 1
+sci = 0
+faith = 0
+is_tradeable = true
+
+[ancient_forest]
+name = Lâm Trường Gỗ Lim
+category = Agricultural
+required_improvement = sawmill
+food = 1
+prod = 3
+gold = 1
+sci = 0
+faith = 0
+is_tradeable = true
+
+[sacred_spring]
+name = Long Mạch Cổ Thụ
+category = Cultural
+required_improvement = temple
+food = 1
+prod = 0
+gold = 1
+sci = 2
+faith = 4
+is_tradeable = false
+

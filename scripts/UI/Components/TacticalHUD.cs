@@ -59,6 +59,11 @@ public partial class TacticalHUD : Control
         _resourceBar?.UpdateEconomy(food, foodYield, prod, prodYield, gold, goldYield, turn);
     }
 
+    public void UpdateEconomy(in ChroniclesOfTheEmpires.Core.Economy.ResourceBundle treasury, in ChroniclesOfTheEmpires.Core.Economy.ResourceBundle netIncome, int turn)
+    {
+        _resourceBar?.UpdateEconomy(treasury, netIncome, turn);
+    }
+
     public void DisplayTile(HexCell cell)
     {
         _unitInfoModal?.CloseModal();

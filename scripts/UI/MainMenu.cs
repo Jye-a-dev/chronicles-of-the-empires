@@ -13,10 +13,10 @@ namespace ChroniclesOfTheEmpires.UI;
 public partial class MainMenu : Control
 {
     [Export(PropertyHint.File, "*.tscn")]
-    private string _campaignScenePath = "res://scenes/world_map.tscn";
+    private string _campaignScenePath = "res://scenes/gameplay/world_map.tscn";
 
     [Export(PropertyHint.File, "*.tscn")]
-    private string _loadingScreenPath = "res://scenes/loading_screen.tscn";
+    private string _loadingScreenPath = "res://scenes/ui/screens/loading_screen.tscn";
 
     [Export]
     private string _communityUrl = "https://discord.gg/chronicles-of-the-empires";
@@ -78,7 +78,7 @@ public partial class MainMenu : Control
 
         if (_campaignModal == null)
         {
-            var campaignScene = GD.Load<PackedScene>("res://scenes/campaign_modal.tscn");
+            var campaignScene = GD.Load<PackedScene>("res://scenes/ui/modals/campaign_modal.tscn");
             if (campaignScene != null)
             {
                 _campaignModal = campaignScene.Instantiate<CampaignModal>();
@@ -92,7 +92,7 @@ public partial class MainMenu : Control
 
         if (_settingsModal == null)
         {
-            var modalScene = GD.Load<PackedScene>("res://scenes/settings_modal.tscn");
+            var modalScene = GD.Load<PackedScene>("res://scenes/ui/modals/settings_modal.tscn");
             if (modalScene != null)
             {
                 _settingsModal = modalScene.Instantiate<SettingsModal>();
@@ -159,7 +159,7 @@ public partial class MainMenu : Control
         MenuAudioHelper.PlaySound(_sfxClick);
         if (_campaignModal == null)
         {
-            var campaignScene = GD.Load<PackedScene>("res://scenes/campaign_modal.tscn");
+            var campaignScene = GD.Load<PackedScene>("res://scenes/ui/modals/campaign_modal.tscn");
             if (campaignScene != null)
             {
                 _campaignModal = campaignScene.Instantiate<CampaignModal>();
@@ -213,7 +213,7 @@ public partial class MainMenu : Control
         MenuAudioHelper.PlaySound(_sfxClick);
         if (_settingsModal == null)
         {
-            var modalScene = GD.Load<PackedScene>("res://scenes/settings_modal.tscn");
+            var modalScene = GD.Load<PackedScene>("res://scenes/ui/modals/settings_modal.tscn");
             if (modalScene != null)
             {
                 _settingsModal = modalScene.Instantiate<SettingsModal>();

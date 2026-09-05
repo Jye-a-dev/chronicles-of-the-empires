@@ -87,6 +87,19 @@ public sealed class PathfindingManager
         }
     }
 
+    /// <summary>
+    /// Re-evaluates traversal weight scale and impassable obstacle state for a cell based on TileTerrainData and defense buildings.
+    /// </summary>
+    public void UpdateCellObstacle(Vector2I pos, HexCell cell)
+    {
+        if (IsInBounds(pos))
+        {
+            long id = GetPointId(pos);
+            _aStar.SetPointDisabled(id, cell.IsSolid);
+            _aStar.SetPointWeightScale(id, cell.MoveCost);
+        }
+    }
+
     public bool IsPointSolid(Vector2I pos)
     {
         return !IsInBounds(pos) || _aStar.IsPointDisabled(GetPointId(pos));

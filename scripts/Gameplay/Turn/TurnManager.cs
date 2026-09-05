@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Gameplay.Economy;
 
 #nullable enable
 
 namespace ChroniclesOfTheEmpires.Gameplay;
 
 /// <summary>
-/// Manages the turn-based game loop, turn counters, national stockpiles, and unit movement refresh cycles.
+/// Coordinates the turn cycle, synchronizes with EconomyManager, and refreshes unit tactical budgets.
+/// Single source of truth for the turn progression pipeline.
 /// </summary>
 public partial class TurnManager : Node
 {
@@ -25,15 +28,27 @@ public partial class TurnManager : Node
     public delegate void EconomyUpdatedEventHandler(int food, int prod, int gold);
 
     public int TurnCount { get; private set; } = 1;
-    public int Food { get; private set; } = 150;
-    public int Production { get; private set; } = 80;
-    public int Gold { get; private set; } = 120;
 
-    public int FoodYield { get; set; } = 12;
-    public int ProductionYield { get; set; } = 8;
-    public int GoldYield { get; set; } = 10;
+    public int Food => _playerFaction?.Treasury.Food ?? 0;
+    public int Production => _playerFaction?.Treasury.Production ?? 0;
+    public int Gold => _playerFaction?.Treasury.Gold ?? 0;
+    public int Science => _playerFaction?.Treasury.Science ?? 0;
+    public int Faith => _playerFaction?.Treasury.Faith ?? 0;
+
+    public int FoodYield { get; private set; }
+    public int ProductionYield { get; private set; }
+    public int GoldYield { get; private set; }
 
     private readonly List<UnitController> _playerUnits = new();
+    private FactionData? _playerFaction;
+    private EconomyManager? _economyManager;
+
+    public void Initialize(FactionData playerFaction, EconomyManager economyManager)
+    {
+        _playerFaction = playerFaction;
+        _economyManager = economyManager;
+        UpdateYields();
+    }
 
     public void RegisterPlayerUnit(UnitController unit)
     {
@@ -48,24 +63,47 @@ public partial class TurnManager : Node
         _playerUnits.Remove(unit);
     }
 
+    private void UpdateYields()
+    {
+        if (_playerFaction != null && _economyManager != null)
+        {
+            var (_, _, net) = _economyManager.CalculateTurnIncome(_playerFaction);
+            FoodYield = net.Food;
+            ProductionYield = net.Production;
+            GoldYield = net.Gold;
+        }
+    }
+
     /// <summary>
-    /// Executes the End Turn cycle: increments turn, harvests yields, and refreshes unit movement budgets.
+    /// Executes atomic End Turn cycle:
+    /// 1. Increments turn counter.
+    /// 2. Processes economy for all factions via EconomyManager.
+    /// 3. Resets tactical movement budgets for player units.
+    /// 4. Emits synchronized signals.
     /// </summary>
     public void EndTurn()
     {
         TurnCount++;
-        Food += FoodYield;
-        Production += ProductionYield;
-        Gold += GoldYield;
 
-        foreach (var unit in _playerUnits)
+        // 1. Process all factions economy atomically
+        if (_economyManager != null)
         {
+            _economyManager.ProcessAllFactionsEndTurn();
+        }
+
+        UpdateYields();
+
+        // 2. Refresh player military movement points
+        for (int i = 0; i < _playerUnits.Count; i++)
+        {
+            var unit = _playerUnits[i];
             if (IsInstanceValid(unit))
             {
                 unit.ResetTurnMovement();
             }
         }
 
+        // 3. Emit turn changed signal
         EmitSignal(
             SignalName.TurnChanged,
             TurnCount,
@@ -80,10 +118,11 @@ public partial class TurnManager : Node
 
     public void SpendResources(int foodCost, int prodCost, int goldCost)
     {
-        Food -= foodCost;
-        Production -= prodCost;
-        Gold -= goldCost;
-        EmitSignal(SignalName.EconomyUpdated, Food, Production, Gold);
+        if (_playerFaction != null)
+        {
+            var cost = new ResourceBundle(foodCost, prodCost, goldCost, 0, 0);
+            _playerFaction.Treasury -= cost;
+            EmitSignal(SignalName.EconomyUpdated, Food, Production, Gold);
+        }
     }
 }
-

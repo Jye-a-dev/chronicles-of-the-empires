@@ -29,7 +29,8 @@ public class SettingsData
 public static class SettingsManager
 {
     public const string UserSettingsPath = "user://settings.txt";
-    public const string LocalSettingsPath = "res://data/settings.txt";
+    public const string LocalSettingsPath = "res://data/config/settings.txt";
+    public const string FallbackSettingsPath = "res://data/settings.txt";
 
     public static SettingsData Current { get; set; } = new();
 
@@ -59,13 +60,15 @@ public static class SettingsManager
         var data = new SettingsData();
         string path = UserSettingsPath;
 
+        string localPath = FileAccess.FileExists(LocalSettingsPath) ? LocalSettingsPath : FallbackSettingsPath;
+
         // In development or when local settings.txt is edited, prioritize whichever file is newer
-        if (FileAccess.FileExists(LocalSettingsPath))
+        if (FileAccess.FileExists(localPath))
         {
             if (!FileAccess.FileExists(UserSettingsPath) ||
-                FileAccess.GetModifiedTime(LocalSettingsPath) > FileAccess.GetModifiedTime(UserSettingsPath))
+                FileAccess.GetModifiedTime(localPath) > FileAccess.GetModifiedTime(UserSettingsPath))
             {
-                path = LocalSettingsPath;
+                path = localPath;
             }
         }
 

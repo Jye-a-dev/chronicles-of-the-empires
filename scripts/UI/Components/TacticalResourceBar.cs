@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Economy;
 using ChroniclesOfTheEmpires.UI;
 
 #nullable enable
@@ -7,7 +8,8 @@ using ChroniclesOfTheEmpires.UI;
 namespace ChroniclesOfTheEmpires.UI.Components;
 
 /// <summary>
-/// Component managing top-left tactical HUD resource yields, session branding, and turn telemetry.
+/// Component managing top-left tactical HUD resource telemetry, session branding, and turn telemetry.
+/// Strictly non-blocking (MouseFilter = Ignore), compact 640x360 layout, and consistent 9px typography.
 /// </summary>
 public partial class TacticalResourceBar : PanelContainer
 {
@@ -15,6 +17,8 @@ public partial class TacticalResourceBar : PanelContainer
     private RichTextLabel? _foodLabel;
     private RichTextLabel? _prodLabel;
     private RichTextLabel? _goldLabel;
+    private RichTextLabel? _sciLabel;
+    private RichTextLabel? _faithLabel;
     private Label? _turnTitleLabel;
     private Label? _turnLabel;
 
@@ -22,17 +26,45 @@ public partial class TacticalResourceBar : PanelContainer
 
     public override void _Ready()
     {
+        MouseFilter = MouseFilterEnum.Ignore;
+
+        var margin = GetNodeOrNull<MarginContainer>("Margin");
+        if (margin != null) margin.MouseFilter = MouseFilterEnum.Ignore;
+
+        var hbox = GetNodeOrNull<HBoxContainer>("Margin/HBox");
+        if (hbox != null) hbox.MouseFilter = MouseFilterEnum.Ignore;
+
         _sessionLabel = GetNodeOrNull<Label>("%SessionLabel") ?? GetNodeOrNull<Label>("Margin/HBox/SessionBadge/SessionLabel");
         _foodLabel = GetNodeOrNull<RichTextLabel>("%FoodLabel") ?? GetNodeOrNull<RichTextLabel>("Margin/HBox/FoodLabel");
         _prodLabel = GetNodeOrNull<RichTextLabel>("%ProdLabel") ?? GetNodeOrNull<RichTextLabel>("Margin/HBox/ProdLabel");
         _goldLabel = GetNodeOrNull<RichTextLabel>("%GoldLabel") ?? GetNodeOrNull<RichTextLabel>("Margin/HBox/GoldLabel");
+        _sciLabel = GetNodeOrNull<RichTextLabel>("%SciLabel") ?? GetNodeOrNull<RichTextLabel>("Margin/HBox/SciLabel");
+        _faithLabel = GetNodeOrNull<RichTextLabel>("%FaithLabel") ?? GetNodeOrNull<RichTextLabel>("Margin/HBox/FaithLabel");
+
         _turnTitleLabel = GetNodeOrNull<Label>("%TurnTitleLabel") ?? GetNodeOrNull<Label>("Margin/HBox/TurnBadge/VBox/TurnTitleLabel");
         _turnLabel = GetNodeOrNull<Label>("%TurnLabel") ?? GetNodeOrNull<Label>("Margin/HBox/TurnBadge/VBox/TurnLabel");
+
+        // Ensure all resource labels have consistent font size and non-blocking mouse filters
+        ConfigureLabel(_foodLabel);
+        ConfigureLabel(_prodLabel);
+        ConfigureLabel(_goldLabel);
+        ConfigureLabel(_sciLabel);
+        ConfigureLabel(_faithLabel);
 
         ApplyPlateStyling();
 
         LocalizationManager.LanguageChanged += UpdateLocalizedTexts;
         UpdateLocalizedTexts();
+    }
+
+    private static void ConfigureLabel(RichTextLabel? label)
+    {
+        if (label == null) return;
+        label.MouseFilter = MouseFilterEnum.Ignore;
+        label.AddThemeFontSizeOverride("normal_font_size", 9);
+        label.BbcodeEnabled = true;
+        label.FitContent = true;
+        label.AutowrapMode = TextServer.AutowrapMode.Off;
     }
 
     public void Initialize(string stageTitle)
@@ -41,22 +73,13 @@ public partial class TacticalResourceBar : PanelContainer
         UpdateSessionTitle();
     }
 
-    public void UpdateEconomy(int food, int foodYield, int prod, int prodYield, int gold, int goldYield, int turn)
+    public void UpdateEconomy(in ResourceBundle treasury, in ResourceBundle netIncome, int turn)
     {
-        if (_foodLabel != null)
-        {
-            _foodLabel.Text = $"🌾 {food} [color=#68b87d]+{foodYield}[/color]";
-        }
-
-        if (_prodLabel != null)
-        {
-            _prodLabel.Text = $"🔨 {prod} [color=#68b87d]+{prodYield}[/color]";
-        }
-
-        if (_goldLabel != null)
-        {
-            _goldLabel.Text = $"🪙 {gold} [color=#68b87d]+{goldYield}[/color]";
-        }
+        UpdateResourceLabel(_foodLabel, "🌾", treasury.Food, netIncome.Food);
+        UpdateResourceLabel(_prodLabel, "🔨", treasury.Production, netIncome.Production);
+        UpdateResourceLabel(_goldLabel, "🪙", treasury.Gold, netIncome.Gold);
+        UpdateResourceLabel(_sciLabel, "🔬", treasury.Science, netIncome.Science);
+        UpdateResourceLabel(_faithLabel, "📿", treasury.Faith, netIncome.Faith);
 
         if (_turnLabel != null)
         {
@@ -64,12 +87,41 @@ public partial class TacticalResourceBar : PanelContainer
         }
     }
 
+    public void UpdateEconomy(int food, int foodYield, int prod, int prodYield, int gold, int goldYield, int turn)
+    {
+        UpdateEconomy(
+            new ResourceBundle(food, prod, gold, 0, 0),
+            new ResourceBundle(foodYield, prodYield, goldYield, 0, 0),
+            turn
+        );
+    }
+
+    private static void UpdateResourceLabel(RichTextLabel? label, string icon, int current, int delta)
+    {
+        if (label == null) return;
+        string deltaText = delta switch
+        {
+            > 0 => $"[color=#68b87d]+{delta}[/color]",
+            < 0 => $"[color=#e03b24]{delta}[/color]",
+            _ => "[color=#888888]+0[/color]"
+        };
+        label.Text = $"[font_size=9]{icon} {current} {deltaText}[/font_size]";
+    }
+
     private void UpdateSessionTitle()
     {
-        if (_sessionLabel != null && !string.IsNullOrEmpty(_stageTitle))
+        if (_sessionLabel == null || string.IsNullOrEmpty(_stageTitle)) return;
+
+        // Keep stage title concise in top bar so it doesn't push resource metrics
+        string cleanTitle = _stageTitle.Trim();
+        int parenIdx = cleanTitle.IndexOf('(');
+        if (parenIdx > 0)
         {
-            _sessionLabel.Text = $"⚔ {_stageTitle.ToUpperInvariant()}";
+            cleanTitle = cleanTitle[..parenIdx].Trim();
         }
+
+        _sessionLabel.Text = $"⚔ {cleanTitle.ToUpperInvariant()}";
+        _sessionLabel.TooltipText = _stageTitle;
     }
 
     private void UpdateLocalizedTexts()

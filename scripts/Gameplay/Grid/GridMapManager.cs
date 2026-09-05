@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Config;
+using ChroniclesOfTheEmpires.Core.Economy;
 
 #nullable enable
 
@@ -302,7 +304,59 @@ public partial class GridMapManager : Node2D
                 _cells[x, y] = new HexCell(coords, worldPos, terrain);
             }
         }
+
+        DistributeResourceDeposits(random);
     }
+
+    private void DistributeResourceDeposits(Random rand)
+    {
+        for (int x = 0; x < MapWidth; x++)
+        {
+            for (int y = 0; y < MapHeight; y++)
+            {
+                var cell = _cells[x, y];
+                if (cell == null) continue;
+
+                string? depositKey = null;
+                if (cell.Terrain == TerrainType.Plains && rand.NextDouble() < 0.16)
+                {
+                    depositKey = "paddy_field";
+                }
+                else if (cell.Terrain == TerrainType.Forest && rand.NextDouble() < 0.18)
+                {
+                    depositKey = "ancient_forest";
+                }
+                else if (cell.Terrain == TerrainType.Mountain && rand.NextDouble() < 0.28)
+                {
+                    depositKey = rand.NextDouble() < 0.6 ? "iron_mine" : "gold_vein";
+                }
+                else if (rand.NextDouble() < 0.02)
+                {
+                    depositKey = "sacred_spring";
+                }
+
+                if (depositKey != null)
+                {
+                    var cfg = GameConfigManager.GetDepositConfig(depositKey);
+                    if (cfg != null)
+                    {
+                        cell.Deposit = new ResourceDepositData
+                        {
+                            Id = cfg.Id,
+                            Name = cfg.Name,
+                            Category = cfg.Category,
+                            RequiredImprovement = cfg.RequiredImprovement,
+                            BonusYield = cfg.BonusYield,
+                            IsTradeable = cfg.IsTradeable,
+                            IsExploited = false
+                        };
+                    }
+                }
+            }
+        }
+    }
+
+    public TileTerrainData? GetTileTerrainData(Vector2I pos) => GetCell(pos)?.TerrainData;
 
     private TerrainType DetermineTerrain(int x, int y, Random rand)
     {
@@ -489,7 +543,7 @@ public partial class GridMapManager : Node2D
     {
         if (!SpawnTileInstances || _tileContainer == null) return;
 
-        TileScene ??= GD.Load<PackedScene>("res://scenes/tile.tscn");
+        TileScene ??= GD.Load<PackedScene>("res://scenes/gameplay/tile.tscn");
         if (TileScene == null) return;
 
         foreach (Node child in _tileContainer.GetChildren())
