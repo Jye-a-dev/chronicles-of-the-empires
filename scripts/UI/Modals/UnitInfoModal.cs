@@ -53,9 +53,17 @@ public partial class UnitInfoModal : PanelContainer
 
         if (_unitFaction != null)
         {
-            bool isPlayer = unit.FactionId == 0;
-            _unitFaction.Text = isPlayer ? "★ QUÂN ĐỘI HOÀNG GIA" : "◆ QUÂN ĐOÀN ĐỐI ĐỊCH";
-            _unitFaction.Modulate = isPlayer ? new Color(0.96f, 0.82f, 0.35f) : new Color(0.92f, 0.35f, 0.35f);
+            if (unit.IsSurrendered)
+            {
+                _unitFaction.Text = "🏳 ĐƠN VỊ ĐÃ BUÔNG VŨ KHÍ (TRUNG LẬP)";
+                _unitFaction.Modulate = new Color(0.82f, 0.82f, 0.82f);
+            }
+            else
+            {
+                bool isPlayer = unit.FactionId == 0;
+                _unitFaction.Text = isPlayer ? "★ QUÂN ĐỘI HOÀNG GIA" : "◆ QUÂN ĐOÀN ĐỐI ĐỊCH";
+                _unitFaction.Modulate = isPlayer ? new Color(0.96f, 0.82f, 0.35f) : new Color(0.92f, 0.35f, 0.35f);
+            }
         }
 
         if (_unitDesc != null)
@@ -100,9 +108,23 @@ public partial class UnitInfoModal : PanelContainer
 
         if (_statusLabel != null)
         {
-            _statusLabel.Text = ActiveUnit.MovementRangeRemaining > 0
-                ? "Trạng thái: Sẵn sàng nhận lệnh tác chiến"
-                : "Trạng thái: Đã hoàn tất lượt đi";
+            if (ActiveUnit.IsSurrendered)
+            {
+                _statusLabel.Text = $"🏳 Trạng thái: VỠ TRẬN ĐẦU HÀNG (Chờ cứu: {ActiveUnit.SurrenderTurnsRemaining} lượt) | Nhuệ khí: {ActiveUnit.MoraleCurrent}/{ActiveUnit.MoraleMax}";
+                _statusLabel.Modulate = new Color(0.95f, 0.45f, 0.45f);
+            }
+            else if (ActiveUnit.MoraleCurrent < 20)
+            {
+                _statusLabel.Text = $"⚠ Trạng thái: Bất an, sĩ khí lung lay ({ActiveUnit.MoraleCurrent}/{ActiveUnit.MoraleMax})";
+                _statusLabel.Modulate = new Color(0.95f, 0.75f, 0.3f);
+            }
+            else
+            {
+                _statusLabel.Text = ActiveUnit.MovementRangeRemaining > 0
+                    ? $"Trạng thái: Sẵn sàng tác chiến (Nhuệ khí: {ActiveUnit.MoraleCurrent}/{ActiveUnit.MoraleMax})"
+                    : $"Trạng thái: Đã hoàn tất lượt đi (Nhuệ khí: {ActiveUnit.MoraleCurrent}/{ActiveUnit.MoraleMax})";
+                _statusLabel.Modulate = new Color(0.85f, 0.85f, 0.85f);
+            }
         }
     }
 

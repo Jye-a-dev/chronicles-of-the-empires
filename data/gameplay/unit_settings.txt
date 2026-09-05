@@ -13,7 +13,7 @@
 # cost_food = Chi phí lương thực để chiêu mộ
 # cost_prod = Chi phí sản xuất để chiêu mộ
 # cost_gold = Chi phí vàng để chiêu mộ
-# upkeep_food = Tiêu hao lương thực mỗi lượt (Upkeep Cấp 3)
+# upkeep_food = Tiêu hao lương thực mỗi lượt (Upkeep Cấp 3)1
 # upkeep_gold = Tiêu hao vàng mỗi lượt (Upkeep Cấp 3)
 # symbol = Ký tự biểu trưng hiển thị trên quân cờ (★, ◆, 🏹, 🛡, 🗡, v.v.)
 # visual_color = Mã màu thân quân cờ (#RRGGBB)
@@ -21,8 +21,8 @@
 # ==============================================================================
 
 [cam_ve_quan]
-name = Cấm Vệ Quân Đại Việt
-description = Binh chủng cận vệ hoàng triều tinh nhuệ, trang bị hộ tâm phiến đồng Đông Sơn và giáp mây kiên cố, xông xáo nơi tiền tuyến.
+name = Cấm Vệ Quân 
+description = Binh chủng cận vệ hoàng triều tinh nhuệ, trang bị hộ tâm phiến đồng và giáp mây kiên cố, xông xáo nơi tiền tuyến.
 faction_id = 0
 hp_max = 25
 attack = 7

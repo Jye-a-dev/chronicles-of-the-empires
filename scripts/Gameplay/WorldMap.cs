@@ -318,12 +318,59 @@ public partial class WorldMap : Node2D
 
     private void HandleRightClickMove()
     {
-        if (_selectedUnit == null || _selectedUnit.IsMoving || _selectedUnit.FactionId != 0) return;
+        if (_selectedUnit == null || _selectedUnit.IsMoving || _selectedUnit.FactionId != 0 || _selectedUnit.IsSurrendered) return;
 
         Vector2 mouseWorld = GetGlobalMousePosition();
         Vector2I targetGrid = GridMapManager.WorldToGrid(mouseWorld);
 
         if (!_gridMapManager.IsWithinBounds(targetGrid) || targetGrid == _selectedUnit.GridPosition) return;
+
+        var targetCell = _gridMapManager.GetCell(targetGrid);
+        if (targetCell?.OccupyingUnit is UnitController targetUnit && targetUnit.IsSurrendered)
+        {
+            var neighbors = _gridMapManager.GetSurroundingCells(targetGrid);
+            bool isAdjacent = Array.IndexOf(neighbors, _selectedUnit.GridPosition) >= 0;
+
+            if (isAdjacent)
+            {
+                ExecuteRecaptureOrder(_selectedUnit, targetUnit);
+                return;
+            }
+
+            Vector2I[] bestPath = Array.Empty<Vector2I>();
+            int lowestCost = int.MaxValue;
+
+            _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, false);
+            foreach (var neighbor in neighbors)
+            {
+                if (!_gridMapManager.IsWithinBounds(neighbor) || _pathfindingManager.IsPointSolid(neighbor)) continue;
+                var testPath = _pathfindingManager.FindPath(_selectedUnit.GridPosition, neighbor);
+                if (testPath.Length > 1)
+                {
+                    int cost = _pathfindingManager.CalculatePathCost(testPath, _gridMapManager);
+                    if (cost < lowestCost && cost <= _selectedUnit.MovementRangeRemaining)
+                    {
+                        lowestCost = cost;
+                        bestPath = testPath;
+                    }
+                }
+            }
+
+            if (bestPath.Length > 1)
+            {
+                _selectedUnit.MoveAlongPath(bestPath, lowestCost, () =>
+                {
+                    ExecuteRecaptureOrder(_selectedUnit, targetUnit);
+                    _hexIndicator.SelectHex(_selectedUnit.Position);
+                    _hud.RefreshUnitInfo();
+                });
+                _pathVisualizer.ClearPath();
+                return;
+            }
+
+            _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, true);
+            return;
+        }
 
         _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, false);
         var path = _pathfindingManager.FindPath(_selectedUnit.GridPosition, targetGrid);
@@ -344,6 +391,45 @@ public partial class WorldMap : Node2D
         }
 
         _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, true);
+    }
+
+    private void ExecuteRecaptureOrder(UnitController actor, UnitController target)
+    {
+        if (target.TryInteractRecapture(actor, _economyManager, _playerFaction))
+        {
+            if (target.FactionId == 0)
+            {
+                _turnManager.RegisterPlayerUnit(target);
+
+                if (!_playerFaction.Units.Exists(u => u.GridPosition == target.GridPosition))
+                {
+                    var uCfg = GameConfigManager.GetUnitConfig(target.UnitConfigId);
+                    _playerFaction.Units.Add(new UnitData
+                    {
+                        Id = target.UnitConfigId,
+                        Name = target.UnitName,
+                        FactionId = target.FactionId,
+                        OriginalFactionId = target.OriginalFactionId,
+                        HpMax = target.HpMax,
+                        CurrentHp = target.HpCurrent,
+                        Attack = target.Attack,
+                        Defense = target.Defense,
+                        MovementMax = target.MovementRangeMax,
+                        MovementRemaining = target.MovementRangeRemaining,
+                        GridPosition = target.GridPosition,
+                        MoraleMax = target.MoraleMax,
+                        MoraleCurrent = target.MoraleCurrent,
+                        IsSurrendered = target.IsSurrendered,
+                        SurrenderTurnsRemaining = target.SurrenderTurnsRemaining,
+                        Upkeep = uCfg?.Upkeep ?? ResourceBundle.Zero,
+                        ProductionCost = uCfg?.Cost ?? ResourceBundle.Zero
+                    });
+                }
+            }
+
+            RefreshEconomyUI();
+            _hud.DisplayUnit(target);
+        }
     }
 
     private void HandleMouseHoverPreview()
@@ -407,6 +493,25 @@ public partial class WorldMap : Node2D
 
     private void OnEndTurnPressed()
     {
+        for (int i = 0; i < _allUnits.Count; i++)
+        {
+            var unit = _allUnits[i];
+            if (IsInstanceValid(unit) && unit.IsSurrendered)
+            {
+                int prevFaction = unit.FactionId;
+                unit.ProcessEndTurnSurrender(_allUnits);
+                if (!unit.IsSurrendered && unit.FactionId == 0 && prevFaction != 0)
+                {
+                    _turnManager.RegisterPlayerUnit(unit);
+                }
+                else if (!unit.IsSurrendered && unit.FactionId != 0 && prevFaction == 0)
+                {
+                    _turnManager.UnregisterPlayerUnit(unit);
+                    _playerFaction.Units.RemoveAll(u => u.GridPosition == unit.GridPosition);
+                }
+            }
+        }
+
         _turnManager.EndTurn();
         DeselectAll();
     }
