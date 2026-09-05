@@ -2,12 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/Gameplay/Units/UnitController.cs" id="1_unit"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_unit"]
-radius = 11.0
-
-[node name="Unit" type="CharacterBody2D"]
+[node name="Unit" type="Node2D"]
 z_index = 10
-input_pickable = true
 script = ExtResource("1_unit")
 
 [node name="VisualBorder" type="ColorRect" parent="."]
@@ -48,6 +44,3 @@ mouse_filter = 2
 border_color = Color(1, 0.88, 0.2, 1)
 border_width = 1.5
 editor_only = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_unit")

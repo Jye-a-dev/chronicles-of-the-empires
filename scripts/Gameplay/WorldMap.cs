@@ -15,6 +15,7 @@ namespace ChroniclesOfTheEmpires.Gameplay;
 /// Master tactical world map coordinator.
 /// Orchestrates GridMapManager, PathfindingManager, UnitController, RTSCamera2D, TurnManager,
 /// EconomyManager, EconomyHUDController, HexSelectionIndicator, and decoupled TacticalHUD UI components.
+/// Uses 100% Grid Mouse Picking (no physics raycast) and strict Single Source of Truth architecture.
 /// </summary>
 public partial class WorldMap : Node2D
 {
@@ -120,7 +121,7 @@ public partial class WorldMap : Node2D
         _economyHUDController.Bind(_economyManager, _hud, _turnManager);
         _turnManager.Initialize(_playerFaction, _economyManager);
 
-        // 6. Spawn Initial Units from customizable txt settings
+        // 6. Spawn Initial Units using decoupled Controller-Model binding
         SpawnInitialUnits();
 
         // 7. Connect UI Events & HUD
@@ -143,29 +144,43 @@ public partial class WorldMap : Node2D
         Vector2I p2Pos = FindWalkableCell(new Vector2I(3, 3));
         Vector2I rivalPos = FindWalkableCell(new Vector2I(_gridMapManager.MapWidth - 4, _gridMapManager.MapHeight - 4));
 
-        // Spawn Player Unit 1 (Cấm Vệ Quân)
-        var player1 = unitScene.Instantiate<UnitController>();
-        _unitContainer.AddChild(player1);
-        player1.ApplyConfig("cam_ve_quan");
-        player1.SnapToGrid(p1Pos);
-        RegisterUnit(player1);
+        // Player Unit 1: Cấm Vệ Quân
+        SpawnUnit(unitScene, "cam_ve_quan", 0, p1Pos);
 
-        // Spawn Player Unit 2 (Cung Thủ Rừng Rậm)
-        var player2 = unitScene.Instantiate<UnitController>();
-        _unitContainer.AddChild(player2);
-        player2.ApplyConfig("cung_thu");
-        player2.SnapToGrid(p2Pos);
-        RegisterUnit(player2);
+        // Player Unit 2: Cung Thủ Rừng Rậm
+        SpawnUnit(unitScene, "cung_thu", 0, p2Pos);
 
-        // Spawn Rival Unit (Tiên Phong Địch Quốc)
-        var rival = unitScene.Instantiate<UnitController>();
-        _unitContainer.AddChild(rival);
-        rival.ApplyConfig("tien_phong_dich");
-        rival.SnapToGrid(rivalPos);
-        RegisterUnit(rival);
+        // Rival Unit: Tiên Phong Địch Quốc
+        SpawnUnit(unitScene, "tien_phong_dich", 1, rivalPos);
 
-        // Focus camera on first player     
         _camera.Position = GridMapManager.GridToWorldCenter(p1Pos);
+    }
+
+    private void SpawnUnit(PackedScene unitScene, string configId, int factionId, Vector2I gridPos)
+    {
+        var uCfg = GameConfigManager.GetUnitConfig(configId);
+        bool isRanged = configId.Contains("cung_thu", StringComparison.OrdinalIgnoreCase);
+
+        var data = new UnitData(
+            id: configId,
+            name: uCfg?.Name ?? "Chiến Binh",
+            factionId: factionId,
+            hpMax: uCfg?.HpMax ?? 20,
+            attack: uCfg?.Attack ?? 6,
+            defense: uCfg?.Defense ?? 3,
+            movementMax: uCfg?.MovementMax ?? 4,
+            gridPosition: gridPos,
+            upkeep: uCfg?.Upkeep ?? ResourceBundle.Zero,
+            cost: uCfg?.Cost ?? ResourceBundle.Zero,
+            description: uCfg?.Description ?? "",
+            isRanged: isRanged,
+            attackRange: isRanged ? 2 : 1
+        );
+
+        var controller = unitScene.Instantiate<UnitController>();
+        _unitContainer.AddChild(controller);
+        controller.Bind(data);
+        RegisterUnit(controller);
     }
 
     private void RegisterUnit(UnitController unit)
@@ -176,40 +191,59 @@ public partial class WorldMap : Node2D
         var cell = _gridMapManager.GetCell(unit.GridPosition);
         if (cell != null) cell.OccupyingUnit = unit;
 
+        var faction = FindFactionData(unit.FactionId);
+        if (faction != null && !faction.Units.Contains(unit.Data))
+        {
+            faction.Units.Add(unit.Data);
+        }
+
         if (unit.FactionId == 0)
         {
             _turnManager.RegisterPlayerUnit(unit);
-
-            var uCfg = GameConfigManager.GetUnitConfig(unit.UnitConfigId);
-            _playerFaction.Units.Add(new UnitData
-            {
-                Id = unit.UnitConfigId,
-                Name = unit.UnitName,
-                FactionId = unit.FactionId,
-                HpMax = unit.HpMax,
-                CurrentHp = unit.HpCurrent,
-                Attack = unit.Attack,
-                Defense = unit.Defense,
-                MovementMax = unit.MovementRangeMax,
-                MovementRemaining = unit.MovementRangeRemaining,
-                GridPosition = unit.GridPosition,
-                Upkeep = uCfg?.Upkeep ?? ResourceBundle.Zero,
-                ProductionCost = uCfg?.Cost ?? ResourceBundle.Zero
-            });
         }
 
-        unit.UnitSelected += OnUnitSelected;
+        unit.UnitDestroyed += HandleUnitDestroyed;
         unit.UnitMoved += (u, oldPos, newPos) =>
         {
-            _pathfindingManager.SetPointSolid(oldPos, false);
-            _pathfindingManager.SetPointSolid(newPos, true);
-
-            var oldCell = _gridMapManager.GetCell(oldPos);
-            if (oldCell != null) oldCell.OccupyingUnit = null;
-
-            var newCell = _gridMapManager.GetCell(newPos);
-            if (newCell != null) newCell.OccupyingUnit = u;
+            _hexIndicator.SelectHex(u.Position);
+            _hud.RefreshUnitInfo();
         };
+    }
+
+    private void HandleUnitDestroyed(UnitController unit)
+    {
+        _allUnits.Remove(unit);
+        _pathfindingManager.SetPointSolid(unit.GridPosition, false);
+
+        var cell = _gridMapManager.GetCell(unit.GridPosition);
+        if (cell?.OccupyingUnit == unit)
+        {
+            cell.OccupyingUnit = null;
+        }
+
+        var faction = FindFactionData(unit.FactionId);
+        faction?.Units.Remove(unit.Data);
+
+        if (unit.FactionId == 0)
+        {
+            _turnManager.UnregisterPlayerUnit(unit);
+        }
+
+        if (_selectedUnit == unit)
+        {
+            DeselectAll();
+        }
+    }
+
+    private FactionData? FindFactionData(int factionId)
+    {
+        if (factionId == 0) return _playerFaction;
+        var factions = _economyManager.Factions;
+        for (int i = 0; i < factions.Count; i++)
+        {
+            if (factions[i].FactionId == factionId) return factions[i];
+        }
+        return null;
     }
 
     private Vector2I FindWalkableCell(Vector2I preferred)
@@ -236,27 +270,13 @@ public partial class WorldMap : Node2D
         return new Vector2I(1, 1);
     }
 
-    private void OnUnitSelected(UnitController unit)
-    {
-        if (_selectedUnit != null && _selectedUnit != unit)
-        {
-            _selectedUnit.SetSelected(false);
-        }
-
-        _selectedUnit = unit;
-        _selectedUnit.SetSelected(true);
-
-        _hexIndicator.SelectHex(unit.Position);
-        _hud.DisplayUnit(unit);
-    }
-
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton mb && mb.Pressed)
         {
             if (mb.ButtonIndex == MouseButton.Right)
             {
-                HandleRightClickMove();
+                HandleRightClickAction();
             }
             else if (mb.ButtonIndex == MouseButton.Left)
             {
@@ -292,31 +312,63 @@ public partial class WorldMap : Node2D
 
     private void HandleLeftClickInspect()
     {
+        // Block new selection clicks while any unit is currently animating movement
+        if (_selectedUnit != null && _selectedUnit.IsMoving) return;
+
         Vector2 mouseWorld = GetGlobalMousePosition();
         Vector2I gridPos = GridMapManager.WorldToGrid(mouseWorld);
-        var hexCell = _gridMapManager.GetCell(gridPos);
 
+        if (!_gridMapManager.IsWithinBounds(gridPos))
+        {
+            DeselectAll();
+            return;
+        }
+
+        var hexCell = _gridMapManager.GetCell(gridPos);
         if (hexCell == null)
         {
             DeselectAll();
             return;
         }
 
-        // Clear active unit selection when clicking on an empty hex
+        // Pure Grid Mouse Picking: check if this hex contains an occupying military unit
+        if (hexCell.OccupyingUnit is UnitController clickedUnit && IsInstanceValid(clickedUnit))
+        {
+            SelectUnit(clickedUnit);
+            return;
+        }
+
+        // Empty hex clicked: clear unit selection and display tile economic data
+        DeselectUnitOnly();
+        _pathVisualizer.ClearPath();
+        _hexIndicator.SelectHex(hexCell.WorldPosition);
+        _economyHUDController.OnTileSelected(hexCell);
+    }
+
+    private void SelectUnit(UnitController unit)
+    {
+        if (_selectedUnit != null && _selectedUnit != unit)
+        {
+            _selectedUnit.SetSelected(false);
+        }
+
+        _selectedUnit = unit;
+        _selectedUnit.SetSelected(true);
+
+        _hexIndicator.SelectHex(unit.Position);
+        _hud.DisplayUnit(unit);
+    }
+
+    private void DeselectUnitOnly()
+    {
         if (_selectedUnit != null)
         {
             _selectedUnit.SetSelected(false);
             _selectedUnit = null;
         }
-
-        _pathVisualizer.ClearPath();
-
-        // Highlight selected hex and display tile details in TacticalHUD via EconomyHUDController
-        _hexIndicator.SelectHex(hexCell.WorldPosition);
-        _economyHUDController.OnTileSelected(hexCell);
     }
 
-    private void HandleRightClickMove()
+    private void HandleRightClickAction()
     {
         if (_selectedUnit == null || _selectedUnit.IsMoving || _selectedUnit.FactionId != 0 || _selectedUnit.IsSurrendered) return;
 
@@ -326,110 +378,255 @@ public partial class WorldMap : Node2D
         if (!_gridMapManager.IsWithinBounds(targetGrid) || targetGrid == _selectedUnit.GridPosition) return;
 
         var targetCell = _gridMapManager.GetCell(targetGrid);
-        if (targetCell?.OccupyingUnit is UnitController targetUnit && targetUnit.IsSurrendered)
-        {
-            var neighbors = _gridMapManager.GetSurroundingCells(targetGrid);
-            bool isAdjacent = Array.IndexOf(neighbors, _selectedUnit.GridPosition) >= 0;
+        if (targetCell == null) return;
 
-            if (isAdjacent)
+        // 1. Target cell contains a Unit: determine Recapture or Combat
+        if (targetCell.OccupyingUnit is UnitController targetUnit && IsInstanceValid(targetUnit))
+        {
+            if (targetUnit.IsSurrendered)
             {
-                ExecuteRecaptureOrder(_selectedUnit, targetUnit);
+                HandleSurrenderedInteraction(_selectedUnit, targetUnit, targetGrid);
                 return;
             }
 
+            if (targetUnit.FactionId != _selectedUnit.FactionId)
+            {
+                HandleCombatTarget(_selectedUnit, targetUnit, targetGrid);
+                return;
+            }
+
+            // Clicked friendly unit: switch selection
+            SelectUnit(targetUnit);
+            return;
+        }
+
+        // 2. Target cell is empty: execute safe movement
+        ExecuteSafeMove(_selectedUnit, targetGrid, targetCell);
+    }
+
+    private void HandleSurrenderedInteraction(UnitController actor, UnitController target, Vector2I targetGrid)
+    {
+        var neighbors = _gridMapManager.GetSurroundingCells(targetGrid);
+        bool isAdjacent = Array.IndexOf(neighbors, actor.GridPosition) >= 0;
+
+        if (isAdjacent)
+        {
+            ExecuteRecaptureOrder(actor, target);
+            return;
+        }
+
+        // Move adjacent then recapture
+        Vector2I[] bestPath = Array.Empty<Vector2I>();
+        int lowestCost = int.MaxValue;
+
+        _pathfindingManager.SetPointSolid(actor.GridPosition, false);
+        for (int i = 0; i < neighbors.Length; i++)
+        {
+            var neighbor = neighbors[i];
+            if (!_gridMapManager.IsWithinBounds(neighbor) || _pathfindingManager.IsPointSolid(neighbor)) continue;
+
+            var testPath = _pathfindingManager.FindPath(actor.GridPosition, neighbor);
+            if (testPath.Length > 1)
+            {
+                int cost = _pathfindingManager.CalculatePathCost(testPath, _gridMapManager);
+                if (cost < lowestCost && cost <= actor.MovementRangeRemaining)
+                {
+                    lowestCost = cost;
+                    bestPath = testPath;
+                }
+            }
+        }
+        _pathfindingManager.SetPointSolid(actor.GridPosition, true);
+
+        if (bestPath.Length > 1)
+        {
+            Vector2I moveDest = bestPath[^1];
+            var destCell = _gridMapManager.GetCell(moveDest);
+            if (destCell != null)
+            {
+                ExecuteSafeMove(actor, moveDest, destCell, () =>
+                {
+                    ExecuteRecaptureOrder(actor, target);
+                });
+            }
+        }
+    }
+
+    private void HandleCombatTarget(UnitController attacker, UnitController defender, Vector2I targetGrid)
+    {
+        if (attacker.MovementRangeRemaining <= 0) return;
+
+        bool inRange = IsWithinAttackRange(attacker.GridPosition, targetGrid, attacker.Data.IsRanged ? attacker.Data.AttackRange : 1);
+        if (inRange)
+        {
+            ExecuteCombatResolution(attacker, defender);
+            return;
+        }
+
+        // If not in range, attempt to move adjacent (for melee units)
+        if (!attacker.Data.IsRanged)
+        {
+            var neighbors = _gridMapManager.GetSurroundingCells(targetGrid);
             Vector2I[] bestPath = Array.Empty<Vector2I>();
             int lowestCost = int.MaxValue;
 
-            _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, false);
-            foreach (var neighbor in neighbors)
+            _pathfindingManager.SetPointSolid(attacker.GridPosition, false);
+            for (int i = 0; i < neighbors.Length; i++)
             {
+                var neighbor = neighbors[i];
                 if (!_gridMapManager.IsWithinBounds(neighbor) || _pathfindingManager.IsPointSolid(neighbor)) continue;
-                var testPath = _pathfindingManager.FindPath(_selectedUnit.GridPosition, neighbor);
+
+                var testPath = _pathfindingManager.FindPath(attacker.GridPosition, neighbor);
                 if (testPath.Length > 1)
                 {
                     int cost = _pathfindingManager.CalculatePathCost(testPath, _gridMapManager);
-                    if (cost < lowestCost && cost <= _selectedUnit.MovementRangeRemaining)
+                    if (cost < lowestCost && cost <= attacker.MovementRangeRemaining)
                     {
                         lowestCost = cost;
                         bestPath = testPath;
                     }
                 }
             }
+            _pathfindingManager.SetPointSolid(attacker.GridPosition, true);
 
             if (bestPath.Length > 1)
             {
-                _selectedUnit.MoveAlongPath(bestPath, lowestCost, () =>
+                Vector2I moveDest = bestPath[^1];
+                var destCell = _gridMapManager.GetCell(moveDest);
+                if (destCell != null)
                 {
-                    ExecuteRecaptureOrder(_selectedUnit, targetUnit);
-                    _hexIndicator.SelectHex(_selectedUnit.Position);
-                    _hud.RefreshUnitInfo();
-                });
-                _pathVisualizer.ClearPath();
-                return;
+                    ExecuteSafeMove(attacker, moveDest, destCell, () =>
+                    {
+                        if (IsInstanceValid(defender) && defender.HpCurrent > 0)
+                        {
+                            ExecuteCombatResolution(attacker, defender);
+                        }
+                    });
+                }
             }
+        }
+    }
 
-            _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, true);
+    private bool IsWithinAttackRange(Vector2I start, Vector2I target, int range)
+    {
+        if (start == target) return true;
+        if (range <= 0) return false;
+
+        var neighbors = _gridMapManager.GetSurroundingCells(start);
+        if (Array.IndexOf(neighbors, target) >= 0) return true;
+        if (range == 1) return false;
+
+        // Range 2: check 2nd-degree surrounding cells
+        for (int i = 0; i < neighbors.Length; i++)
+        {
+            var n2 = _gridMapManager.GetSurroundingCells(neighbors[i]);
+            if (Array.IndexOf(n2, target) >= 0) return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Executes movement and pre-locks target cell in A* and HexCell occupancy BEFORE the Tween begins,
+    /// eliminating A* solid race condition and preventing stacking collisions.
+    /// </summary>
+    private void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, HexCell targetCell, Action? onComplete = null)
+    {
+        _pathfindingManager.SetPointSolid(unit.GridPosition, false);
+        var path = _pathfindingManager.FindPath(unit.GridPosition, targetGrid);
+
+        if (path.Length <= 1)
+        {
+            _pathfindingManager.SetPointSolid(unit.GridPosition, true);
             return;
         }
 
-        _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, false);
-        var path = _pathfindingManager.FindPath(_selectedUnit.GridPosition, targetGrid);
-
-        if (path.Length > 1)
+        int cost = _pathfindingManager.CalculatePathCost(path, _gridMapManager);
+        if (cost > unit.MovementRangeRemaining)
         {
-            int cost = _pathfindingManager.CalculatePathCost(path, _gridMapManager);
-            if (cost <= _selectedUnit.MovementRangeRemaining)
-            {
-                _selectedUnit.MoveAlongPath(path, cost, () =>
-                {
-                    _hexIndicator.SelectHex(_selectedUnit.Position);
-                    _hud.RefreshUnitInfo();
-                });
-                _pathVisualizer.ClearPath();
-                return;
-            }
+            _pathfindingManager.SetPointSolid(unit.GridPosition, true);
+            return;
         }
 
-        _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, true);
+        // PRE-LOCK OCCUPANCY: Lock destination cell immediately before Tween starts
+        Vector2I oldPos = unit.GridPosition;
+        _pathfindingManager.SetPointSolid(oldPos, false);
+        _pathfindingManager.SetPointSolid(targetGrid, true);
+
+        var oldCell = _gridMapManager.GetCell(oldPos);
+        if (oldCell != null) oldCell.OccupyingUnit = null;
+
+        targetCell.OccupyingUnit = unit;
+        unit.Data.GridPosition = targetGrid;
+
+        _pathVisualizer.ClearPath();
+
+        unit.MoveAlongPath(path, cost, () =>
+        {
+            _hexIndicator.SelectHex(unit.Position);
+            _hud.RefreshUnitInfo();
+            onComplete?.Invoke();
+        });
+    }
+
+    /// <summary>
+    /// Executes sequential combat resolution with strict guards against double suicides and ghost references.
+    /// Counter-attacks only occur if Defender remains alive, unsurrendered, and Attacker is not ranged.
+    /// </summary>
+    private void ExecuteCombatResolution(UnitController attacker, UnitController defender)
+    {
+        if (attacker.IsMoving || defender.IsMoving) return;
+
+        bool isRanged = attacker.Data.IsRanged;
+        int distance = Array.IndexOf(_gridMapManager.GetSurroundingCells(attacker.GridPosition), defender.GridPosition) >= 0 ? 1 : 2;
+
+        // Phase 1: Attacker strikes Defender
+        float atkMoraleMod = attacker.MoraleCurrent > 80 ? 1.15f : (attacker.MoraleCurrent < 40 ? 0.75f : 1.0f);
+        int rawDmg = Math.Max(1, (int)(attacker.Attack * atkMoraleMod) - defender.Defense);
+
+        defender.Data.ApplyDamage(rawDmg);
+        defender.Data.ModifyMorale(-20);
+
+        // Attacker expends tactical action budget (2 movement points or remaining)
+        attacker.Data.MovementRemaining = Math.Max(0, attacker.Data.MovementRemaining - 2);
+
+        // Phase 2: Counter-attack with strict sequential safety guard
+        if (defender.Data.CurrentHp > 0 && !defender.Data.IsSurrendered && !isRanged && distance == 1)
+        {
+            int counterDmg = Math.Max(1, defender.Defense - (attacker.Defense / 2));
+            attacker.Data.ApplyDamage(counterDmg);
+            attacker.Data.ModifyMorale(-10);
+        }
+
+        _hud.RefreshUnitInfo();
+        RefreshEconomyUI();
     }
 
     private void ExecuteRecaptureOrder(UnitController actor, UnitController target)
     {
-        if (target.TryInteractRecapture(actor, _economyManager, _playerFaction))
+        if (actor.IsMoving || target.IsMoving || !target.IsSurrendered) return;
+
+        bool isOriginalOwner = _playerFaction.FactionId == target.OriginalFactionId;
+        var cost = isOriginalOwner
+            ? new ResourceBundle(15, 0, 10, 0, 0)
+            : new ResourceBundle(0, 0, 10, 0, 0);
+
+        if (!_playerFaction.Treasury.HasEnough(cost)) return;
+
+        _playerFaction.Treasury -= cost;
+
+        target.Data.Recapture(_playerFaction.FactionId, isOriginalOwner ? 40 : 30);
+
+        if (!_playerFaction.Units.Contains(target.Data))
         {
-            if (target.FactionId == 0)
-            {
-                _turnManager.RegisterPlayerUnit(target);
-
-                if (!_playerFaction.Units.Exists(u => u.GridPosition == target.GridPosition))
-                {
-                    var uCfg = GameConfigManager.GetUnitConfig(target.UnitConfigId);
-                    _playerFaction.Units.Add(new UnitData
-                    {
-                        Id = target.UnitConfigId,
-                        Name = target.UnitName,
-                        FactionId = target.FactionId,
-                        OriginalFactionId = target.OriginalFactionId,
-                        HpMax = target.HpMax,
-                        CurrentHp = target.HpCurrent,
-                        Attack = target.Attack,
-                        Defense = target.Defense,
-                        MovementMax = target.MovementRangeMax,
-                        MovementRemaining = target.MovementRangeRemaining,
-                        GridPosition = target.GridPosition,
-                        MoraleMax = target.MoraleMax,
-                        MoraleCurrent = target.MoraleCurrent,
-                        IsSurrendered = target.IsSurrendered,
-                        SurrenderTurnsRemaining = target.SurrenderTurnsRemaining,
-                        Upkeep = uCfg?.Upkeep ?? ResourceBundle.Zero,
-                        ProductionCost = uCfg?.Cost ?? ResourceBundle.Zero
-                    });
-                }
-            }
-
-            RefreshEconomyUI();
-            _hud.DisplayUnit(target);
+            _playerFaction.Units.Add(target.Data);
         }
+        _turnManager.RegisterPlayerUnit(target);
+
+        actor.Data.MovementRemaining = Math.Max(0, actor.Data.MovementRemaining - 1);
+
+        RefreshEconomyUI();
+        _hud.DisplayUnit(target);
     }
 
     private void HandleMouseHoverPreview()
@@ -437,7 +634,6 @@ public partial class WorldMap : Node2D
         Vector2 mouseWorld = GetGlobalMousePosition();
         Vector2I targetGrid = GridMapManager.WorldToGrid(mouseWorld);
 
-        // Update subtle hex hover outline
         if (_hoverIndicator != null)
         {
             if (_gridMapManager.IsWithinBounds(targetGrid))
@@ -463,6 +659,13 @@ public partial class WorldMap : Node2D
             return;
         }
 
+        var targetCell = _gridMapManager.GetCell(targetGrid);
+        if (targetCell?.OccupyingUnit != null)
+        {
+            _pathVisualizer.ClearPath();
+            return;
+        }
+
         _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, false);
         var path = _pathfindingManager.FindPath(_selectedUnit.GridPosition, targetGrid);
         _pathfindingManager.SetPointSolid(_selectedUnit.GridPosition, true);
@@ -481,11 +684,7 @@ public partial class WorldMap : Node2D
 
     private void DeselectAll()
     {
-        if (_selectedUnit != null)
-        {
-            _selectedUnit.SetSelected(false);
-            _selectedUnit = null;
-        }
+        DeselectUnitOnly();
         _hexIndicator.ClearSelection();
         _pathVisualizer.ClearPath();
         _hud.DeselectAll();
@@ -493,27 +692,69 @@ public partial class WorldMap : Node2D
 
     private void OnEndTurnPressed()
     {
+        // Guard: lock End Turn while any unit is currently animating movement
         for (int i = 0; i < _allUnits.Count; i++)
         {
+            if (IsInstanceValid(_allUnits[i]) && _allUnits[i].IsMoving) return;
+        }
+
+        // Process Surrendered Units: local O(1) hex neighborhood scan for rival defections
+        for (int i = _allUnits.Count - 1; i >= 0; i--)
+        {
             var unit = _allUnits[i];
-            if (IsInstanceValid(unit) && unit.IsSurrendered)
+            if (!IsInstanceValid(unit) || !unit.IsSurrendered) continue;
+
+            unit.Data.SurrenderTurnsRemaining--;
+            if (unit.Data.SurrenderTurnsRemaining <= 0)
             {
-                int prevFaction = unit.FactionId;
-                unit.ProcessEndTurnSurrender(_allUnits);
-                if (!unit.IsSurrendered && unit.FactionId == 0 && prevFaction != 0)
+                UnitController? rivalNeighbor = null;
+                var neighbors = _gridMapManager.GetSurroundingCells(unit.GridPosition);
+                for (int n = 0; n < neighbors.Length; n++)
                 {
-                    _turnManager.RegisterPlayerUnit(unit);
+                    var cell = _gridMapManager.GetCell(neighbors[n]);
+                    if (cell?.OccupyingUnit is UnitController other && IsInstanceValid(other) &&
+                        !other.IsSurrendered && other.FactionId != unit.OriginalFactionId)
+                    {
+                        rivalNeighbor = other;
+                        break;
+                    }
                 }
-                else if (!unit.IsSurrendered && unit.FactionId != 0 && prevFaction == 0)
+
+                if (rivalNeighbor != null)
                 {
-                    _turnManager.UnregisterPlayerUnit(unit);
-                    _playerFaction.Units.RemoveAll(u => u.GridPosition == unit.GridPosition);
+                    var currentOwner = FindFactionData(unit.FactionId);
+                    var recipientFaction = FindFactionData(rivalNeighbor.FactionId);
+
+                    if (currentOwner != null && recipientFaction != null)
+                    {
+                        ResolveDefection(unit.Data, currentOwner, recipientFaction);
+                    }
+                    else
+                    {
+                        unit.Data.Recapture(rivalNeighbor.FactionId, 25);
+                    }
+
+                    if (unit.FactionId == 0)
+                    {
+                        _turnManager.RegisterPlayerUnit(unit);
+                    }
+                    else
+                    {
+                        _turnManager.UnregisterPlayerUnit(unit);
+                    }
                 }
             }
         }
 
         _turnManager.EndTurn();
         DeselectAll();
+    }
+
+    public void ResolveDefection(UnitData unit, FactionData currentOwner, FactionData recipientFaction)
+    {
+        currentOwner.Units.Remove(unit);
+        recipientFaction.Units.Add(unit);
+        unit.Recapture(recipientFaction.FactionId, restoredMorale: 25);
     }
 
     private void OnTurnChanged(int turn, int food, int prod, int gold, int dFood, int dProd, int dGold)

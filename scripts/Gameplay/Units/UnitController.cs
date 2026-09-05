@@ -1,74 +1,112 @@
 using System;
-using System.Collections.Generic;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Config;
 using ChroniclesOfTheEmpires.Core.Economy;
-using ChroniclesOfTheEmpires.Gameplay.Economy;
 
 #nullable enable
 
 namespace ChroniclesOfTheEmpires.Gameplay;
 
 /// <summary>
-/// Tactical combat unit controller managing stats, movement budgets, morale states, and input hit detection.
+/// Presentation layer controller for a tactical military unit.
+/// Inherits Node2D purely for rendering, animations, and visual tweening.
+/// Delegates all state and domain logic strictly to UnitData.
 /// </summary>
-public partial class UnitController : CharacterBody2D
+public partial class UnitController : Node2D
 {
-    [Signal] public delegate void UnitSelectedEventHandler(UnitController unit);
     [Signal] public delegate void UnitMovedEventHandler(UnitController unit, Vector2I oldPos, Vector2I newPos);
     [Signal] public delegate void MovementDepletedEventHandler(UnitController unit);
-    [Signal] public delegate void UnitSurrenderedEventHandler(UnitController unit);
-    [Signal] public delegate void UnitRecapturedEventHandler(UnitController unit, int previousFaction, int newFaction);
+    [Signal] public delegate void UnitDestroyedEventHandler(UnitController unit);
 
-    [Export] public string UnitName = "Chiến Binh Văn Lang";
-    [Export] public string Description = "Binh chủng thiện chiến bảo vệ bờ cõi.";
-    [Export] public string UnitConfigId = "";
-    [Export] public int HpMax = 20;
-    [Export] public int Attack = 6;
-    [Export] public int Defense = 3;
-    [Export] public int MovementRangeMax = 4;
-    [Export] public int FactionId = 0; // 0: Player, 1: Rival
-    [Export] public int MoraleMax = 100;
+    public UnitData Data { get; private set; } = null!;
 
-    public int HpCurrent { get; set; } = 20;
-    public int MoraleCurrent { get; set; } = 100;
-    public int OriginalFactionId { get; set; } = 0;
-    public bool IsSurrendered { get; set; } = false;
-    public int SurrenderTurnsRemaining { get; set; } = 2;
-    public int MovementRangeRemaining { get; set; } = 4;
-    public Vector2I GridPosition { get; set; } = Vector2I.Zero;
+    // Forwarding accessors directly to Data Single Source of Truth
+    public string UnitName => Data?.Name ?? "Chiến Binh";
+    public string Description => Data?.Description ?? "";
+    public string UnitConfigId => Data?.Id ?? "";
+    public int FactionId => Data?.FactionId ?? 0;
+    public int OriginalFactionId => Data?.OriginalFactionId ?? 0;
+    public int HpMax => Data?.HpMax ?? 20;
+    public int HpCurrent => Data?.CurrentHp ?? 20;
+    public int Attack => Data?.Attack ?? 5;
+    public int Defense => Data?.Defense ?? 2;
+    public int MovementRangeMax => Data?.MovementMax ?? 4;
+    public int MovementRangeRemaining => Data?.MovementRemaining ?? 0;
+    public int MoraleMax => Data?.MoraleMax ?? 100;
+    public int MoraleCurrent => Data?.MoraleCurrent ?? 100;
+    public bool IsSurrendered => Data?.IsSurrendered ?? false;
+    public int SurrenderTurnsRemaining => Data?.SurrenderTurnsRemaining ?? 2;
+    public Vector2I GridPosition => Data?.GridPosition ?? Vector2I.Zero;
+    public bool IsMoving => Data?.IsMoving ?? false;
     public bool IsSelected { get; private set; } = false;
-    public bool IsMoving { get; private set; } = false;
 
     private ReferenceRect? _selectionBorder;
     private ColorRect? _visualRect;
     private ColorRect? _borderRect;
     private Label? _unitLabel;
     private Label? _moraleFlagLabel;
+
     private Tween? _surrenderTween;
     private Tween? _flagBobTween;
+    private Tween? _movementTween;
 
     public override void _Ready()
     {
-        InputPickable = true;
-
-        if (!string.IsNullOrEmpty(UnitConfigId))
-        {
-            ApplyConfig(UnitConfigId);
-        }
-        else
-        {
-            HpCurrent = HpMax;
-            MoraleCurrent = MoraleMax;
-            OriginalFactionId = FactionId;
-            MovementRangeRemaining = MovementRangeMax;
-            RefreshVisuals();
-        }
-
         _selectionBorder = GetNodeOrNull<ReferenceRect>("SelectionBorder");
         if (_selectionBorder != null) _selectionBorder.Visible = false;
 
+        _borderRect = GetNodeOrNull<ColorRect>("VisualBorder");
+        _visualRect = GetNodeOrNull<ColorRect>("VisualBorder/Visual") ?? GetNodeOrNull<ColorRect>("Visual");
+        _unitLabel = GetNodeOrNull<Label>("UnitLabel");
+
         EnsureMoraleFlagVisual();
         QueueRedraw();
+    }
+
+    public void Bind(UnitData data)
+    {
+        if (Data != null)
+        {
+            UnbindEvents(Data);
+        }
+
+        Data = data;
+        Data.OnHpChanged += HandleHpChanged;
+        Data.OnMoraleChanged += HandleMoraleChanged;
+        Data.OnSurrenderStateChanged += HandleSurrenderState;
+        Data.OnFactionChanged += HandleFactionChanged;
+        Data.OnDestroyed += HandleDestroyed;
+
+        SnapToGrid(data.GridPosition);
+        RefreshVisuals();
+        QueueRedraw();
+    }
+
+    private void UnbindEvents(UnitData data)
+    {
+        data.OnHpChanged -= HandleHpChanged;
+        data.OnMoraleChanged -= HandleMoraleChanged;
+        data.OnSurrenderStateChanged -= HandleSurrenderState;
+        data.OnFactionChanged -= HandleFactionChanged;
+        data.OnDestroyed -= HandleDestroyed;
+    }
+
+    public override void _ExitTree()
+    {
+        if (Data != null)
+        {
+            // Fallback emergency snap if tree was exited during movement
+            if (Data.IsMoving)
+            {
+                Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
+                Data.IsMoving = false;
+            }
+            UnbindEvents(Data);
+        }
+
+        _movementTween?.Kill();
+        _surrenderTween?.Kill();
+        _flagBobTween?.Kill();
     }
 
     private void EnsureMoraleFlagVisual()
@@ -95,34 +133,11 @@ public partial class UnitController : CharacterBody2D
         }
     }
 
-    public void ApplyConfig(string configId)
-    {
-        UnitConfigId = configId;
-        var cfg = ChroniclesOfTheEmpires.Core.Config.GameConfigManager.GetUnitConfig(configId);
-        if (cfg != null)
-        {
-            UnitName = cfg.Name;
-            Description = cfg.Description;
-            FactionId = cfg.FactionId;
-            OriginalFactionId = cfg.FactionId;
-            HpMax = cfg.HpMax;
-            HpCurrent = cfg.HpMax;
-            MoraleCurrent = MoraleMax;
-            Attack = cfg.Attack;
-            Defense = cfg.Defense;
-            MovementRangeMax = cfg.MovementMax;
-            MovementRangeRemaining = cfg.MovementMax;
-        }
-
-        RefreshVisuals();
-        QueueRedraw();
-    }
-
     public void RefreshVisuals()
     {
-        _borderRect = GetNodeOrNull<ColorRect>("VisualBorder");
-        _visualRect = GetNodeOrNull<ColorRect>("VisualBorder/Visual") ?? GetNodeOrNull<ColorRect>("Visual");
-        _unitLabel = GetNodeOrNull<Label>("UnitLabel");
+        _borderRect ??= GetNodeOrNull<ColorRect>("VisualBorder");
+        _visualRect ??= GetNodeOrNull<ColorRect>("VisualBorder/Visual") ?? GetNodeOrNull<ColorRect>("Visual");
+        _unitLabel ??= GetNodeOrNull<Label>("UnitLabel");
 
         if (IsSurrendered)
         {
@@ -154,8 +169,7 @@ public partial class UnitController : CharacterBody2D
 
         StopSurrenderVisuals();
 
-        var cfg = !string.IsNullOrEmpty(UnitConfigId) ? ChroniclesOfTheEmpires.Core.Config.GameConfigManager.GetUnitConfig(UnitConfigId) : null;
-
+        var cfg = !string.IsNullOrEmpty(UnitConfigId) ? GameConfigManager.GetUnitConfig(UnitConfigId) : null;
         Color borderColor = cfg?.BorderColor ?? (FactionId == 0 ? new Color("#f5c842") : new Color("#e03b24"));
         Color bodyColor = cfg?.VisualColor ?? (FactionId == 0 ? new Color("#2d241e") : new Color("#2e1614"));
         string symbol = cfg?.Symbol ?? (FactionId == 0 ? "★" : "◆");
@@ -199,118 +213,63 @@ public partial class UnitController : CharacterBody2D
         }
     }
 
-    public void ModifyMorale(int delta)
+    private void HandleHpChanged(int currentHp, int maxHp)
     {
-        MoraleCurrent = Mathf.Clamp(MoraleCurrent + delta, 0, MoraleMax);
+        PlayHitFlash();
+        QueueRedraw();
+    }
 
-        if (MoraleCurrent <= 0 && !IsSurrendered)
-        {
-            TriggerSurrender();
-        }
-        else if (MoraleCurrent < 20 && !IsSurrendered)
+    private void HandleMoraleChanged(int currentMorale, int maxMorale)
+    {
+        if (currentMorale < 20 && !IsSurrendered)
         {
             PlayLowMoraleJitter();
         }
+        QueueRedraw();
     }
 
-    private void TriggerSurrender()
+    private void HandleSurrenderState(bool surrendered)
     {
-        IsSurrendered = true;
-        SurrenderTurnsRemaining = 2;
-        MovementRangeRemaining = 0;
-
-        EnsureMoraleFlagVisual();
         RefreshVisuals();
         QueueRedraw();
-        EmitSignal(SignalName.UnitSurrendered, this);
     }
 
-    public bool TryInteractRecapture(UnitController interactor, EconomyManager economy, FactionData interactorFaction)
+    private void HandleFactionChanged(int newFactionId)
     {
-        if (!IsSurrendered) return false;
-
-        bool isOriginalOwner = interactorFaction.FactionId == OriginalFactionId;
-        var cost = isOriginalOwner
-            ? new ResourceBundle(15, 0, 10, 0, 0)
-            : new ResourceBundle(0, 0, 10, 0, 0);
-
-        if (!interactorFaction.Treasury.HasEnough(cost)) return false;
-
-        interactorFaction.Treasury -= cost;
-
-        int previousFaction = FactionId;
-        if (isOriginalOwner)
-        {
-            FactionId = OriginalFactionId;
-            MoraleCurrent = 40;
-        }
-        else
-        {
-            FactionId = interactorFaction.FactionId;
-            MoraleCurrent = 30;
-        }
-
-        IsSurrendered = false;
-        SurrenderTurnsRemaining = 2;
-        MovementRangeRemaining = 0;
-
         RefreshVisuals();
         PlayRecaptureFlash();
         QueueRedraw();
-
-        EmitSignal(SignalName.UnitRecaptured, this, previousFaction, FactionId);
-        return true;
     }
 
-    public void ProcessEndTurnSurrender(List<UnitController> allUnits)
+    private void HandleDestroyed()
     {
-        if (!IsSurrendered) return;
+        _movementTween?.Kill();
+        _surrenderTween?.Kill();
+        _flagBobTween?.Kill();
 
-        SurrenderTurnsRemaining--;
+        EmitSignal(SignalName.UnitDestroyed, this);
+        QueueFree();
+    }
 
-        if (SurrenderTurnsRemaining <= 0)
-        {
-            UnitController? nearestRival = null;
-            float minWorldDist = float.MaxValue;
-            float maxRange = 3.3f * GridMapManager.CellDimension;
-
-            foreach (var unit in allUnits)
-            {
-                if (unit == this || unit.IsSurrendered || unit.FactionId == OriginalFactionId) continue;
-                float dist = Position.DistanceTo(unit.Position);
-                if (dist <= maxRange && dist < minWorldDist)
-                {
-                    minWorldDist = dist;
-                    nearestRival = unit;
-                }
-            }
-
-            if (nearestRival != null)
-            {
-                int prevFaction = FactionId;
-                FactionId = nearestRival.FactionId;
-                MoraleCurrent = 25;
-                IsSurrendered = false;
-                SurrenderTurnsRemaining = 2;
-
-                RefreshVisuals();
-                PlayRecaptureFlash();
-                QueueRedraw();
-
-                EmitSignal(SignalName.UnitRecaptured, this, prevFaction, FactionId);
-            }
-        }
+    private void PlayHitFlash()
+    {
+        if (_visualRect == null) return;
+        var originalColor = _visualRect.Color;
+        var tween = CreateTween();
+        tween.TweenProperty(_visualRect, "color", new Color(1f, 0.2f, 0.2f), 0.08);
+        tween.TweenProperty(_visualRect, "color", originalColor, 0.12);
     }
 
     private void PlayLowMoraleJitter()
     {
         var tween = CreateTween();
-        tween.TweenProperty(this, "position", Position + new Vector2(1.5f, 0), 0.05);
-        tween.TweenProperty(this, "position", Position - new Vector2(1.5f, 0), 0.05);
-        tween.TweenProperty(this, "position", Position, 0.05);
+        Vector2 origin = GridMapManager.GridToWorldCenter(GridPosition);
+        tween.TweenProperty(this, "position", origin + new Vector2(1.5f, 0), 0.05);
+        tween.TweenProperty(this, "position", origin - new Vector2(1.5f, 0), 0.05);
+        tween.TweenProperty(this, "position", origin, 0.05);
     }
 
-    private void PlayRecaptureFlash()
+    public void PlayRecaptureFlash()
     {
         if (_borderRect == null) return;
         var tween = CreateTween();
@@ -318,12 +277,68 @@ public partial class UnitController : CharacterBody2D
         tween.TweenProperty(_borderRect, "scale", Vector2.One, 0.12);
     }
 
+    public void SetSelected(bool selected)
+    {
+        IsSelected = selected;
+        if (_selectionBorder != null)
+        {
+            _selectionBorder.Visible = selected;
+        }
+    }
+
+    public void MoveAlongPath(Vector2I[] path, int totalCost, Action? onComplete = null)
+    {
+        if (Data == null || IsSurrendered || path.Length <= 1 || IsMoving) return;
+
+        Data.IsMoving = true;
+        _movementTween?.Kill();
+        _movementTween = CreateTween();
+
+        Vector2I oldPos = GridPosition;
+
+        // Step-by-step tile movement animation
+        for (int i = 1; i < path.Length; i++)
+        {
+            Vector2 targetWorld = GridMapManager.GridToWorldCenter(path[i]);
+            _movementTween.TweenProperty(this, "position", targetWorld, 0.12);
+        }
+
+        _movementTween.Finished += () =>
+        {
+            Data.MovementRemaining = Math.Max(0, Data.MovementRemaining - totalCost);
+            Data.IsMoving = false;
+            Position = GridMapManager.GridToWorldCenter(Data.GridPosition); // Snap strictly to exact cell center
+            QueueRedraw();
+
+            EmitSignal(SignalName.UnitMoved, this, oldPos, Data.GridPosition);
+            if (Data.MovementRemaining == 0)
+            {
+                EmitSignal(SignalName.MovementDepleted, this);
+            }
+            onComplete?.Invoke();
+        };
+    }
+
+    public void ResetTurnMovement()
+    {
+        Data?.ResetTurnMovement();
+        QueueRedraw();
+    }
+
+    public void SnapToGrid(Vector2I gridPos)
+    {
+        if (Data != null)
+        {
+            Data.GridPosition = gridPos;
+        }
+        Position = GridMapManager.GridToWorldCenter(gridPos);
+    }
+
     public override void _Draw()
     {
         // 1. Drop shadow: flattened ellipse under feet to anchor unit to ground
         Vector2 shadowCenter = new(0f, 6.5f);
         Color shadowColor = new(0f, 0f, 0f, 0.42f);
-        // Approximate 16-segment flattened ellipse
         const int segments = 16;
         var shadowPoly = new Vector2[segments];
         for (int i = 0; i < segments; i++)
@@ -348,74 +363,4 @@ public partial class UnitController : CharacterBody2D
         DrawCircle(gemCenter, 2.5f, gemColor);
         DrawArc(gemCenter, 2.5f, 0, Mathf.Tau, 12, new Color(0.08f, 0.08f, 0.08f, 0.85f), 0.8f);
     }
-
-    public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx)
-    {
-        if (@event is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left && mb.Pressed)
-        {
-            EmitSignal(SignalName.UnitSelected, this);
-            GetViewport().SetInputAsHandled(); // Prevent map ground-click raycast
-        }
-    }
-
-    public void SetSelected(bool selected)
-    {
-        IsSelected = selected;
-        if (_selectionBorder != null)
-        {
-            _selectionBorder.Visible = selected;
-        }
-    }
-
-    public void MoveAlongPath(Vector2I[] path, int totalCost, Action? onComplete = null)
-    {
-        if (IsSurrendered || path.Length <= 1 || IsMoving) return;
-
-        IsMoving = true;
-        var tween = CreateTween();
-
-        // Step-by-step tile movement animation
-        for (int i = 1; i < path.Length; i++)
-        {
-            Vector2 targetWorld = GridMapManager.GridToWorldCenter(path[i]);
-            tween.TweenProperty(this, "position", targetWorld, 0.12);
-        }
-
-        tween.Finished += () =>
-        {
-            var oldPos = GridPosition;
-            GridPosition = path[^1];
-            Position = GridMapManager.GridToWorldCenter(GridPosition); // Snap to exact pixel center
-            MovementRangeRemaining = Math.Max(0, MovementRangeRemaining - totalCost);
-            IsMoving = false;
-            QueueRedraw();
-
-            EmitSignal(SignalName.UnitMoved, this, oldPos, GridPosition);
-            if (MovementRangeRemaining == 0)
-            {
-                EmitSignal(SignalName.MovementDepleted, this);
-            }
-            onComplete?.Invoke();
-        };
-    }
-
-    public void ResetTurnMovement()
-    {
-        if (IsSurrendered)
-        {
-            MovementRangeRemaining = 0;
-            QueueRedraw();
-            return;
-        }
-
-        MovementRangeRemaining = MovementRangeMax;
-        QueueRedraw();
-    }
-
-    public void SnapToGrid(Vector2I gridPos)
-    {
-        GridPosition = gridPos;
-        Position = GridMapManager.GridToWorldCenter(gridPos);
-    }
 }
-

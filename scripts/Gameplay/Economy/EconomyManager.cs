@@ -162,13 +162,12 @@ public partial class EconomyManager : Node
 
             // Apply starvation attrition: reduce current HP of active units
             var units = faction.Units;
-            int unitCount = units.Count;
-            for (int i = 0; i < unitCount; i++)
+            for (int i = units.Count - 1; i >= 0; i--)
             {
                 var unit = units[i];
                 if (unit.IsActive && unit.CurrentHp > 1)
                 {
-                    unit.CurrentHp = Math.Max(1, unit.CurrentHp - 2);
+                    unit.ApplyDamage(2);
                 }
             }
 
@@ -202,8 +201,8 @@ public partial class EconomyManager : Node
 
             if (highestUpkeepUnit != null)
             {
-                highestUpkeepUnit.IsActive = false;
                 units.Remove(highestUpkeepUnit);
+                highestUpkeepUnit.Disband();
                 OnDeficitTriggered?.Invoke(faction, $"[Thâm hụt Ngân khố] Quân đoàn {highestUpkeepUnit.Name} đã tự giải tán do không có bổng lộc!");
             }
             else
