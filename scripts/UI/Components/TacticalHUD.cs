@@ -21,6 +21,9 @@ public partial class TacticalHUD : Control
     [Signal]
     public delegate void EndTurnRequestedEventHandler();
 
+    [Signal]
+    public delegate void RecruitRequestedEventHandler(string unitConfigId, Vector2I coords);
+
     private TacticalResourceBar? _resourceBar;
     private TacticalFunctionBar? _functionBar;
     private TileInfoModal? _tileInfoModal;
@@ -36,6 +39,12 @@ public partial class TacticalHUD : Control
         _tileInfoModal = GetNodeOrNull<TileInfoModal>("%TileInfoModal") ?? GetNodeOrNull<TileInfoModal>("ModalContainer/TileInfoModal");
         _unitInfoModal = GetNodeOrNull<UnitInfoModal>("%UnitInfoModal") ?? GetNodeOrNull<UnitInfoModal>("ModalContainer/UnitInfoModal");
         _settingsModal = GetNodeOrNull<SettingsModal>("%SettingsModal") ?? GetNodeOrNull<SettingsModal>("../SettingsModal");
+
+        if (_tileInfoModal != null)
+        {
+            _tileInfoModal.RecruitRequested += (unitConfigId, coords) =>
+                EmitSignal(SignalName.RecruitRequested, unitConfigId, coords);
+        }
 
         if (_functionBar != null)
         {

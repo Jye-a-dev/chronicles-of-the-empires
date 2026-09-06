@@ -9,10 +9,14 @@ namespace ChroniclesOfTheEmpires.UI.Modals;
 /// <summary>
 /// Modal dialog displaying granular terrain intelligence, resource yields, potential deposits,
 /// and upgrade construction costs for inspected HexCell objects.
+/// and recruitment orders for inspected HexCell objects.
 /// Designed for 640x360 viewport layout constraints.
 /// </summary>
 public partial class TileInfoModal : PanelContainer
 {
+    [Signal]
+    public delegate void RecruitRequestedEventHandler(string unitConfigId, Vector2I coords);
+
     private Label? _titleLabel;
     private Label? _descLabel;
     private Label? _yieldsLabel;
@@ -20,6 +24,10 @@ public partial class TileInfoModal : PanelContainer
     private Label? _coordLabel;
     private RichTextLabel? _depositLabel;
     private Button? _btnClose;
+
+    private VBoxContainer? _recruitSection;
+    private Button? _btnRecruitMelee;
+    private Button? _btnRecruitRanged;
 
     public HexCell? ActiveCell { get; private set; }
 
@@ -51,6 +59,62 @@ public partial class TileInfoModal : PanelContainer
             };
             _depositLabel.AddThemeFontSizeOverride("normal_font_size", 8);
             vbox.AddChild(_depositLabel);
+
+            // Dynamically construct Recruitment Action Panel
+            _recruitSection = new VBoxContainer
+            {
+                Name = "RecruitSection",
+                Visible = false
+            };
+            _recruitSection.AddThemeConstantOverride("separation", 2);
+
+            var sep = new HSeparator();
+            _recruitSection.AddChild(sep);
+
+            var recruitHeader = new Label
+            {
+                Text = "⚔ CHIÊU MỘ QUÂN ĐỘI TẠI ĐÂY",
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            recruitHeader.AddThemeColorOverride("font_color", new Color("#ecd889"));
+            recruitHeader.AddThemeFontSizeOverride("font_size", 8);
+            _recruitSection.AddChild(recruitHeader);
+
+            var hbox = new HBoxContainer();
+            hbox.AddThemeConstantOverride("separation", 4);
+
+            _btnRecruitMelee = new Button
+            {
+                Text = "★ Cấm Vệ (🌾30 🔨50 🪙25)",
+                SizeFlagsHorizontal = SizeFlags.ExpandFill
+            };
+            _btnRecruitMelee.AddThemeFontSizeOverride("font_size", 8);
+            _btnRecruitMelee.Pressed += () =>
+            {
+                if (ActiveCell != null)
+                {
+                    EmitSignal(SignalName.RecruitRequested, "cam_ve_quan", ActiveCell.Coords);
+                }
+            };
+            hbox.AddChild(_btnRecruitMelee);
+
+            _btnRecruitRanged = new Button
+            {
+                Text = "🏹 Cung Thủ (🌾20 🔨45 🪙20)",
+                SizeFlagsHorizontal = SizeFlags.ExpandFill
+            };
+            _btnRecruitRanged.AddThemeFontSizeOverride("font_size", 8);
+            _btnRecruitRanged.Pressed += () =>
+            {
+                if (ActiveCell != null)
+                {
+                    EmitSignal(SignalName.RecruitRequested, "cung_thu", ActiveCell.Coords);
+                }
+            };
+            hbox.AddChild(_btnRecruitRanged);
+
+            _recruitSection.AddChild(hbox);
+            vbox.AddChild(_recruitSection);
         }
 
         Visible = false;
@@ -73,6 +137,7 @@ public partial class TileInfoModal : PanelContainer
         if (_yieldsLabel != null)
         {
             _yieldsLabel.Text = $"🌾 {cell.FoodYield}  |  🔨 {cell.ProdYield}  |  🪙 {cell.GoldYield}  |   {cell.SciYield}  |  📿 {cell.FaithYield}";
+            _yieldsLabel.Text = $"🌾 {cell.FoodYield}  |  🔨 {cell.ProdYield}  |  🪙 {cell.GoldYield}  |  🔬 {cell.SciYield}  |  📿 {cell.FaithYield}";
         }
 
         if (_traversalLabel != null)
@@ -105,6 +170,11 @@ public partial class TileInfoModal : PanelContainer
         {
             string owner = cell.OwnerFactionId >= 0 ? $"Phe {cell.OwnerFactionId}" : "Vùng hoang dã";
             _coordLabel.Text = $"Tọa độ: [{cell.Coords.X}, {cell.Coords.Y}]  |  Chủ quyền: {owner}";
+        }
+
+        if (_recruitSection != null)
+        {
+            _recruitSection.Visible = (cell.OwnerFactionId == 0);
         }
 
         Visible = true;

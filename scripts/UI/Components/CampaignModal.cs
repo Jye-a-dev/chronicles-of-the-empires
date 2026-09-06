@@ -6,16 +6,6 @@ using System.Collections.Generic;
 
 namespace ChroniclesOfTheEmpires.UI;
 
-public record StageInfo(
-	string Id,
-	string Title,
-	string Description,
-	string Objective,
-	string MapSize,
-	string Enemy,
-	string Reward
-);
-
 /// <summary>
 /// Standalone campaign modal controller providing three distinct interfaces:
 /// 1. Grand Campaign: Mission progression & stage inspection.
@@ -81,12 +71,6 @@ public partial class CampaignModal : Control
 	private bool _isSandboxSelected = false;
 
 	private readonly List<StageInfo> _stages = new(5);
-
-	private static readonly string[] SkirmishMapSizes = ["32x32", "64x64", "128x128"];
-	private static readonly string[] SkirmishBiomes = ["red_river", "jungle", "highlands", "steppe", "taiga", "mediterranean"];
-	private static readonly int[] SkirmishRivals = [2, 4, 6, 8];
-	private static readonly string[] SkirmishVictories = ["conquest", "culture_wonders", "regicide"];
-	private static readonly string[] SkirmishDifficulties = ["easy", "normal", "hard", "legendary"];
 
 	public bool IsOpen => Visible && Modulate.A > 0.05f;
 
@@ -264,52 +248,6 @@ public partial class CampaignModal : Control
 		btn.AddThemeColorOverride("font_color", active ? new Color(0.96f, 0.78f, 0.26f, 1f) : new Color(0.85f, 0.82f, 0.75f, 1f));
 	}
 
-	private void SelectStage(int stageIdx)
-	{
-		_selectedStageIndex = Mathf.Clamp(stageIdx, 0, _stages.Count - 1);
-		for (int i = 0; i < _stageButtons.Length; i++)
-		{
-			bool isSelected = (i == _selectedStageIndex);
-			_stageButtons[i].AddThemeColorOverride("font_color", isSelected ? new Color(0.96f, 0.78f, 0.26f, 1f) : new Color(0.85f, 0.82f, 0.75f, 0.9f));
-		}
-
-		if (_selectedStageIndex < _stages.Count)
-		{
-			var s = _stages[_selectedStageIndex];
-			_stageTitleLabel.Text = s.Title;
-			_stageDescLabel.Text = s.Description;
-			_stageObjLabel.Text = $"• {LocalizationManager.Get("SPEC_VICTORY_PREFIX")}{s.Objective}";
-			_stageMapLabel.Text = $"• {LocalizationManager.Get("SPEC_MAP_PREFIX")}{s.MapSize}";
-			_stageEnemyLabel.Text = $"• {LocalizationManager.Get("SPEC_RIVALS_PREFIX")}{s.Enemy}";
-			_stageRewardLabel.Text = $"• {LocalizationManager.Get("SPEC_REWARD_PREFIX")}{s.Reward}";
-		}
-
-		UpdateStatusFooter();
-	}
-
-	private void SelectTrainingMode(bool isSandbox)
-	{
-		_isSandboxSelected = isSandbox;
-		_btnSelectTutorial.Text = !isSandbox ? "✓ " + LocalizationManager.Get("TRAINING_SELECTED") : LocalizationManager.Get("TRAINING_SELECT");
-		_btnSelectSandbox.Text = isSandbox ? "✓ " + LocalizationManager.Get("TRAINING_SELECTED") : LocalizationManager.Get("TRAINING_SELECT");
-
-		_btnSelectTutorial.AddThemeColorOverride("font_color", !isSandbox ? new Color(0.96f, 0.78f, 0.26f, 1f) : new Color(0.85f, 0.82f, 0.75f, 1f));
-		_btnSelectSandbox.AddThemeColorOverride("font_color", isSandbox ? new Color(0.96f, 0.78f, 0.26f, 1f) : new Color(0.85f, 0.82f, 0.75f, 1f));
-
-		UpdateStatusFooter();
-	}
-
-	private void UpdateSkirmishSummary()
-	{
-		string map = _skirmishMapSizeOptionBtn.Text;
-		string biome = _skirmishBiomeOptionBtn.Text;
-		string rivals = _skirmishRivalsOptionBtn.Text;
-		string diff = _skirmishDifficultyOptionBtn.Text;
-
-		_skirmishSummaryLabel.Text = $"• {rivals} | {map} | {biome} | {diff}";
-		UpdateStatusFooter();
-	}
-
 	private void UpdateStatusFooter()
 	{
 		if (_activeTab == 0)
@@ -399,58 +337,7 @@ public partial class CampaignModal : Control
 		_btnTabTraining.Text = LocalizationManager.Get("CAMPAIGN_TAB_TRAINING");
 		_btnCloseModal.Text = LocalizationManager.Get("SETTINGS_BTN_CLOSE");
 
-		// Rebuild Stage Info list
-		_stages.Clear();
-		_stages.Add(new(
-			Id: "stage_1",
-			Title: LocalizationManager.Get("STAGE_1_TITLE"),
-			Description: LocalizationManager.Get("STAGE_1_DESC"),
-			Objective: LocalizationManager.Get("STAGE_1_OBJ"),
-			MapSize: "32x32",
-			Enemy: LocalizationManager.Get("STAGE_1_ENEMY"),
-			Reward: LocalizationManager.Get("STAGE_1_REWARD")
-		));
-		_stages.Add(new(
-			Id: "stage_2",
-			Title: LocalizationManager.Get("STAGE_2_TITLE"),
-			Description: LocalizationManager.Get("STAGE_2_DESC"),
-			Objective: LocalizationManager.Get("STAGE_2_OBJ"),
-			MapSize: "48x48",
-			Enemy: LocalizationManager.Get("STAGE_2_ENEMY"),
-			Reward: LocalizationManager.Get("STAGE_2_REWARD")
-		));
-		_stages.Add(new(
-			Id: "stage_3",
-			Title: LocalizationManager.Get("STAGE_3_TITLE"),
-			Description: LocalizationManager.Get("STAGE_3_DESC"),
-			Objective: LocalizationManager.Get("STAGE_3_OBJ"),
-			MapSize: "64x64",
-			Enemy: LocalizationManager.Get("STAGE_3_ENEMY"),
-			Reward: LocalizationManager.Get("STAGE_3_REWARD")
-		));
-		_stages.Add(new(
-			Id: "stage_4",
-			Title: LocalizationManager.Get("STAGE_4_TITLE"),
-			Description: LocalizationManager.Get("STAGE_4_DESC"),
-			Objective: LocalizationManager.Get("STAGE_4_OBJ"),
-			MapSize: "64x64",
-			Enemy: LocalizationManager.Get("STAGE_4_ENEMY"),
-			Reward: LocalizationManager.Get("STAGE_4_REWARD")
-		));
-		_stages.Add(new(
-			Id: "stage_5",
-			Title: LocalizationManager.Get("STAGE_5_TITLE"),
-			Description: LocalizationManager.Get("STAGE_5_DESC"),
-			Objective: LocalizationManager.Get("STAGE_5_OBJ"),
-			MapSize: "128x128",
-			Enemy: LocalizationManager.Get("STAGE_5_ENEMY"),
-			Reward: LocalizationManager.Get("STAGE_5_REWARD")
-		));
-
-		for (int i = 0; i < _stageButtons.Length && i < _stages.Count; i++)
-		{
-			_stageButtons[i].Text = _stages[i].Title;
-		}
+		RebuildStagesList();
 
 		// Skirmish labels
 		_skirmishMapSizeLabel.Text = LocalizationManager.Get("SKIRMISH_MAP_SIZE");
@@ -465,62 +352,8 @@ public partial class CampaignModal : Control
 		UpdateSkirmishSummary();
 	}
 
-	private void PopulateSkirmishDropdowns()
-	{
-		int s1 = _skirmishMapSizeOptionBtn.Selected;
-		_skirmishMapSizeOptionBtn.Clear();
-		_skirmishMapSizeOptionBtn.AddItem(LocalizationManager.Get("MAP_SMALL"), 0);
-		_skirmishMapSizeOptionBtn.AddItem(LocalizationManager.Get("MAP_MEDIUM"), 1);
-		_skirmishMapSizeOptionBtn.AddItem(LocalizationManager.Get("MAP_LARGE"), 2);
-		_skirmishMapSizeOptionBtn.Selected = s1 >= 0 ? s1 : 1;
-
-		int s2 = _skirmishBiomeOptionBtn.Selected;
-		_skirmishBiomeOptionBtn.Clear();
-		_skirmishBiomeOptionBtn.AddItem(LocalizationManager.Get("BIOME_RED_RIVER"), 0);
-		_skirmishBiomeOptionBtn.AddItem(LocalizationManager.Get("BIOME_JUNGLE"), 1);
-		_skirmishBiomeOptionBtn.AddItem(LocalizationManager.Get("BIOME_HIGHLANDS"), 2);
-		_skirmishBiomeOptionBtn.AddItem(LocalizationManager.Get("BIOME_STEPPE"), 3);
-		_skirmishBiomeOptionBtn.AddItem(LocalizationManager.Get("BIOME_TAIGA"), 4);
-		_skirmishBiomeOptionBtn.AddItem(LocalizationManager.Get("BIOME_MEDITERRANEAN"), 5);
-		_skirmishBiomeOptionBtn.Selected = s2 >= 0 && s2 < 6 ? s2 : 0;
-
-		int s3 = _skirmishRivalsOptionBtn.Selected;
-		_skirmishRivalsOptionBtn.Clear();
-		_skirmishRivalsOptionBtn.AddItem(LocalizationManager.Get("RIVALS_2"), 0);
-		_skirmishRivalsOptionBtn.AddItem(LocalizationManager.Get("RIVALS_4"), 1);
-		_skirmishRivalsOptionBtn.AddItem(LocalizationManager.Get("RIVALS_6"), 2);
-		_skirmishRivalsOptionBtn.AddItem(LocalizationManager.Get("RIVALS_8"), 3);
-		_skirmishRivalsOptionBtn.Selected = s3 >= 0 ? s3 : 1;
-
-		int s4 = _skirmishVictoryOptionBtn.Selected;
-		_skirmishVictoryOptionBtn.Clear();
-		_skirmishVictoryOptionBtn.AddItem(LocalizationManager.Get("VICTORY_CONQUEST"), 0);
-		_skirmishVictoryOptionBtn.AddItem(LocalizationManager.Get("VICTORY_CULTURE"), 1);
-		_skirmishVictoryOptionBtn.AddItem(LocalizationManager.Get("VICTORY_REGICIDE"), 2);
-		_skirmishVictoryOptionBtn.Selected = s4 >= 0 ? s4 : 0;
-
-		int s5 = _skirmishDifficultyOptionBtn.Selected;
-		_skirmishDifficultyOptionBtn.Clear();
-		_skirmishDifficultyOptionBtn.AddItem(LocalizationManager.Get("DIFF_EASY"), 0);
-		_skirmishDifficultyOptionBtn.AddItem(LocalizationManager.Get("DIFF_NORMAL"), 1);
-		_skirmishDifficultyOptionBtn.AddItem(LocalizationManager.Get("DIFF_HARD"), 2);
-		_skirmishDifficultyOptionBtn.AddItem(LocalizationManager.Get("DIFF_LEGEND"), 3);
-		_skirmishDifficultyOptionBtn.Selected = s5 >= 0 ? s5 : 1;
-	}
-
-	private static void StylePopup(OptionButton btn)
-	{
-		var popup = btn.GetPopup();
-		popup.AddThemeFontSizeOverride("font_size", 7);
-		popup.AddThemeFontSizeOverride("font_separator_size", 7);
-		popup.AddThemeColorOverride("font_color", new Color(0.88f, 0.84f, 0.76f, 1f));
-		popup.AddThemeColorOverride("font_hover_color", new Color(0.96f, 0.78f, 0.26f, 1f));
-		popup.AddThemeColorOverride("font_separator_color", new Color(0.70f, 0.50f, 0.15f, 1f));
-	}
-
 	public override void _ExitTree()
 	{
 		LocalizationManager.LanguageChanged -= UpdateLocalizedStrings;
 	}
 }
-

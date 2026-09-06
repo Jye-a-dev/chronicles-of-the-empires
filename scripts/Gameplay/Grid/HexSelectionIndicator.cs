@@ -34,17 +34,17 @@ public partial class HexSelectionIndicator : Line2D
 
         // Exact 6 vertices of a 32x32 pointy-topped hexagon (centered at 0,0)
         AddPoint(new Vector2(0f, -16f));       // Top vertex
-        AddPoint(new Vector2(14.5f, -8f));     // Top-right
-        AddPoint(new Vector2(14.5f, 8f));      // Bottom-right
+        AddPoint(new Vector2(16f, -8f));       // Top-right
+        AddPoint(new Vector2(16f, 8f));        // Bottom-right
         AddPoint(new Vector2(0f, 16f));        // Bottom
-        AddPoint(new Vector2(-14.5f, 8f));     // Bottom-left
-        AddPoint(new Vector2(-14.5f, -8f));    // Top-left
+        AddPoint(new Vector2(-16f, 8f));       // Bottom-left
+        AddPoint(new Vector2(-16f, -8f));      // Top-left
         AddPoint(new Vector2(0f, -16f));       // Close loop
     }
 
     public void SelectHex(Vector2 worldCenter)
     {
-        Position = worldCenter;
+        GlobalPosition = worldCenter;
         Visible = true;
 
         _pulseTween?.Kill();

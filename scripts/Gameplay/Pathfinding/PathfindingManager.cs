@@ -107,17 +107,18 @@ public sealed class PathfindingManager
 
     /// <summary>
     /// Computes optimal 6-way hexagonal path between two coordinates.
-    /// </summary>
-    public Vector2I[] FindPath(Vector2I start, Vector2I target)
-    {
-        if (!IsInBounds(start) || !IsInBounds(target))
-        {
-            return Array.Empty<Vector2I>();
-        }
+    private Vector2I[] _pathBuffer = new Vector2I[128];
+    private int _pathBufferCount = 0;
 
-        if (IsPointSolid(target))
+    /// <summary>
+    /// Computes optimal 6-way hexagonal path into a reusable buffer, returning ReadOnlySpan with 0 allocations.
+    /// </summary>
+    public ReadOnlySpan<Vector2I> FindPathSpan(Vector2I start, Vector2I target)
+    {
+        _pathBufferCount = 0;
+        if (!IsInBounds(start) || !IsInBounds(target) || IsPointSolid(target))
         {
-            return Array.Empty<Vector2I>();
+            return ReadOnlySpan<Vector2I>.Empty;
         }
 
         long startId = GetPointId(start);
@@ -126,18 +127,33 @@ public sealed class PathfindingManager
         long[] idPath = _aStar.GetIdPath(startId, targetId);
         if (idPath == null || idPath.Length == 0)
         {
-            return Array.Empty<Vector2I>();
+            return ReadOnlySpan<Vector2I>.Empty;
         }
 
-        var result = new Vector2I[idPath.Length];
+        if (_pathBuffer.Length < idPath.Length)
+        {
+            _pathBuffer = new Vector2I[Math.Max(_pathBuffer.Length * 2, idPath.Length)];
+        }
+
+        _pathBufferCount = idPath.Length;
         for (int i = 0; i < idPath.Length; i++)
         {
-            result[i] = GetCoordFromId(idPath[i]);
+            _pathBuffer[i] = GetCoordFromId(idPath[i]);
         }
-        return result;
+
+        return new ReadOnlySpan<Vector2I>(_pathBuffer, 0, _pathBufferCount);
     }
 
-    public int CalculatePathCost(Vector2I[] path, GridMapManager gridMap)
+    /// <summary>
+    /// Computes optimal 6-way hexagonal path between two coordinates.
+    /// </summary>
+    public Vector2I[] FindPath(Vector2I start, Vector2I target)
+    {
+        var span = FindPathSpan(start, target);
+        return span.ToArray();
+    }
+
+    public int CalculatePathCost(ReadOnlySpan<Vector2I> path, GridMapManager gridMap)
     {
         if (path.Length <= 1) return 0;
 
@@ -149,6 +165,9 @@ public sealed class PathfindingManager
         }
         return totalCost;
     }
+
+    public int CalculatePathCost(Vector2I[] path, GridMapManager gridMap) =>
+        CalculatePathCost(new ReadOnlySpan<Vector2I>(path), gridMap);
 
     public bool IsInBounds(Vector2I pos) =>
         pos.X >= 0 && pos.X < _width && pos.Y >= 0 && pos.Y < _height;

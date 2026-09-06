@@ -67,7 +67,7 @@ public partial class UnitController : Node2D
     {
         if (Data != null)
         {
-            UnbindEvents(Data);
+            Unbind();
         }
 
         Data = data;
@@ -80,6 +80,14 @@ public partial class UnitController : Node2D
         SnapToGrid(data.GridPosition);
         RefreshVisuals();
         QueueRedraw();
+    }
+
+    public void Unbind()
+    {
+        if (Data != null)
+        {
+            UnbindEvents(Data);
+        }
     }
 
     private void UnbindEvents(UnitData data)
@@ -101,7 +109,7 @@ public partial class UnitController : Node2D
                 Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
                 Data.IsMoving = false;
             }
-            UnbindEvents(Data);
+            Unbind();
         }
 
         _movementTween?.Kill();
@@ -247,6 +255,7 @@ public partial class UnitController : Node2D
         _surrenderTween?.Kill();
         _flagBobTween?.Kill();
 
+        Unbind();
         EmitSignal(SignalName.UnitDestroyed, this);
         QueueFree();
     }
@@ -286,7 +295,7 @@ public partial class UnitController : Node2D
         }
     }
 
-    public void MoveAlongPath(Vector2I[] path, int totalCost, Action? onComplete = null)
+    public void MoveAlongPath(ReadOnlySpan<Vector2I> path, int totalCost, Action? onComplete = null)
     {
         if (Data == null || IsSurrendered || path.Length <= 1 || IsMoving) return;
 
@@ -318,6 +327,9 @@ public partial class UnitController : Node2D
             onComplete?.Invoke();
         };
     }
+
+    public void MoveAlongPath(Vector2I[] path, int totalCost, Action? onComplete = null) =>
+        MoveAlongPath(new ReadOnlySpan<Vector2I>(path), totalCost, onComplete);
 
     public void ResetTurnMovement()
     {

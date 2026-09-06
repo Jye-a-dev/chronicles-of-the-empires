@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 #nullable enable
@@ -23,7 +24,7 @@ public partial class PathVisualizer : Line2D
         ZIndex = 5; // Render above terrain and beneath UI
     }
 
-    public void ShowPath(Vector2I[] gridPath, bool isReachable)
+    public void ShowPath(ReadOnlySpan<Vector2I> gridPath, bool isReachable)
     {
         ClearPoints();
 
@@ -35,13 +36,16 @@ public partial class PathVisualizer : Line2D
 
         DefaultColor = isReachable ? ValidPathColor : InvalidPathColor;
 
-        foreach (var cell in gridPath)
+        for (int i = 0; i < gridPath.Length; i++)
         {
-            AddPoint(GridMapManager.GridToWorldCenter(cell));
+            AddPoint(GridMapManager.GridToWorldCenter(gridPath[i]));
         }
 
         Visible = true;
     }
+
+    public void ShowPath(Vector2I[] gridPath, bool isReachable) =>
+        ShowPath(new ReadOnlySpan<Vector2I>(gridPath), isReachable);
 
     public void ClearPath()
     {

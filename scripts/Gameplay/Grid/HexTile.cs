@@ -52,21 +52,21 @@ public partial class HexTile : Node2D
     public static readonly Vector2[] HexVertices =
     [
         new Vector2(0, -16),
-        new Vector2(14.5f, -8),
-        new Vector2(14.5f, 8),
+        new Vector2(16f, -8),
+        new Vector2(16f, 8),
         new Vector2(0, 16),
-        new Vector2(-14.5f, 8),
-        new Vector2(-14.5f, -8)
+        new Vector2(-16f, 8),
+        new Vector2(-16f, -8)
     ];
 
     public static readonly Vector2[] HexOutlinePoints =
     [
         new Vector2(0, -16),
-        new Vector2(14.5f, -8),
-        new Vector2(14.5f, 8),
+        new Vector2(16f, -8),
+        new Vector2(16f, 8),
         new Vector2(0, 16),
-        new Vector2(-14.5f, 8),
-        new Vector2(-14.5f, -8),
+        new Vector2(-16f, 8),
+        new Vector2(-16f, -8),
         new Vector2(0, -16)
     ];
 

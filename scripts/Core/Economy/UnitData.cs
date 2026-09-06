@@ -136,6 +136,13 @@ public class UnitData
         IsActive = false;
         CurrentHp = 0;
         OnDestroyed?.Invoke();
+
+        // Detach all listeners to guarantee immediate GC collection
+        OnHpChanged = null;
+        OnMoraleChanged = null;
+        OnSurrenderStateChanged = null;
+        OnFactionChanged = null;
+        OnDestroyed = null;
     }
 
     public void ResetTurnMovement()

@@ -165,7 +165,7 @@ TileScene = ExtResource("15_tilescene")
 [node name="TileContainer" type="Node2D" parent="WorldRoot/GridMapManager" unique_id=1982736450]
 
 [node name="HexHoverIndicator" type="Line2D" parent="WorldRoot" unique_id=391881779]
-points = PackedVector2Array(0, -16, 14.5, -8, 14.5, 8, 0, 16, -14.5, 8, -14.5, -8, 0, -16)
+points = PackedVector2Array(0, -16, 16, -8, 16, 8, 0, 16, -16, 8, -16, -8, 0, -16)
 width = 1.2
 default_color = Color(0.85, 0.72, 0.45, 0.28)
 joint_mode = 2

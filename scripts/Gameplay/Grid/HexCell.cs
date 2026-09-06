@@ -20,6 +20,7 @@ public partial class HexCell : GodotObject
     public BuildingData? ConstructedBuilding { get; set; }
     public UnitController? OccupyingUnit { get; set; }
     public int OwnerFactionId { get; set; } = -1; // -1: Neutral / Unclaimed territory
+    public FogState Fog { get; set; } = FogState.Unexplored;
 
     // Backward compatibility delegates to TerrainData
     public string Name => TerrainData.Name;

@@ -42,11 +42,13 @@ public partial class TurnManager : Node
     private readonly List<UnitController> _playerUnits = new();
     private FactionData? _playerFaction;
     private EconomyManager? _economyManager;
+    private UnitRegistry? _unitRegistry;
 
-    public void Initialize(FactionData playerFaction, EconomyManager economyManager)
+    public void Initialize(FactionData playerFaction, EconomyManager economyManager, UnitRegistry? unitRegistry = null)
     {
         _playerFaction = playerFaction;
         _economyManager = economyManager;
+        _unitRegistry = unitRegistry;
         UpdateYields();
     }
 
@@ -94,12 +96,27 @@ public partial class TurnManager : Node
         UpdateYields();
 
         // 2. Refresh player military movement points
-        for (int i = 0; i < _playerUnits.Count; i++)
+        if (_unitRegistry != null)
         {
-            var unit = _playerUnits[i];
-            if (IsInstanceValid(unit))
+            var playerUnits = _unitRegistry.GetUnitsForFaction(0);
+            for (int i = 0; i < playerUnits.Count; i++)
             {
-                unit.ResetTurnMovement();
+                var unit = playerUnits[i];
+                if (IsInstanceValid(unit))
+                {
+                    unit.ResetTurnMovement();
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _playerUnits.Count; i++)
+            {
+                var unit = _playerUnits[i];
+                if (IsInstanceValid(unit))
+                {
+                    unit.ResetTurnMovement();
+                }
             }
         }
 

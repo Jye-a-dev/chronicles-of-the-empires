@@ -2,23 +2,21 @@
 
 [ext_resource type="Script" path="res://scripts/Gameplay/Grid/HexTile.cs" id="1_hextile"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hex"]
-radius = 13.0
 
 [node name="Tile" type="Node2D"]
 script = ExtResource("1_hextile")
 
 [node name="HexPolygon" type="Polygon2D" parent="."]
 color = Color(0.25, 0.48, 0.2, 1)
-polygon = PackedVector2Array(0, -16, 14.5, -8, 14.5, 8, 0, 16, -14.5, 8, -14.5, -8)
+polygon = PackedVector2Array(0, -16, 16, -8, 16, 8, 0, 16, -16, 8, -16, -8)
 
 [node name="HexBorder" type="Line2D" parent="."]
-points = PackedVector2Array(0, -16, 14.5, -8, 14.5, 8, 0, 16, -14.5, 8, -14.5, -8, 0, -16)
+points = PackedVector2Array(0, -16, 16, -8, 16, 8, 0, 16, -16, 8, -16, -8, 0, -16)
 width = 1.0
 default_color = Color(0.15, 0.18, 0.12, 0.4)
 
 [node name="HitArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
-shape = SubResource("CircleShape2D_hex")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
+polygon = PackedVector2Array(0, -16, 16, -8, 16, 8, 0, 16, -16, 8, -16, -8)
 
