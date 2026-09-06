@@ -3,9 +3,9 @@
 # ==============================================================================
 # Định dạng mỗi phe phái:
 # [FACTION_KEY]
-# id = Mã số định danh (0: Phe người chơi, 1..18: Các thế lực đối địch hoặc chư hầu)
+# id = Mã số định danh (0: Phe người chơi, 1..17: Các thế lực đối địch hoặc chư hầu)
 # name = Danh xưng quốc hiệu
-# cultural_sphere = Khối văn hóa (EastAsian, SoutheastAsian, Nomadic, Indianized)
+# cultural_sphere = Khối văn hóa (block_alluvium, block_mandate, block_steel, block_frost)
 # treasury_food = Lượng lương thực khởi đầu
 # treasury_prod = Lượng điểm sản xuất khởi đầu
 # treasury_gold = Lượng vàng khởi đầu
@@ -13,43 +13,198 @@
 # treasury_faith = Lượng điểm tín ngưỡng khởi đầu
 # ==============================================================================
 
-[dai_viet]
+# ------------------------------------------------------------------------------
+# KHỐI 1: BÁCH THẦN & PHÙ SA (PANTHEONS & ALLUVIUM)
+# ------------------------------------------------------------------------------
+
+[lac_uyen]
 id = 0
-name = Đại Việt Hoàng Triều
-cultural_sphere = EastAsian
+name = Đế Bang Lạc Uyên
+cultural_sphere = block_alluvium
 treasury_food = 150
 treasury_prod = 80
 treasury_gold = 120
 treasury_sci = 20
 treasury_faith = 30
 
-[champa]
+[baray_nagar]
 id = 1
-name = Chiêm Thành Vương Quốc
-cultural_sphere = SoutheastAsian
-treasury_food = 130
-treasury_prod = 70
-treasury_gold = 160
-treasury_sci = 15
-treasury_faith = 40
-
-[lan_xang]
-id = 2
-name = Vạn Tượng Vương Triều
-cultural_sphere = SoutheastAsian
+name = Thánh Bang Baray-Nagar
+cultural_sphere = block_alluvium
 treasury_food = 140
 treasury_prod = 75
-treasury_gold = 110
-treasury_sci = 10
-treasury_faith = 35
-
-[da_ly]
-id = 3
-name = Đại Lý Quốc
-cultural_sphere = EastAsian
-treasury_food = 120
-treasury_prod = 90
 treasury_gold = 130
-treasury_sci = 25
+treasury_sci = 15
 treasury_faith = 45
 
+[solarika]
+id = 2
+name = Thần Triều Luân Xa Solarika
+cultural_sphere = block_alluvium
+treasury_food = 135
+treasury_prod = 70
+treasury_gold = 140
+treasury_sci = 25
+treasury_faith = 50
+
+[zafaran]
+id = 3
+name = Hoàng Triều Bất Diệt Zafaran
+cultural_sphere = block_alluvium
+treasury_food = 125
+treasury_prod = 85
+treasury_gold = 160
+treasury_sci = 30
+treasury_faith = 35
+
+# ------------------------------------------------------------------------------
+# KHỐI 2: THIẾT KỶ & THIÊN MỆNH (IRON & MANDATE)
+# ------------------------------------------------------------------------------
+
+[yan_hao]
+id = 4
+name = Thần Triều Viêm Hạo
+cultural_sphere = block_mandate
+treasury_food = 160
+treasury_prod = 95
+treasury_gold = 130
+treasury_sci = 35
+treasury_faith = 20
+
+[hinokuni]
+id = 5
+name = Thần Đạo Mạc Phủ Hinokuni
+cultural_sphere = block_mandate
+treasury_food = 130
+treasury_prod = 85
+treasury_gold = 125
+treasury_sci = 25
+treasury_faith = 40
+
+[gaorun]
+id = 6
+name = Trùng Sơn Liên Vương Quốc Gaorun
+cultural_sphere = block_mandate
+treasury_food = 120
+treasury_prod = 90
+treasury_gold = 115
+treasury_sci = 30
+treasury_faith = 25
+
+[turgai]
+id = 7
+name = Đại Hãn Quốc Bạt Hãn Turgai
+cultural_sphere = block_mandate
+treasury_food = 170
+treasury_prod = 65
+treasury_gold = 140
+treasury_sci = 15
+treasury_faith = 30
+
+# ------------------------------------------------------------------------------
+# KHỐI 3: THÁNH HUY & TRỌNG THÉP (SACRED CRESTS & HEAVY STEEL)
+# ------------------------------------------------------------------------------
+
+[aethelon]
+id = 8
+name = Liên Bang Đô Bang Aethelon
+cultural_sphere = block_steel
+treasury_food = 125
+treasury_prod = 80
+treasury_gold = 150
+treasury_sci = 35
+treasury_faith = 30
+
+[eldoria]
+id = 9
+name = Phong Kiến Vương Quốc Eldoria
+cultural_sphere = block_steel
+treasury_food = 140
+treasury_prod = 85
+treasury_gold = 120
+treasury_sci = 20
+treasury_faith = 25
+
+[valoisia]
+id = 10
+name = Hoàng Gia Đế Bang Valoisia
+cultural_sphere = block_steel
+treasury_food = 135
+treasury_prod = 90
+treasury_gold = 145
+treasury_sci = 25
+treasury_faith = 35
+
+[eisenreich]
+id = 11
+name = Thần Thánh Thiết Bang Eisenreich
+cultural_sphere = block_steel
+treasury_food = 130
+treasury_prod = 100
+treasury_gold = 130
+treasury_sci = 25
+treasury_faith = 30
+
+[castilia]
+id = 12
+name = Kim Kiếm Vương Triều Castilia
+cultural_sphere = block_steel
+treasury_food = 125
+treasury_prod = 85
+treasury_gold = 155
+treasury_sci = 20
+treasury_faith = 40
+
+# ------------------------------------------------------------------------------
+# KHỐI 4: HOANG THẦN & BĂNG LÃNH (WILD GODS & FROST)
+# ------------------------------------------------------------------------------
+
+[borislav]
+id = 13
+name = Cổ Minh Thần Mộc Borislav
+cultural_sphere = block_frost
+treasury_food = 150
+treasury_prod = 70
+treasury_gold = 110
+treasury_sci = 15
+treasury_faith = 45
+
+[krumak]
+id = 14
+name = Hãn Bang Huyết Kỳ Krumak
+cultural_sphere = block_frost
+treasury_food = 145
+treasury_prod = 75
+treasury_gold = 125
+treasury_sci = 15
+treasury_faith = 35
+
+[volskya]
+id = 15
+name = Bắc Cương Đại Lãnh Địa Volskya
+cultural_sphere = block_frost
+treasury_food = 155
+treasury_prod = 80
+treasury_gold = 115
+treasury_sci = 20
+treasury_faith = 30
+
+[sarmatia]
+id = 16
+name = Vũ Dực Vương Triều Sarmatia
+cultural_sphere = block_frost
+treasury_food = 135
+treasury_prod = 85
+treasury_gold = 135
+treasury_sci = 20
+treasury_faith = 35
+
+[tlalokan]
+id = 17
+name = Thần Vũ Vương Triều Tlalokan
+cultural_sphere = block_frost
+treasury_food = 140
+treasury_prod = 75
+treasury_gold = 120
+treasury_sci = 25
+treasury_faith = 50

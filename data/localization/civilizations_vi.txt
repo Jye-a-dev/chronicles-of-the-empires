@@ -4,163 +4,162 @@
 
 # Khối Văn Hóa Dã Sử
 BLOCK_ALLUVIUM_NAME = Bách Thần & Phù Sa
-BLOCK_ALLUVIUM_REGION = Lưu Vực Sông Nam & Tây Nam Á
+BLOCK_ALLUVIUM_REGION = Lưu Vực Đại Hà & Sa Mạc Cổ Giới
 BLOCK_ALLUVIUM_DESC = Đồng bằng châu thổ phì nhiêu, phòng tuyến lòng sông cổ kính, đền tháp linh thiêng và nghi lễ huyền bí.
 
 BLOCK_MANDATE_NAME = Thiết Kỷ & Thiên Mệnh
-BLOCK_MANDATE_REGION = Đông Bắc Á & Thảo Nguyên Bao La
+BLOCK_MANDATE_REGION = Cửu Châu Lục Thổ & Thảo Nguyên Bao La
 BLOCK_MANDATE_DESC = Kỷ luật giáp sắt nghiêm ngặt, hỏa xa công thành, kỵ binh du mục và thiên mệnh hoàng gia.
 
 BLOCK_STEEL_NAME = Thánh Huy & Trọng Thép
-BLOCK_STEEL_REGION = Bờ Biển Địa Trung Hải & Tây Âu
+BLOCK_STEEL_REGION = Biển Ngọc Hải Ngạn & Tây Cương Cổ Lục
 BLOCK_STEEL_DESC = Trận đồ giáo khiên bất khả xâm phạm, cú húc kỵ sĩ hoàng gia, bão tên trường cung và thiết giáp kiên cố.
 
 BLOCK_FROST_NAME = Hoang Thần & Băng Lãnh
-BLOCK_FROST_REGION = Đông Âu, Balkan & Rừng Già Cổ Đại
+BLOCK_FROST_REGION = Lãnh Nguyên Băng Tuyết & Rừng Già Viễn Cổ
 BLOCK_FROST_DESC = Tín ngưỡng đa thần nguyên thủy, chiến binh băng giá, kỵ binh cánh đại bàng và dũng khí rừng thiêng.
 
 # 18 Nền Văn Minh
-# 1. Việt Nam
-CIV_VN_NAME = Việt Nam (Âu Lạc / Bách Việt)
-CIV_VN_EPITHET = Chúa Tể Lưu Vực Phù Sa
+# 1. Lạc Uyên (Thay thế Việt Nam / Âu Lạc / Bách Việt)
+CIV_VN_NAME = Đế Bang Lạc Uyên (Thủy Thổ Hoàng Triều)
+CIV_VN_EPITHET = Chúa Tể Lưu Vực Xích Hà
 CIV_VN_COLORS = Xanh Rêu Đồng Cổ (#43B3AE) & Vàng Lúa (#E5A93C)
-CIV_VN_ATTIRE = Nón lông chim Lạc nhọn cao vút, hộ tâm phiến bằng đồng tròn chạm hoa văn Đông Sơn, khố dệt ngắn
-CIV_VN_UNIT = Nỏ Liên Châu & Tượng Binh Giáp Mây
-CIV_VN_TRAIT = Tàng hình trong rừng/đầm lầy, bắn xuyên giáp, bẫy cọc ngầm lòng sông, buff vĩnh viễn sau lũ lụt
+CIV_VN_ATTIRE = Nón lông chim thần Lạc vuốt nhọn, hộ tâm phiến tròn đúc hoa văn sấm sét, khố gấm dệt tay
+CIV_VN_UNIT = Nỏ Thần Uyên Châu & Tượng Binh Mây Triều Hải
+CIV_VN_TRAIT = Tàng hình trong rừng ngập mặn và đầm lầy, nỏ bắn xuyên giáp, bẫy cọc ngầm lòng sông, buff vĩnh viễn sau lũ lụt
 
-# 2. Khmer
-CIV_KHMER_NAME = Khmer (Đế Chế Angkor / Phù Nam)
-CIV_KHMER_EPITHET = Kiến Trúc Gia Hồ Thần Thủy
+# 2. Baray-Nagar (Thay thế Khmer / Angkor / Phù Nam)
+CIV_KHMER_NAME = Thánh Bang Baray-Nagar (Đế Chế Thần Hồ Sovannas)
+CIV_KHMER_EPITHET = Kiến Trúc Gia Thần Hồ Cổ Cảnh
 CIV_KHMER_COLORS = Vàng Sa Khoáng (#D4AF37) & Nâu Đất Nung (#8B4513)
-CIV_KHMER_ATTIRE = Vải quấn Sampot dệt vàng, giáp ngực nung khắc tượng Apsara, lính xăm bùa Yantra toàn thân
-CIV_KHMER_UNIT = Voi Bọc Giáp Ngà Vàng & Vệ Binh Đền Tháp
-CIV_KHMER_TRAIT = Hồ Baray cấp lương cực hạn vùng khô cằn, đền tháp tăng cường sinh lực và phòng thủ
+CIV_KHMER_ATTIRE = Vải quấn Sampot dệt chỉ vàng, giáp ngực nung khắc tượng tiên nữ Apsara thần tích, khắc bùa hộ mệnh toàn thân
+CIV_KHMER_UNIT = Kim Tượng Ngà Vàng & Vệ Binh Đền Thánh Baray
+CIV_KHMER_TRAIT = Hệ thống thủy lợi Baray cấp lương cực hạn vùng khô cằn, đền tháp tăng cường sinh lực và phòng thủ
 
-# 3. Ấn Độ
-CIV_INDIA_NAME = Ấn Độ (Vương Triều Maurya Cổ)
-CIV_INDIA_EPITHET = Người Nắm Giữ Vòng Tròn Thần Nhật
+# 3. Solarika (Thay thế Ấn Độ / Maurya)
+CIV_INDIA_NAME = Thần Triều Luân Xa Solarika (Thái Dương Mauraka)
+CIV_INDIA_EPITHET = Người Nắm Giữ Luân Xa Thái Dương
 CIV_INDIA_COLORS = Cam Nghệ (#FF9933) & Trắng Lụa (#F8F8FF)
-CIV_INDIA_ATTIRE = Khăn Turban to bản đính ngọc, áo lụa mỏng viền kim loại bạc
-CIV_INDIA_UNIT = Xạ Thủ Phóng Đĩa Chakram & Chiến Tượng Nghi Lễ
-CIV_INDIA_TRAIT = Đĩa Chakram nảy mục tiêu liên hoàn, Chiến tượng nghi lễ phát quang tăng vọt sĩ khí
+CIV_INDIA_ATTIRE = Khăn Turban to bản đính ngọc thái dương, áo lụa mỏng viền kim loại bạc filigree
+CIV_INDIA_UNIT = Xạ Thủ Phi Luân Chakram & Quang Huy Thần Tượng
+CIV_INDIA_TRAIT = Phi luân Chakram nảy mục tiêu liên hoàn, Chiến tượng nghi lễ phát quang tăng vọt sĩ khí
 
-# 4. Ba Tư
-CIV_PERSIA_NAME = Ba Tư (Kỳ Thuật Sassanid)
-CIV_PERSIA_EPITHET = Hậu Duệ Quân Đoàn Bất Tử
+# 4. Zafaran (Thay thế Ba Tư / Sassanid)
+CIV_PERSIA_NAME = Hoàng Triều Bất Diệt Zafaran (Đế Quốc Sassanor)
+CIV_PERSIA_EPITHET = Hậu Duệ Quân Đoàn Bất Diệt
 CIV_PERSIA_COLORS = Tím Hoàng Gia (#66023C) & Vàng Nghệ (#DDAA00)
-CIV_PERSIA_ATTIRE = Khăn lụa tím bịt nửa mặt, áo dệt sợi vàng khoác ngoài giáp vảy kim hoàn, khiên đan liễu gai
-CIV_PERSIA_UNIT = Kỵ Binh Thiết Giáp Cataphract & Quân Đoàn Bất Tử (Immortals)
-CIV_PERSIA_TRAIT = Quân đoàn Bất Tử tự hồi sinh khi tử trận; kỵ binh thiết giáp húc sập phòng tuyến
+CIV_PERSIA_ATTIRE = Khăn lụa tím bịt nửa mặt, áo dệt sợi vàng khoác ngoài giáp vảy kim hoàn, khiên đan liễu gai kiên cố
+CIV_PERSIA_UNIT = Kim Giáp Thiết Kỵ Cataphract & Quân Đoàn Bất Diệt
+CIV_PERSIA_TRAIT = Quân đoàn Bất Diệt tự hồi sinh khi tử trận; thiết kỵ cataphract xung phong phá hủy phòng tuyến
 
-# 5. Trung Hoa
-CIV_CHINA_NAME = Trung Hoa (Hoa Hạ Cổ Triều)
-CIV_CHINA_EPITHET = Bậc Thầy Thành Lũy & Hỏa Lực
+# 5. Viêm Hạo (Thay thế Trung Hoa / Hoa Hạ)
+CIV_CHINA_NAME = Thần Triều Viêm Hạo (Cửu Châu Thiên Triều)
+CIV_CHINA_EPITHET = Bậc Thầy Thiết Lũy & Hỏa Cơ
 CIV_CHINA_COLORS = Đỏ Thẫm Hoàng Gia (#8B0000) & Đen Then (#1C1C1C)
-CIV_CHINA_ATTIRE = Giáp phiến sắt vuông vức thời Tần - Hán, mũ sắt cắm lông trĩ đỏ dài
-CIV_CHINA_UNIT = Máy Bắn Hỏa Tiễn & Nỏ Cơ Giới Diện Rộng
-CIV_CHINA_TRAIT = Đẩy máy bắn hỏa tiễn, xây thành lũy kiên cố và đồng hóa thành phố siêu tốc
+CIV_CHINA_ATTIRE = Giáp phiến sắt vuông vức cổ phong, mũ thiết khôi cắm lông trĩ đỏ dài
+CIV_CHINA_UNIT = Hỏa Tiễn Thần Xa & Nỏ Cơ Trọng Giàn Công Thành
+CIV_CHINA_TRAIT = Điều động hỏa tiễn thần xa, xây thành lũy kiên cố và đồng hóa thành phố siêu tốc
 
-# 6. Nhật Bản
-CIV_JAPAN_NAME = Nhật Bản (Thời Kỳ Yamato / Thần Đạo)
+# 6. Hinokuni (Thay thế Nhật Bản / Yamato / Thần Đạo)
+CIV_JAPAN_NAME = Thần Đạo Mạc Phủ Hinokuni (Thái Dương Kiếm Bang)
 CIV_JAPAN_EPITHET = Thần Kiếm Mặt Trời Thái Dương
-CIV_JAPAN_COLORS = Trắng Tuyết (#FFFAFA) & Đỏ Son Torii (#C8382B)
-CIV_JAPAN_ATTIRE = Giáp gỗ sơn mài O-Yoroi, mũ Kabuto gắn sừng trăng khuyết lớn, cờ lệnh chữ nhật sau lưng
-CIV_JAPAN_UNIT = Samurai Thí Huyết & Phù Thủy Onmyoji
-CIV_JAPAN_TRAIT = Samurai Thí Huyết tăng sát thương khi cạn máu, phù thủy Onmyoji gọi sương mù che mắt đối phương
+CIV_JAPAN_COLORS = Trắng Tuyết (#FFFAFA) & Đỏ Son Cổng Trời (#C8382B)
+CIV_JAPAN_ATTIRE = Giáp gỗ sơn mài truyền thống, mũ chiến Kabuto gắn sừng trăng khuyết lớn, cờ lệnh chữ nhật sau lưng
+CIV_JAPAN_UNIT = Huyết Thệ Kiếm Tướng & U Minh Âm Dương Sư
+CIV_JAPAN_TRAIT = Huyết Thệ Kiếm Tướng tăng sát thương cực đại khi cạn máu, Âm Dương Sư gọi sương mù che mắt đối phương
 
-# 7. Hàn Quốc
-CIV_KOREA_NAME = Hàn Quốc (Tam Quốc Cổ: Goguryeo / Joseon)
-CIV_KOREA_EPITHET = Vệ Tướng Đồi Núi Rìa Đông
+# 7. Gaorun (Thay thế Hàn Quốc / Goguryeo / Joseon)
+CIV_KOREA_NAME = Trùng Sơn Liên Vương Quốc Gaorun (Sơn Cương Triều)
+CIV_KOREA_EPITHET = Vệ Tướng Hiểm Địa Đỉnh Tuyết
 CIV_KOREA_COLORS = Xanh Lam Cobalt (#0047AB) & Nâu Da Thuộc (#7B3F00)
-CIV_KOREA_ATTIRE = Mũ chóp nỉ cắm hai lông chim săn mồi vểnh ngang, giáp vảy cá bó sát linh hoạt
-CIV_KOREA_UNIT = Hwarang Cưỡi Ngựa Bắn Tỉa & Chiến Xa Bắn Bão Tên Hwacha
-CIV_KOREA_TRAIT = Hwarang cưỡi ngựa leo dốc núi bắn tỉa và chiến xa Hwacha phóng bão tên hủy diệt
+CIV_KOREA_ATTIRE = Mũ chóp nỉ cắm hai lông chim ưng vểnh ngang, giáp vảy cá bó sát linh hoạt
+CIV_KOREA_UNIT = Phong Hoa Kỵ Xạ & Hỏa Lôi Xa Trận
+CIV_KOREA_TRAIT = Kỵ xạ dốc núi tầm xa vượt trội và hỏa lôi xa trận phóng bão tên hủy diệt diện rộng
 
-# 8. Mông Cổ
-CIV_MONGOLIA_NAME = Mông Cổ (Thảo Nguyên Đại Hãn)
-CIV_MONGOLIA_EPITHET = Kỵ Sĩ Trời Xanh Vĩnh Hằng
+# 8. Turgai (Thay thế Mông Cổ / Thảo Nguyên Đại Hãn)
+CIV_MONGOLIA_NAME = Đại Hãn Quốc Bạt Hãn Turgai (Hãn Quốc Lang Thần)
+CIV_MONGOLIA_EPITHET = Kỵ Sĩ Vòm Trời Xanh Vĩnh Hằng
 CIV_MONGOLIA_COLORS = Xanh Da Trời Thảo Nguyên (#4682B4) & Nâu Lông Sói (#5C4033)
-CIV_MONGOLIA_ATTIRE = Mũ lông thú tai cừu rủ, áo choàng da Deel lót lông, cung tên phức hợp phản khúc
-CIV_MONGOLIA_UNIT = Xạ Thủ Keshik & Thiết Kỵ Du Mục
-CIV_MONGOLIA_TRAIT = Toàn quân là kỵ binh; xạ thủ Keshik vừa phi ngựa vừa bắn, tấn công xong rút lui ngay trong lượt
+CIV_MONGOLIA_ATTIRE = Mũ lông thú tai cừu rủ, áo choàng da thú lót lông ấm, cung tên phức hợp phản khúc
+CIV_MONGOLIA_UNIT = Dạ Ưng Kỵ Xạ & Thiết Kỵ Thảo Nguyên
+CIV_MONGOLIA_TRAIT = Toàn quân kỵ binh cơ động; kỵ xạ vừa phi nước đại vừa bắn và rút lui tức thì sau công kích
 
-# 9. Hi Lạp
-CIV_GREECE_NAME = Hi Lạp (Hellenic / Sparta & Athens)
-CIV_GREECE_EPITHET = Phòng Tuyến Khiên Đồng Biển Aegean
-CIV_GREECE_COLORS = Đồng Thau (#CD7F32) & Đỏ Cờ Sparta (#990000)
-CIV_GREECE_ATTIRE = Mũ Corinthian đồng thau với mào lông ngựa đỏ uốn cong, khiên tròn Aspis chạm chữ Lambda, giáp ngực đúc khối cơ bụng
-CIV_GREECE_UNIT = Trận Đồ Giáo Khiên Hoplite Phalanx & Chiến Thuyền Đâm Trireme
-CIV_GREECE_TRAIT = Trận đồ giáo khiên Hoplite Phalanx phản đòn trực diện 100% cận chiến
+# 9. Aethelon (Thay thế Hi Lạp / Hellenic / Sparta / Athens)
+CIV_GREECE_NAME = Liên Bang Đô Bang Aethelon (Thánh Bang Corinthia)
+CIV_GREECE_EPITHET = Phòng Tuyến Khiên Đồng Biển Ngọc
+CIV_GREECE_COLORS = Đồng Thau (#CD7F32) & Đỏ Cờ Chiến Trận (#990000)
+CIV_GREECE_ATTIRE = Mũ đồng thau hộ diện với mào lông ngựa đỏ uốn cong, khiên tròn đồng đúc phù hiệu thần tích, giáp đúc khối cơ ngực
+CIV_GREECE_UNIT = Thần Khiên Đồng Trận Hoplite & Kình Ngư Chiến Thuyền Tam Tầng
+CIV_GREECE_TRAIT = Trận đồ khiên đồng Hoplite phản đòn trực diện 100% sát thương cận chiến
 
-# 10. Anh
-CIV_ENGLAND_NAME = Anh (Anglo-Saxon / Arthurian)
-CIV_ENGLAND_EPITHET = Cung Thủ Rừng Già Arthur
+# 10. Eldoria (Thay thế Anh / Anglo-Saxon / Arthurian)
+CIV_ENGLAND_NAME = Phong Kiến Vương Quốc Eldoria (Lãnh Địa Rừng Xanh Albret)
+CIV_ENGLAND_EPITHET = Cung Thủ Rừng Cổ Thụ Greenwood
 CIV_ENGLAND_COLORS = Xanh Lá Cây Rừng (#228B22) & Nâu Bùn (#6E5334)
-CIV_ENGLAND_ATTIRE = Cung dài Longbow cao vượt đầu người, áo chẽn nỉ gai, mũ chảo sắt tròn Kettle hat
-CIV_ENGLAND_UNIT = Xạ Thủ Trường Cung Longbow & Trảm Binh
-CIV_ENGLAND_TRAIT = Xạ thủ tầm bắn xa nhất game, dựng cọc nhọn bẫy kỵ binh
+CIV_ENGLAND_ATTIRE = Cung dài gỗ du vượt đầu người, áo chẽn nỉ thô, mũ chảo sắt tròn hộ đầu
+CIV_ENGLAND_UNIT = Xạ Thủ Trường Cung Eldoria & Thiết Kích Binh
+CIV_ENGLAND_TRAIT = Xạ thủ tầm bắn xa nhất sa bàn, khả năng dựng cọc nhọn bẫy kỵ binh xung trận
 
-# 11. Pháp
-CIV_FRANCE_NAME = Pháp (Hiệp Sĩ Hoàng Gia)
-CIV_FRANCE_EPITHET = Kỵ Sĩ Hoa Bách Hợp Hoàng Gia
+# 11. Valoisia (Thay thế Pháp / Hiệp Sĩ Hoàng Gia)
+CIV_FRANCE_NAME = Hoàng Gia Đế Bang Valoisia (Vương Triều Bạch Diệp)
+CIV_FRANCE_EPITHET = Kỵ Sĩ Hoàng Gia Hoa Bạch Diệp
 CIV_FRANCE_COLORS = Xanh Dương Hoàng Gia (#4169E1) & Trắng Bạc (#E0E0E0)
-CIV_FRANCE_ATTIRE = Ngựa chiến bọc vải phủ hoa bách hợp thêu chỉ vàng, kỵ sĩ mũ kín mít khe thở chữ thập, vác thương dài Lance
-CIV_FRANCE_UNIT = Kỵ Sĩ Thiết Giáp Hoàng Gia & Nỏ Thủ Thành Lũy
-CIV_FRANCE_TRAIT = Cú húc (Charge) làm vỡ tan hàng ngũ địch và tạo khiên giảm sát thương cho quân nhà
+CIV_FRANCE_ATTIRE = Chiến mã phủ vải thêu hoa bách diệp chỉ vàng, hiệp sĩ mũ kín khe thở chữ thập, vác thương dài kỵ sĩ
+CIV_FRANCE_UNIT = Hoàng Gia Thiết Kỵ Hoa Thánh & Trọng Nỏ Phòng Tuyến
+CIV_FRANCE_TRAIT = Đòn húc kỵ sĩ làm vỡ tan đội hình địch và tạo khiên giảm thương cho đồng minh lân cận
 
-# 12. Đức
-CIV_GERMANY_NAME = Đức (Thần Thánh La Mã / Teutonic)
-CIV_GERMANY_EPITHET = Thiết Giáp Thập Tự Quân
+# 12. Eisenreich (Thay thế Đức / Thần Thánh La Mã / Teutonic)
+CIV_GERMANY_NAME = Thần Thánh Thiết Bang Eisenreich (Đại Công Quốc Teutonberg)
+CIV_GERMANY_EPITHET = Thiết Giáp Tiên Phong Thập Tự Đen
 CIV_GERMANY_COLORS = Đen Tuyền (#111111) & Trắng Tinh Khôi (#F5F5F5)
-CIV_GERMANY_ATTIRE = Áo choàng trắng in chữ thập đen ngực, mũ sắt gắn cánh/sừng hươu đồ sộ, giáp phiến Gothic
-CIV_GERMANY_UNIT = Hiệp Sĩ Đại Kiếm Zweihander & Kỵ Sĩ Teutonic
-CIV_GERMANY_TRAIT = Hiệp sĩ vác đại kiếm Zweihander chém quét lan 3 ô, chuyên phá tan hàng ngũ giáo khiên
+CIV_GERMANY_ATTIRE = Áo choàng trắng thêu chữ thập đen trước ngực, mũ sắt gắn sừng hươu đồ sộ, toàn thân bọc giáp phiến kiên cố
+CIV_GERMANY_UNIT = Trảm Kiếm Sĩ Đại Kiếm Zweihander & Thiết Kỵ Thập Tự Đen
+CIV_GERMANY_TRAIT = Trảm kiếm sĩ Zweihander chém quét lan 3 ô, chuyên phá vỡ các phòng tuyến khiên giáo
 
-# 13. Tây Ban Nha
-CIV_SPAIN_NAME = Tây Ban Nha (Vương Quốc Reconquista)
-CIV_SPAIN_EPITHET = Phương Trận Trường Giáo Bất Bại
+# 13. Castilia (Thay thế Tây Ban Nha / Reconquista)
+CIV_SPAIN_NAME = Kim Kiếm Vương Triều Castilia (Thánh Đình Aragonis)
+CIV_SPAIN_EPITHET = Phương Trận Kim Giáp Bất Bại
 CIV_SPAIN_COLORS = Vàng Kim (#DAA520) & Đỏ Tươi (#C70039)
-CIV_SPAIN_ATTIRE = Mũ vành thuyền nhọn hai đầu Morion, giáp ngực thép phản quang, kiếm thép Toledo
-CIV_SPAIN_UNIT = Phương Trận Tercio & Kỵ Binh Chinh Phục
+CIV_SPAIN_ATTIRE = Mũ vành nhọn hai đầu phản quang, giáp ngực thép tôi luyện, kiếm thép dài tôi dầu sắc bén
+CIV_SPAIN_UNIT = Kim Giáp Phương Trận Tercio & Kỵ Binh Viễn Chinh Castilia
 CIV_SPAIN_TRAIT = Đội hình Tercio phối hợp trường giáo kiên cố miễn nhiễm hoàn toàn các đòn húc kỵ binh
 
-# 14. Slav Cổ
-CIV_SLAVS_NAME = Slav Cổ (Pagan Slavic / Thần Sấm Perun)
-CIV_SLAVS_EPITHET = Chiến Binh Cổ Thụ Thần Sấm
+# 14. Borislav (Thay thế Slav Cổ / Pagan Slavic / Perun)
+CIV_SLAVS_NAME = Cổ Minh Thần Mộc Borislav (Thần Mộc Đại Bang)
+CIV_SLAVS_EPITHET = Chiến Binh Cổ Thụ Lôi Thần
 CIV_SLAVS_COLORS = Đỏ Thêu Dân Gian (#C8102E) & Xám Da Sói (#696969)
-CIV_SLAVS_ATTIRE = Áo lanh trắng thêu hoa văn chỉ đỏ (Vyshyvanka), khoác áo da sói, râu tết hạt gỗ
-CIV_SLAVS_UNIT = Chiến Binh Vityaz & Tế Lễ Thần Sấm
-CIV_SLAVS_TRAIT = Chiến binh Vityaz hồi máu gần bìa rừng, miễn nhiễm làm chậm của băng giá
+CIV_SLAVS_ATTIRE = Áo lanh thêu hoa văn đỏ linh thiêng, khoác da sói xám, râu tết chuỗi hạt gỗ hộ mệnh
+CIV_SLAVS_UNIT = Sâm Lâm Thiết Dũng Vityaz & Tế Lễ Lôi Thần Perun
+CIV_SLAVS_TRAIT = Chiến binh Vityaz hồi máu gần bìa rừng, miễn nhiễm làm chậm trong bão tuyết và băng giá
 
-# 15. Bulgar Cổ
-CIV_BULGARS_NAME = Bulgar Cổ (Hãn Quốc Dã Sử / Thời Khan Krum)
-CIV_BULGARS_EPITHET = Kỵ Sĩ Ngọn Cờ Thiêng Tangra
+# 15. Krumak (Thay thế Bulgar Cổ / Khan Krum / Tangra)
+CIV_BULGARS_NAME = Hãn Bang Huyết Kỳ Krumak (Đại Hãn Quốc Tangrad)
+CIV_BULGARS_EPITHET = Kỵ Sĩ Ngọn Cờ Thiêng Tangrad
 CIV_BULGARS_COLORS = Đỏ Huyết Dụ (#8A0303) & Đen Than Củi (#232B2B)
-CIV_BULGARS_ATTIRE = Mũ sắt chóp vuốt cong đính đuôi ngựa đen, cọc cờ hiệu thiêng thần Tangra (Tug), áo da lộn trùm ngoài giáp vảy
-CIV_BULGARS_UNIT = Kỵ Binh Boyar & Dân Binh Cuồng Nộ
-CIV_BULGARS_TRAIT = Kỵ binh Boyar cướp tài nguyên trên xác tướng địch, bộ binh kích hoạt trạng thái Huyết Thệ cuồng bạo khi sắp chết
+CIV_BULGARS_ATTIRE = Mũ sắt chóp vuốt cong đính đuôi ngựa đen, cọc cờ hiệu thiêng thần Tangrad, giáp vảy bọc da lộn
+CIV_BULGARS_UNIT = Trọng Kỵ Quý Tộc Boyar & Huyết Thệ Cuồng Binh
+CIV_BULGARS_TRAIT = Kỵ binh Boyar cướp bóc tài nguyên từ xác tướng lĩnh địch; bộ binh kích hoạt Huyết Thệ cuồng bạo khi nguy cấp
 
-# 16. Kievan Rus
-CIV_RUS_NAME = Nga (Kievan Rus Dã Sử)
-CIV_RUS_EPITHET = Vệ Quân Băng Giá Dnieper
+# 16. Volskya (Thay thế Nga / Kievan Rus / Dnieper)
+CIV_RUS_NAME = Bắc Cương Đại Lãnh Địa Volskya (Vương Bang Băng Hồ)
+CIV_RUS_EPITHET = Vệ Binh Băng Giá Dòng Dniepran
 CIV_RUS_COLORS = Đỏ Rượu Chát (#800020) & Trắng Tuyết (#FFFAFA)
-CIV_RUS_ATTIRE = Áo khoác da gấu dày sụ viền lông thú lớn, mũ Spangenhelm vuốt nhọn có lưới xích che kín cằm, vác rìu hai lưỡi Bardiche
-CIV_RUS_UNIT = Vệ Binh Druzhina & Rìu Binh Bardiche
-CIV_RUS_TRAIT = Vệ binh Druzhina nhận lượng phòng ngự cực đại trong đầm lầy hoặc bão tuyết
+CIV_RUS_ATTIRE = Áo khoác da gấu dày viền lông thú bắc cực, mũ chóp nhọn lưới xích che kín cằm, vác đại phủ hai lưỡi Bardiche
+CIV_RUS_UNIT = Bắc Cương Thân Binh Druzhina & Đại Phủ Băng Hàn Bardiche
+CIV_RUS_TRAIT = Thân binh Druzhina nhận lượng phòng ngự cực đại trong đầm lầy hoặc bão tuyết
 
-# 17. Ba Lan
-CIV_POLAND_NAME = Ba Lan (Husaria Thần Thoại)
-CIV_POLAND_EPITHET = Đại Bàng Cánh Thép Thần Tốc
-CIV_POLAND_COLORS = Đỏ Cờ Thắm (#DC143C) & Trắng Lông Vũ (#FFFFFF)
-CIV_POLAND_ATTIRE = Khung cánh lông vũ đại bàng cong vút sau lưng áo giáp thép bóng loáng, thương dài gắn lụa hai màu
-CIV_POLAND_UNIT = Kỵ Binh Winged Husaria & Thiết Kỵ Pancerni
-CIV_POLAND_TRAIT = Kỵ binh Husaria phi nước đại tạo âm thanh rít gió làm giảm sĩ khí khiến quân địch tự tháo chạy
+# 17. Sarmatia (Thay thế Ba Lan / Husaria)
+CIV_POLAND_NAME = Vũ Dực Vương Triều Sarmatia (Đại Vương Quốc Lechia)
+CIV_POLAND_EPITHET = Thần Ưng Cánh Thép Bão Táp
+CIV_POLAND_COLORS = Đỏ Thắm Hoàng Gia (#DC143C) & Trắng Lông Vũ (#FFFFFF)
+CIV_POLAND_ATTIRE = Khung cánh lông vũ đại bàng cong vút sau lưng giáp ngực thép bóng, thương dài gắn cờ lụa hai màu
+CIV_POLAND_UNIT = Thần Dực Thiết Kỵ Winged Husaria & Giáp Xích Thiết Kỵ Pancerni
+CIV_POLAND_TRAIT = Thiết kỵ Husaria phi nước đại tạo âm thanh rít gió uy hiếp, khiến quân địch hoảng loạn suy giảm sĩ khí
 
-# 18. Mỹ Bản Địa Cổ
-CIV_MESO_NAME = Mỹ Bản Địa Cổ (Maya / Mississippian Tiền Trung Cổ)
-CIV_MESO_EPITHET = Dũng Sĩ Báo Đốm Rừng Già
-CIV_MESO_COLORS = Đỏ Đất Nung (#B22222) & Xanh Lông Vẹt (#00A86B)
-CIV_MESO_ATTIRE = Mũ lông chim ưng xòe tròn lớn, mình trần sơn vằn vện, áo giáp da báo đốm
-CIV_MESO_UNIT = Dũng Sĩ Báo Đốm Jaguar & Xạ Thủ Lao Atlatl
-CIV_MESO_TRAIT = Dũng sĩ Báo Đốm chạy bộ nhanh ngang kỵ binh, không bị trừ tốc độ khi leo núi đá hay băng rừng rậm
-
+# 18. Tlalokan (Thay thế Mỹ Bản Địa Cổ / Maya / Mississippian)
+CIV_MESO_NAME = Thần Vũ Vương Triều Tlalokan (Thánh Địa Quetzala)
+CIV_MESO_EPITHET = Dũng Sĩ Báo Đốm Vũ Xà Thần
+CIV_MESO_COLORS = Đỏ Đất Nung (#B22222) & Xanh Lông Chim Thần (#00A86B)
+CIV_MESO_ATTIRE = Mũ lông chim ưng xòe tròn lớn, mình vẽ hoa văn thần thánh, áo giáp da báo đốm dũng mãnh
+CIV_MESO_UNIT = Huyền Báo Thần Dũng Jaguar & Phi Lao Thần Nhật Atlatl
+CIV_MESO_TRAIT = Huyền Báo Thần Dũng di chuyển nhanh ngang kỵ binh, không chịu hình phạt tốc độ khi vượt địa hình hiểm trở

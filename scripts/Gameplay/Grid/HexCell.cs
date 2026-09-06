@@ -103,7 +103,7 @@ public partial class HexCell : GodotObject
             TerrainType.River => new TileTerrainData
             {
                 Biome = BiomeType.River,
-                Name = "Sông Hồng",
+                Name = "Đại Hà Xích Giang",
                 Description = "Dòng sông lớn chia cắt địa hình, cung cấp nguồn nước và giao thương.",
                 MoveCost = 3,
                 IsBlocked = true,
@@ -112,7 +112,7 @@ public partial class HexCell : GodotObject
             TerrainType.Mountain => new TileTerrainData
             {
                 Biome = BiomeType.Mountain,
-                Name = "Dãy Hoàng Liên Sơn",
+                Name = "Dãy Thần Phong Sơn",
                 Description = "Núi cao hiểm trở, bất khả xâm phạm nhưng giàu quặng mỏ.",
                 MoveCost = 99,
                 IsBlocked = true,

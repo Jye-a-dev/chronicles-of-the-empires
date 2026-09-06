@@ -34,7 +34,7 @@ public partial class GridMapManager : Node2D
     /// <summary>
     /// Custom map layout array editable directly in the Godot inspector.
     /// Format: Each row contains characters separated by spaces or continuous:
-    /// 'P' = Plains (Đồng Bằng), 'F' = Forest (Rừng Rậm), 'R' = River (Sông Hồng), 'M' = Mountain (Núi)
+    /// 'P' = Plains (Đồng Bằng), 'F' = Forest (Rừng Rậm), 'R' = River (Đại Hà), 'M' = Mountain (Núi)
     /// </summary>
     [Export] public Godot.Collections.Array<string> ManualMapLayout = new();
 

@@ -6,7 +6,7 @@ using System;
 namespace ChroniclesOfTheEmpires.UI;
 
 /// <summary>
-/// Native Godot 4 C# controller for the Đông Sơn bronze-themed Main Menu.
+/// Native Godot 4 C# controller for the mythic bronze-themed Main Menu.
 /// Coordinates the Left-aligned Sidebar layout (~30% screen width), leaving 70% viewport
 /// dedicated to pixel art scenery, with an adjacent campaign selector and full settings modal.
 /// </summary>

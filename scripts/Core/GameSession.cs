@@ -29,7 +29,7 @@ public static class GameSession
         Mode: "campaign",
         ModeTitle: "Đại Chiến Dịch",
         StageId: "stage_1",
-        StageTitle: "Ải 1: Khởi Nguồn Văn Lang",
+        StageTitle: "Ải 1: Phù Sa Thần Tích",
         MapSize: "32x32",
         Biome: "red_river",
         RivalsCount: 2,

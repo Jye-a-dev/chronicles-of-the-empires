@@ -4,163 +4,162 @@
 
 # Cultural Spheres
 BLOCK_ALLUVIUM_NAME = Pantheons & Alluvium
-BLOCK_ALLUVIUM_REGION = South & Southwest Asian River Basins
+BLOCK_ALLUVIUM_REGION = Great River Basins & Mythic Deserts
 BLOCK_ALLUVIUM_DESC = Fertile floodplains, ancient river redoubts, sacred temples, and mystical rituals.
 
 BLOCK_MANDATE_NAME = Iron & Mandate
-BLOCK_MANDATE_REGION = East Asia & The Great Steppe
+BLOCK_MANDATE_REGION = Celestial Provinces & The Vast Steppe
 BLOCK_MANDATE_DESC = Rigid iron discipline, siege artillery, nomad horsemen, and divine imperial decrees.
 
 BLOCK_STEEL_NAME = Sacred Crests & Heavy Steel
-BLOCK_STEEL_REGION = Mediterranean Shores & Western Europe
+BLOCK_STEEL_REGION = Pelagion Shores & Western Strongholds
 BLOCK_STEEL_DESC = Impenetrable phalanxes, knightly shock charges, massed longbows, and steel plate armaments.
 
 BLOCK_FROST_NAME = Wild Gods & Frost
-BLOCK_FROST_REGION = Eastern Europe, Balkans & Ancient Woodlands
+BLOCK_FROST_REGION = Boreal Tundra & Primeval Woodlands
 BLOCK_FROST_DESC = Pagan pantheons, blizzard resilience, fearsome cavalry charges, and dense primeval warfare.
 
 # 18 Civilizations
-# 1. Vietnam
-CIV_VN_NAME = Vietnam (Au Lac / Baiyue)
-CIV_VN_EPITHET = Lords of the Alluvial Floodplains
+# 1. Lac Uyen (Replacing Vietnam / Au Lac / Baiyue)
+CIV_VN_NAME = Sovereign Realm of Lac Uyen (Alluvial Dynasty)
+CIV_VN_EPITHET = Lords of the Crimson Waters
 CIV_VN_COLORS = Verdigris (#43B3AE) & Rice Gold (#E5A93C)
-CIV_VN_ATTIRE = Tall feathered Lac headdress, round Dong Son bronze pectoral, woven loincloth
-CIV_VN_UNIT = Lien Chau Crossbowmen & Rattan-Armored War Elephants
-CIV_VN_TRAIT = Stealth in wetlands, armor-piercing volleys, submerged river stakes, permanent flood buffs
+CIV_VN_ATTIRE = Tall feathered Lac headdress, round storm-cast bronze pectoral, hand-woven brocade tunic
+CIV_VN_UNIT = Uyen-Chau Repeating Crossbow & Tide-Rattan War Elephants
+CIV_VN_TRAIT = Stealth in wetlands and mangrove bogs, armor-piercing volleys, submerged river stakes, permanent flood buffs
 
-# 2. Khmer
-CIV_KHMER_NAME = Khmer (Angkor / Funan)
-CIV_KHMER_EPITHET = Architects of the Golden Reservoir
+# 2. Baray-Nagar (Replacing Khmer / Angkor / Funan)
+CIV_KHMER_NAME = Sacred Dominion of Sovannagar (Sunken Realm of Nagar)
+CIV_KHMER_EPITHET = Architects of the Golden Basin
 CIV_KHMER_COLORS = Placer Gold (#D4AF37) & Terracotta (#8B4513)
-CIV_KHMER_ATTIRE = Gold-woven Sampot, terracotta Apsara cuirass, body-covered Yantra ritual tattoos
-CIV_KHMER_UNIT = Gilded-Tusk War Elephants & Temple Guardians
-CIV_KHMER_TRAIT = Baray reservoir network provides immense sustenance in arid biomes
+CIV_KHMER_ATTIRE = Gold-woven Sampot, terracotta sacred Apsara cuirass, body-covered talismanic ward tattoos
+CIV_KHMER_UNIT = Gilded-Tusk War Elephants & Temple Guardians of Baray
+CIV_KHMER_TRAIT = Baray hydrological network provides immense sustenance in arid biomes; holy spires fortify vitality
 
-# 3. India
-CIV_INDIA_NAME = India (Ancient Maurya)
+# 3. Solarika (Replacing India / Maurya)
+CIV_INDIA_NAME = Solarika Empire (Radiant Realm of Mauraka)
 CIV_INDIA_EPITHET = Keepers of the Solar Chakra
 CIV_INDIA_COLORS = Saffron (#FF9933) & Silk White (#F8F8FF)
-CIV_INDIA_ATTIRE = Broad jewel-crested turban, translucent silk tunic trimmed with silver filigree
-CIV_INDIA_UNIT = Chakram Throwers & Luminescent Ceremonial War Elephants
-CIV_INDIA_TRAIT = Ricocheting circular disc projectiles and aura of radiant morale inspiration
+CIV_INDIA_ATTIRE = Broad jewel-crested solar turban, translucent silk tunic trimmed with silver filigree
+CIV_INDIA_UNIT = Solar Chakram Whirlers & Luminescent Ritual War Elephants
+CIV_INDIA_TRAIT = Ricocheting circular chakram projectiles and radiant aura of supreme morale inspiration
 
-# 4. Persia
-CIV_PERSIA_NAME = Persia (Sassanid Arcana)
-CIV_PERSIA_EPITHET = Heirs of the Immortals
+# 4. Zafaran (Replacing Persia / Sassanid)
+CIV_PERSIA_NAME = Grand Imperium of Zafaran (Sassanor Empire)
+CIV_PERSIA_EPITHET = Heirs of the Everliving
 CIV_PERSIA_COLORS = Tyrian Purple (#66023C) & Turmeric Gold (#DDAA00)
-CIV_PERSIA_ATTIRE = Half-face purple silk veil, gold-spun tunic over jewel-scale armor, woven wicker shield
-CIV_PERSIA_UNIT = Cataphract Cavalry & The Immortals Legion
-CIV_PERSIA_TRAIT = The Immortals resurrect upon falling in battle; heavy shock cavalry charges
+CIV_PERSIA_ATTIRE = Half-face purple silk veil, gold-spun tunic over jewel-scale armor, woven wicker tower shield
+CIV_PERSIA_UNIT = Gilded Cataphract Cavalry & The Everliving Cohort
+CIV_PERSIA_TRAIT = The Everliving cohort resurrects upon falling in battle; heavy shock cataphracts shatter enemy formations
 
-# 5. China
-CIV_CHINA_NAME = China (Ancient Huaxia)
+# 5. Yan-Hao (Replacing China / Huaxia)
+CIV_CHINA_NAME = Celestial Realm of Yan-Hao (Mandate Empire of Haozhou)
 CIV_CHINA_EPITHET = Masters of the Iron Bastion
 CIV_CHINA_COLORS = Imperial Crimson (#8B0000) & Jet Black (#1C1C1C)
-CIV_CHINA_ATTIRE = Square Qin-Han iron lamellar plates, iron helm with long red pheasant plumes
-CIV_CHINA_UNIT = Rocket Cart Artillery & Heavy Siege Crossbow Batteries
-CIV_CHINA_TRAIT = Rapid fortress construction and high-speed imperial cultural assimilation
+CIV_CHINA_ATTIRE = Square classical iron lamellar plates, iron helm with long red pheasant plumes
+CIV_CHINA_UNIT = Celestial Fire-Arrow Batteries & Ironwork Siege Ballistas
+CIV_CHINA_TRAIT = Deploy massive rocket artillery batteries, erect impenetrable fortresses, and rapidly assimilate conquered cities
 
-# 6. Japan
-CIV_JAPAN_NAME = Japan (Yamato / Shinto)
-CIV_JAPAN_EPITHET = Blades of the Kami Sun
+# 6. Hinokuni (Replacing Japan / Yamato / Shinto)
+CIV_JAPAN_NAME = Sacred Shogunate of Hinokuni (Blades of the Radiant Sun)
+CIV_JAPAN_EPITHET = Blades of the Sunken Sun
 CIV_JAPAN_COLORS = Snow White (#FFFAFA) & Torii Vermilion (#C8382B)
-CIV_JAPAN_ATTIRE = Lacquered wood O-Yoroi armor, Kabuto helm with grand crescent moon, back banner Sashimono
-CIV_JAPAN_UNIT = Blood-Pact Samurai & Shinto Onmyoji Diviners
-CIV_JAPAN_TRAIT = Samurai gain exponential attack when low on HP; Onmyoji invoke obscuring battlefield mists
+CIV_JAPAN_ATTIRE = Traditional lacquered wood armor, Kabuto war helm with grand crescent crest, rear banner Sashimono
+CIV_JAPAN_UNIT = Blood-Pact Swordmasters & Spirit Mist Diviners
+CIV_JAPAN_TRAIT = Blood-Pact Swordmasters gain exponential combat power when critical; Diviners summon battlefield shroud mists
 
-# 7. Korea
-CIV_KOREA_NAME = Korea (Goguryeo / Joseon)
-CIV_KOREA_EPITHET = Sentinels of the Pine Ridges
+# 7. Gaorun (Replacing Korea / Goguryeo / Joseon)
+CIV_KOREA_NAME = Mountain Kingdom of Gaorun (Ridge Confederacy of Gaorun)
+CIV_KOREA_EPITHET = Sentinels of the Frost Peaks
 CIV_KOREA_COLORS = Cobalt Blue (#0047AB) & Leather Brown (#7B3F00)
 CIV_KOREA_ATTIRE = Felt peaked hat adorned with dual raptor feathers, flexible fish-scale armor
-CIV_KOREA_UNIT = Mounted Hwarang Archers & Hwacha Rocket Fire-Carts
-CIV_KOREA_TRAIT = Uphill archery damage bonus and relentless fire-arrow barrages
+CIV_KOREA_UNIT = Gale Ridge Mounted Snipers & Thunder-Arrow Siege Carts
+CIV_KOREA_TRAIT = High-elevation sniper range bonus and devastating salvos of fire-arrow barrages
 
-# 8. Mongolia
-CIV_MONGOLIA_NAME = Mongolia (Great Khan Steppe)
+# 8. Turgai (Replacing Mongolia / Great Khan Steppe)
+CIV_MONGOLIA_NAME = Grand Khaganate of Turgai (Eternal Sky Horde)
 CIV_MONGOLIA_EPITHET = Riders of the Eternal Blue Sky
 CIV_MONGOLIA_COLORS = Steppe Azure (#4682B4) & Wolf Fur Brown (#5C4033)
-CIV_MONGOLIA_ATTIRE = Flapped sheepskin fur cap, fur-lined leather Deel robe, composite recurve bow
-CIV_MONGOLIA_UNIT = Keshik Horse Archers & Nomad Heavy Lancers
-CIV_MONGOLIA_TRAIT = All-cavalry roster; Parting shot mechanics with instantaneous post-attack hit-and-run
+CIV_MONGOLIA_ATTIRE = Flapped sheepskin fur cap, fur-lined leather robe, composite recurve hornbow
+CIV_MONGOLIA_UNIT = Night-Falcon Horse Archers & Steppe Iron Lancers
+CIV_MONGOLIA_TRAIT = Complete all-cavalry roster; horse archers shoot on the gallop and reposition immediately after attack
 
-# 9. Greece
-CIV_GREECE_NAME = Greece (Hellenic / Sparta & Athens)
-CIV_GREECE_EPITHET = Shieldwall of the Aegean
-CIV_GREECE_COLORS = Antique Bronze (#CD7F32) & Spartan Red (#990000)
-CIV_GREECE_ATTIRE = Corinthian bronze helm with curved horsehair crest, Lambda Aspis shield, anatomical muscle cuirass
-CIV_GREECE_UNIT = Hoplite Phalanx & Ramming Trireme Galleys
-CIV_GREECE_TRAIT = Phalanx wall reflects 100% of direct frontal melee attacks
+# 9. Aethelon (Replacing Greece / Hellenic / Sparta / Athens)
+CIV_GREECE_NAME = Maritime League of Aethelon (Archon Polis of Aethelon)
+CIV_GREECE_EPITHET = Shieldwall of the Pelagion
+CIV_GREECE_COLORS = Antique Bronze (#CD7F32) & War Banner Red (#990000)
+CIV_GREECE_ATTIRE = Crested bronze helm with horsehair plumed ridge, embossed round Hoplon shield, anatomical muscle cuirass
+CIV_GREECE_UNIT = Bronzecrest Hoplite Phalanx & Ramming Trireme Galleys
+CIV_GREECE_TRAIT = Phalanx shieldwall reflects 100% of direct frontal melee combat damage
 
-# 10. England
-CIV_ENGLAND_NAME = England (Anglo-Saxon / Arthurian)
-CIV_ENGLAND_EPITHET = Yeomen of the Green Boughs
+# 10. Eldoria (Replacing England / Anglo-Saxon / Arthurian)
+CIV_ENGLAND_NAME = High Kingdom of Eldoria (Duchy of Albreshire)
+CIV_ENGLAND_EPITHET = Yeomen of the Greenwood Boughs
 CIV_ENGLAND_COLORS = Forest Green (#228B22) & Mud Brown (#6E5334)
 CIV_ENGLAND_ATTIRE = Tall yew longbow exceeding warrior height, coarse wool doublet, round iron kettle hat
-CIV_ENGLAND_UNIT = Arthurian Longbowmen & Billmen
-CIV_ENGLAND_TRAIT = Longest projectile range in the game; can deploy anti-cavalry sharpened stakes
+CIV_ENGLAND_UNIT = Eldorian Greenwood Longbowmen & Heavy Billmen
+CIV_ENGLAND_TRAIT = Longest projectile range in the theater; can deploy anti-cavalry defensive stakes
 
-# 11. France
-CIV_FRANCE_NAME = France (Royal Knights)
-CIV_FRANCE_EPITHET = Champions of the Fleur-de-lis
+# 11. Valoisia (Replacing France / Royal Knights)
+CIV_FRANCE_NAME = Imperial Realm of Valoisia (Kingdom of Lysgard)
+CIV_FRANCE_EPITHET = Champions of the Golden Lily
 CIV_FRANCE_COLORS = Royal Blue (#4169E1) & Silver White (#E0E0E0)
-CIV_FRANCE_ATTIRE = Warhorse caparisoned in gold-embroidered lilies, knight in great helm with cross visor slits, couched lance
-CIV_FRANCE_UNIT = Chevalier Paladins & Royal Crossbow Garrisons
-CIV_FRANCE_TRAIT = Devastating couched lance charge fractures enemy formations and shields nearby allies
+CIV_FRANCE_ATTIRE = Caparisoned warhorse in gold-embroidered lilies, knight in great helm with cross visor slits, couched lance
+CIV_FRANCE_UNIT = Sovereign Fleur Chevaliers & Bastion Crossbow Garrisons
+CIV_FRANCE_TRAIT = Devastating couched lance charge fractures enemy formations and shields nearby allied units
 
-# 12. Germany
-CIV_GERMANY_NAME = Germany (Holy Roman / Teutonic)
-CIV_GERMANY_EPITHET = Iron Vanguard of the Cross
+# 12. Eisenreich (Replacing Germany / Holy Roman / Teutonic)
+CIV_GERMANY_NAME = Iron Imperium of Eisenreich (Grand Duchy of Teutonia)
+CIV_GERMANY_EPITHET = Vanguard of the Iron Cross
 CIV_GERMANY_COLORS = Teutonic Black (#111111) & Pure White (#F5F5F5)
-CIV_GERMANY_ATTIRE = White surcoat bearing black chest cross, horned/winged Great Helm, full Gothic plate
-CIV_GERMANY_UNIT = Zweihander Greatswordsmen & Teutonic Knights
-CIV_GERMANY_TRAIT = Zweihander sweeps 3 tiles wide, specializing in sundering enemy pike and spear lines
+CIV_GERMANY_ATTIRE = White surcoat bearing black chest cross, horned great helm, heavy articulated Gothic plate
+CIV_GERMANY_UNIT = Zweihander Greatswordsmen & Iron Cross Knights
+CIV_GERMANY_TRAIT = Zweihander greatswordsmen sweep 3 tiles wide, specializing in sundering enemy shield and pike lines
 
-# 13. Spain
-CIV_SPAIN_NAME = Spain (Reconquista Kingdom)
-CIV_SPAIN_EPITHET = Bastion of the Silver Pike
+# 13. Castilia (Replacing Spain / Reconquista)
+CIV_SPAIN_NAME = Royal Realm of Castilia (Crown of Aragonis)
+CIV_SPAIN_EPITHET = Bastion of the Gilded Pike
 CIV_SPAIN_COLORS = Castilian Gold (#DAA520) & Crimson Scarlet (#C70039)
-CIV_SPAIN_ATTIRE = Dual-pointed Morion comb helm, burnished plate cuirass, Toledo steel blade
-CIV_SPAIN_UNIT = Tercio Pike-and-Shot Regiments & Conquistadors
-CIV_SPAIN_TRAIT = Tercio square formation is completely immune to frontal cavalry charges
+CIV_SPAIN_ATTIRE = Dual-pointed comb Morion helm, burnished steel plate cuirass, oil-tempered rapier blade
+CIV_SPAIN_UNIT = Castilian Tercio Regiments & Conquistador Lancers
+CIV_SPAIN_TRAIT = Tercio square formation is completely immune to frontal cavalry shock charges
 
-# 14. Ancient Slavs
-CIV_SLAVS_NAME = Ancient Slavs (Pagan / Perun's Host)
+# 14. Borislav (Replacing Ancient Slavs / Pagan / Perun)
+CIV_SLAVS_NAME = Primeval Realm of Borislav (Woodland Dominion of Perunika)
 CIV_SLAVS_EPITHET = Sons of the Thunder Oak
 CIV_SLAVS_COLORS = Embroidery Red (#C8102E) & Wolf Grey (#696969)
-CIV_SLAVS_ATTIRE = White linen shirt with red folk embroidery (Vyshyvanka), wolf pelt mantle, beaded beard braids
-CIV_SLAVS_UNIT = Vityaz Woodsmen & Perun Thunder Priests
-CIV_SLAVS_TRAIT = Vityaz regenerates health near woodland borders; completely immune to frost movement slows
+CIV_SLAVS_ATTIRE = Linen shirt with ritual red folk embroidery, wolf pelt mantle, carved wooden talisman beard beads
+CIV_SLAVS_UNIT = Vityaz Woodland Sentinels & Perun Thunder Shamans
+CIV_SLAVS_TRAIT = Vityaz sentinels regenerate health near woodland borders; completely immune to frost movement penalties
 
-# 15. Ancient Bulgars
-CIV_BULGARS_NAME = Ancient Bulgars (Khan Krum Khaganate)
-CIV_BULGARS_EPITHET = Riders of the Tangra Tug
+# 15. Krumak (Replacing Ancient Bulgars / Khan Krum / Tangra)
+CIV_BULGARS_NAME = Blood-Banner Khanate of Krumak (Dominion of Tangrad)
+CIV_BULGARS_EPITHET = Riders of the Sacred Tangrad Standard
 CIV_BULGARS_COLORS = Blood Red (#8A0303) & Charcoal Black (#232B2B)
-CIV_BULGARS_ATTIRE = Curved conical helm with black horsehair tail, sacred Tangra standard (Tug), suede over scale armor
-CIV_BULGARS_UNIT = Boyar Heavy Cavalry & Frenzied Clan Footmen
-CIV_BULGARS_TRAIT = Boyars loot bonus resources from fallen commanders; infantry enter frenzied Blood Oath near death
+CIV_BULGARS_ATTIRE = Curved conical iron helm with black horsetail crest, sacred Tangrad standard pole, suede scale armor
+CIV_BULGARS_UNIT = Boyar Heavy Cavalry & Blood-Oath Berserk Footmen
+CIV_BULGARS_TRAIT = Boyars plunder bonus resources from fallen commanders; infantry enter frenzied Blood Oath when endangered
 
-# 16. Kievan Rus
-CIV_RUS_NAME = Kievan Rus (Mythic Dnieper)
+# 16. Volskya (Replacing Kievan Rus / Dnieper)
+CIV_RUS_NAME = Boreal Principality of Volskya (Grand Duchy of Frostgarde)
 CIV_RUS_EPITHET = Sentinels of the Boreal Ice
 CIV_RUS_COLORS = Burgundy Red (#800020) & Snow White (#FFFAFA)
-CIV_RUS_ATTIRE = Thick bear-fur mantle, pointed Spangenhelm with chainmail aventail, two-handed Bardiche axe
-CIV_RUS_UNIT = Druzhina Hearthguard & Bardiche Berserkers
-CIV_RUS_TRAIT = Druzhina gains maximum armor and defense when stationed in wetlands or snowstorms
+CIV_RUS_ATTIRE = Heavy bear-fur mantle, pointed Spangenhelm with chainmail aventail, two-handed Bardiche battle axe
+CIV_RUS_UNIT = Druzhina Boreal Hearthguard & Bardiche Heavy Axemen
+CIV_RUS_TRAIT = Druzhina gains maximum armor and defense when stationed in wetlands, marshes, or snowstorms
 
-# 17. Poland
-CIV_POLAND_NAME = Poland (Mythic Husaria)
-CIV_POLAND_EPITHET = Sovereigns of the Eagle Wings
+# 17. Sarmatia (Replacing Poland / Husaria)
+CIV_POLAND_NAME = Winged Sovereignty of Sarmatia (Kingdom of Lechia)
+CIV_POLAND_EPITHET = Sovereigns of the Steel Wings
 CIV_POLAND_COLORS = Polish Crimson (#DC143C) & Feather White (#FFFFFF)
-CIV_POLAND_ATTIRE = Arching eagle-feather frame strapped across polished steel breastplate, pennoned lance
-CIV_POLAND_UNIT = Winged Husaria & Pancerni Cavalry
-CIV_POLAND_TRAIT = Full-speed charge generates terrifying wind screech, causing enemy regiments to waver and flee
+CIV_POLAND_ATTIRE = Arching eagle-feather frame strapped across burnished steel breastplate, pennoned lance
+CIV_POLAND_UNIT = Sarmatian Winged Husaria & Pancerni Armored Cavalry
+CIV_POLAND_TRAIT = Full-speed charge generates terrifying wind screech, causing enemy regiments to waver and break morale
 
-# 18. Mesoamerica
-CIV_MESO_NAME = Ancient Mesoamerica (Maya / Mississippian)
+# 18. Tlalokan (Replacing Ancient Mesoamerica / Maya / Mississippian)
+CIV_MESO_NAME = Sun-Pact Empire of Tlalokan (Divine Realm of Quetzala)
 CIV_MESO_EPITHET = Warriors of the Feathered Serpent
 CIV_MESO_COLORS = Clay Ochre (#B22222) & Quetzal Green (#00A86B)
-CIV_MESO_ATTIRE = Spreading harpy eagle feathered headdress, painted body glyphs, spotted jaguar pelt armor
-CIV_MESO_UNIT = Jaguar Shock Warriors & Atlatl Dart Throwers
-CIV_MESO_TRAIT = Jaguar warriors run at full cavalry speed; zero terrain movement penalty over mountains or jungle
-
+CIV_MESO_ATTIRE = Spreading harpy eagle feathered headdress, sacred painted glyphs, spotted jaguar pelt armor
+CIV_MESO_UNIT = Jaguar Shock Guardians & Atlatl Dart Throwers
+CIV_MESO_TRAIT = Jaguar shock guardians move at cavalry speed; zero terrain movement penalty over mountains or jungle

@@ -39,7 +39,7 @@ border_color = #f5c842
 
 [cung_thu]
 name = Cung Thủ Rừng Rậm
-description = Thiện xạ Bách Việt sử dụng nỏ liên châu cơ động, thoắt ẩn thoắt hiện trong rừng già và đầm lầy để phục kích kẻ thù.
+description = Thiện xạ Lạc Uyên sử dụng nỏ thần Uyên Châu cơ động, thoắt ẩn thoắt hiện trong rừng già và đầm lầy để phục kích kẻ thù.
 faction_id = 0
 hp_max = 18
 attack = 8

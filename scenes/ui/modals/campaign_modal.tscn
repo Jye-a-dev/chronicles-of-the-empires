@@ -292,7 +292,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
-text = "Ải 1: Khởi Nguồn Văn Lang"
+text = "Ải 1: Phù Sa Thần Tích"
 alignment = 0
 
 [node name="BtnStage2" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
@@ -307,7 +307,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
-text = "Ải 2: Đúc Trống Đồng"
+text = "Ải 2: Vó Ngựa & Hỏa Cơ"
 alignment = 0
 
 [node name="BtnStage3" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
@@ -322,7 +322,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
-text = "Ải 3: Nỏ Thần Cổ Loa"
+text = "Ải 3: Trọng Thép & Phương Trận"
 alignment = 0
 
 [node name="BtnStage4" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
@@ -337,7 +337,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
-text = "Ải 4: Voi Chiến Mê Linh"
+text = "Ải 4: Tuyết Phủ Rừng Thiêng"
 alignment = 0
 
 [node name="BtnStage5" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StagesListScroll/StagesVBox"]
@@ -352,7 +352,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
-text = "Ải 5: Thống Nhất Bách Việt"
+text = "Ải 5: Vạn Quốc Tranh Hùng"
 alignment = 0
 
 [node name="VSep1" type="VSeparator" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView"]
@@ -369,14 +369,14 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.960784, 0.784314, 0.258824, 1)
 theme_override_font_sizes/font_size = 8
-text = "ẢI 1: KHỞI NGUỒN VĂN LANG"
+text = "ẢI 1: PHÙ SA THẦN TÍCH"
 
 [node name="StageDescLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 0.9)
 theme_override_font_sizes/font_size = 7
-text = "Chiêu mộ nông binh, thuần hóa thủy vực sông Hồng, đặt nền móng thị tộc đầu tiên."
+text = "Khai mở vương nghiệp tại châu thổ Đại Hà Xích Giang, đắp bờ ngăn lũ, rèn vũ khí đồng sơ kỳ."
 autowrap_mode = 2
 
 [node name="StageObjLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
@@ -384,7 +384,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 7
-text = "• Mục tiêu: Khai phá 3 khoảnh lúa nước & chiêu mộ 15 dân binh"
+text = "• Mục tiêu: Khai khẩn 3 bờ cõi lúa nước & chiêu mộ 15 dân binh"
 autowrap_mode = 2
 
 [node name="StageMapLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
@@ -392,21 +392,21 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.78, 0.7, 1)
 theme_override_font_sizes/font_size = 7
-text = "• Sa bàn: Châu thổ sông Hồng (32x32 ô)"
+text = "• Sa bàn: Châu thổ Đại Hà (32x32 ô)"
 
 [node name="StageEnemyLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.78, 0.7, 1)
 theme_override_font_sizes/font_size = 7
-text = "• Bộ tộc đối đầu: Man Di sông Đà (Thị tộc Hắc Thủy)"
+text = "• Kình địch đối đầu: Hắc Thủy Man Tộc Ven Sông"
 
 [node name="StageRewardLabel" type="Label" parent="Center/ModalPanel/Inner/VBox/ContentContainer/CampaignView/StageDetailsVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.85, 0.65, 1)
 theme_override_font_sizes/font_size = 7
-text = "• Phần thưởng: Kỹ nghệ đúc đồng sơ kỳ & Nỏ nung lửa"
+text = "• Phần thưởng: Kỹ nghệ đúc đồng thần tích & Nỏ thần Uyên Châu"
 
 [node name="SkirmishView" type="VBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer"]
 unique_name_in_owner = true
@@ -525,7 +525,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.85, 0.45, 0.9)
 theme_override_font_sizes/font_size = 7
-text = "• Thiết lập: 4 Phe giao tranh trên sa bàn tiêu chuẩn 64x64, địa hình lưu vực sông Hồng."
+text = "• Thiết lập: 4 Phe giao tranh trên sa bàn tiêu chuẩn 64x64, địa hình châu thổ Đại Hà."
 
 [node name="TrainingView" type="HBoxContainer" parent="Center/ModalPanel/Inner/VBox/ContentContainer"]
 unique_name_in_owner = true
@@ -596,7 +596,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.85, 0.82, 0.75, 0.9)
 theme_override_font_sizes/font_size = 7
-text = "• Thử nghiệm sát thương mọi đơn vị tự do\n• Tượng Binh Mê Linh càn quét bộ binh\n• Nỏ Thủ Liên Châu bắn tên liên hoàn\n• Đấu giả lập bot & thử thách phòng ngự"
+text = "• Thử nghiệm sát thương mọi đơn vị tự do\n• Tượng Binh Triều Hải càn quét bộ binh\n• Nỏ Thủ Uyên Châu bắn tên liên hoàn\n• Đấu giả lập bot & thử thách phòng ngự"
 autowrap_mode = 2
 
 [node name="BtnSelectSandbox" type="Button" parent="Center/ModalPanel/Inner/VBox/ContentContainer/TrainingView/SandboxCard/VBox"]
