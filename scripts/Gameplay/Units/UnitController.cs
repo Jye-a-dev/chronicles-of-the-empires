@@ -2,6 +2,7 @@ using System;
 using Godot;
 using ChroniclesOfTheEmpires.Core.Config;
 using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Core.UI;
 
 #nullable enable
 
@@ -17,6 +18,7 @@ public partial class UnitController : Node2D
     [Signal] public delegate void UnitMovedEventHandler(UnitController unit, Vector2I oldPos, Vector2I newPos);
     [Signal] public delegate void MovementDepletedEventHandler(UnitController unit);
     [Signal] public delegate void UnitDestroyedEventHandler(UnitController unit);
+    [Signal] public delegate void UnitClickedEventHandler(UnitController unit);
 
     public UnitData Data { get; private set; } = null!;
 
@@ -40,25 +42,28 @@ public partial class UnitController : Node2D
     public bool IsMoving => Data?.IsMoving ?? false;
     public bool IsSelected { get; private set; } = false;
 
-    private ReferenceRect? _selectionBorder;
+    private Polygon2D? _hexHitboxIndicator;
     private ColorRect? _visualRect;
     private ColorRect? _borderRect;
     private Label? _unitLabel;
-    private Label? _moraleFlagLabel;
+    private Sprite2D? _surrenderFlagSprite;
+    private Sprite2D? _unitSprite;
 
     private Tween? _surrenderTween;
     private Tween? _flagBobTween;
     private Tween? _movementTween;
+    private Tween? _selectionBounceTween;
 
     public override void _Ready()
     {
-        _selectionBorder = GetNodeOrNull<ReferenceRect>("SelectionBorder");
-        if (_selectionBorder != null) _selectionBorder.Visible = false;
+        _hexHitboxIndicator = GetNodeOrNull<Polygon2D>("HexHitboxIndicator");
+        if (_hexHitboxIndicator != null) _hexHitboxIndicator.Visible = false;
 
         _borderRect = GetNodeOrNull<ColorRect>("VisualBorder");
         _visualRect = GetNodeOrNull<ColorRect>("VisualBorder/Visual") ?? GetNodeOrNull<ColorRect>("Visual");
         _unitLabel = GetNodeOrNull<Label>("UnitLabel");
 
+        EnsureUnitSprite();
         EnsureMoraleFlagVisual();
         QueueRedraw();
     }
@@ -78,6 +83,7 @@ public partial class UnitController : Node2D
         Data.OnDestroyed += HandleDestroyed;
 
         SnapToGrid(data.GridPosition);
+        UpdateUnitTexture();
         RefreshVisuals();
         QueueRedraw();
     }
@@ -115,29 +121,92 @@ public partial class UnitController : Node2D
         _movementTween?.Kill();
         _surrenderTween?.Kill();
         _flagBobTween?.Kill();
+        _selectionBounceTween?.Kill();
     }
 
     private void EnsureMoraleFlagVisual()
     {
-        if (_moraleFlagLabel != null && IsInstanceValid(_moraleFlagLabel)) return;
+        if (_surrenderFlagSprite != null && IsInstanceValid(_surrenderFlagSprite)) return;
 
-        _moraleFlagLabel = new Label
+        var flagTexture = IconManager.GetIcon("flag_surrender");
+        _surrenderFlagSprite = new Sprite2D
         {
-            Name = "MoraleFlagLabel",
-            Text = "🏳️",
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Position = new Vector2(-10, -25),
-            Size = new Vector2(20, 16),
+            Name = "SurrenderFlagSprite",
+            Texture = flagTexture,
+            TextureFilter = TextureFilterEnum.Nearest,
+            Position = new Vector2(0, -42),
             Visible = IsSurrendered,
             ZIndex = 12
         };
-        _moraleFlagLabel.AddThemeFontSizeOverride("font_size", 12);
-        AddChild(_moraleFlagLabel);
+
+        float w = flagTexture.GetWidth();
+        float h = flagTexture.GetHeight();
+        if (w > 0 && h > 0)
+        {
+            _surrenderFlagSprite.Scale = new Vector2(16f / w, 16f / h);
+        }
+
+        AddChild(_surrenderFlagSprite);
 
         if (IsSurrendered)
         {
             StartFlagBobbing();
+        }
+    }
+
+    private void EnsureUnitSprite()
+    {
+        _unitSprite ??= GetNodeOrNull<Sprite2D>("Sprite2D");
+        if (_unitSprite == null)
+        {
+            _unitSprite = new Sprite2D
+            {
+                Name = "Sprite2D",
+                TextureFilter = TextureFilterEnum.Nearest,
+                ZIndex = 1
+            };
+            AddChild(_unitSprite);
+        }
+        else
+        {
+            _unitSprite.TextureFilter = TextureFilterEnum.Nearest;
+        }
+    }
+
+    public void UpdateUnitTexture()
+    {
+        if (Data == null) return;
+        EnsureUnitSprite();
+        if (_unitSprite == null) return;
+
+        var texture = UnitTextureManager.GetUnitTexture(Data.UnitType, Data.FactionId);
+        if (texture != null)
+        {
+            _unitSprite.Texture = texture;
+            _unitSprite.TextureFilter = TextureFilterEnum.Nearest;
+            _unitSprite.Visible = true;
+
+            // Scale sprite to 1.5x tile dimension (48px) and nudge upward by 20px
+            float targetDim = GridMapManager.CellDimension * 1.50f;
+            float w = texture.GetWidth();
+            float h = texture.GetHeight();
+            if (w > 0 && h > 0)
+            {
+                _unitSprite.Scale = new Vector2(targetDim / w, targetDim / h);
+                _unitSprite.Position = new Vector2(0f, -20.0f);
+            }
+
+            // Hide fallback geometry when high-res/pixel art sprite is active
+            if (_visualRect != null) _visualRect.Visible = false;
+            if (_borderRect != null) _borderRect.Visible = false;
+            if (_unitLabel != null) _unitLabel.Visible = false;
+        }
+        else
+        {
+            _unitSprite.Visible = false;
+            if (_visualRect != null) _visualRect.Visible = true;
+            if (_borderRect != null) _borderRect.Visible = true;
+            if (_unitLabel != null) _unitLabel.Visible = true;
         }
     }
 
@@ -146,12 +215,19 @@ public partial class UnitController : Node2D
         _borderRect ??= GetNodeOrNull<ColorRect>("VisualBorder");
         _visualRect ??= GetNodeOrNull<ColorRect>("VisualBorder/Visual") ?? GetNodeOrNull<ColorRect>("Visual");
         _unitLabel ??= GetNodeOrNull<Label>("UnitLabel");
+        EnsureUnitSprite();
 
         if (IsSurrendered)
         {
-            if (_moraleFlagLabel != null)
+            if (_unitSprite != null)
             {
-                _moraleFlagLabel.Visible = true;
+                _unitSprite.Modulate = new Color(0.55f, 0.55f, 0.55f, 0.85f);
+            }
+
+            EnsureMoraleFlagVisual();
+            if (_surrenderFlagSprite != null)
+            {
+                _surrenderFlagSprite.Visible = true;
                 StartFlagBobbing();
             }
 
@@ -162,7 +238,7 @@ public partial class UnitController : Node2D
 
             if (_unitLabel != null)
             {
-                _unitLabel.Text = "🏳";
+                _unitLabel.Text = "";
                 _unitLabel.AddThemeColorOverride("font_color", new Color("#dddddd"));
             }
 
@@ -173,6 +249,11 @@ public partial class UnitController : Node2D
                 _surrenderTween.TweenProperty(_borderRect, "color", new Color("#7a7a7a"), 0.35);
             }
             return;
+        }
+
+        if (_unitSprite != null)
+        {
+            _unitSprite.Modulate = Colors.White;
         }
 
         StopSurrenderVisuals();
@@ -201,11 +282,11 @@ public partial class UnitController : Node2D
 
     private void StartFlagBobbing()
     {
-        if (_moraleFlagLabel == null) return;
+        if (_surrenderFlagSprite == null) return;
         _flagBobTween?.Kill();
         _flagBobTween = CreateTween().SetLoops();
-        _flagBobTween.TweenProperty(_moraleFlagLabel, "position:y", -28.0f, 0.45).SetTrans(Tween.TransitionType.Sine);
-        _flagBobTween.TweenProperty(_moraleFlagLabel, "position:y", -24.0f, 0.45).SetTrans(Tween.TransitionType.Sine);
+        _flagBobTween.TweenProperty(_surrenderFlagSprite, "position:y", -45.0f, 0.45).SetTrans(Tween.TransitionType.Sine);
+        _flagBobTween.TweenProperty(_surrenderFlagSprite, "position:y", -39.0f, 0.45).SetTrans(Tween.TransitionType.Sine);
     }
 
     private void StopSurrenderVisuals()
@@ -215,9 +296,9 @@ public partial class UnitController : Node2D
         _flagBobTween?.Kill();
         _flagBobTween = null;
 
-        if (_moraleFlagLabel != null)
+        if (_surrenderFlagSprite != null)
         {
-            _moraleFlagLabel.Visible = false;
+            _surrenderFlagSprite.Visible = false;
         }
     }
 
@@ -244,6 +325,7 @@ public partial class UnitController : Node2D
 
     private void HandleFactionChanged(int newFactionId)
     {
+        UpdateUnitTexture();
         RefreshVisuals();
         PlayRecaptureFlash();
         QueueRedraw();
@@ -286,12 +368,30 @@ public partial class UnitController : Node2D
         tween.TweenProperty(_borderRect, "scale", Vector2.One, 0.12);
     }
 
-    public void SetSelected(bool selected)
+    public void SetSelected(bool isSelected)
     {
-        IsSelected = selected;
-        if (_selectionBorder != null)
+        IsSelected = isSelected;
+
+        _hexHitboxIndicator ??= GetNodeOrNull<Polygon2D>("HexHitboxIndicator");
+        if (_hexHitboxIndicator != null)
         {
-            _selectionBorder.Visible = selected;
+            _hexHitboxIndicator.Visible = isSelected;
+        }
+
+
+        _selectionBounceTween?.Kill();
+        if (isSelected)
+        {
+            _selectionBounceTween = CreateTween();
+            _selectionBounceTween.TweenProperty(this, "scale", new Vector2(1.1f, 1.1f), 0.08)
+                .SetTrans(Tween.TransitionType.Back)
+                .SetEase(Tween.EaseType.Out);
+            _selectionBounceTween.TweenProperty(this, "scale", Vector2.One, 0.08)
+                .SetTrans(Tween.TransitionType.Linear);
+        }
+        else
+        {
+            Scale = Vector2.One;
         }
     }
 
@@ -348,20 +448,20 @@ public partial class UnitController : Node2D
 
     public override void _Draw()
     {
-        // 1. Drop shadow: flattened ellipse under feet to anchor unit to ground
-        Vector2 shadowCenter = new(0f, 6.5f);
-        Color shadowColor = new(0f, 0f, 0f, 0.42f);
+        // 1. Drop shadow: compact subtle ellipse under feet
+        Vector2 shadowCenter = new(0f, 6.0f);
+        Color shadowColor = new(0f, 0f, 0f, 0.28f);
         const int segments = 16;
         var shadowPoly = new Vector2[segments];
         for (int i = 0; i < segments; i++)
         {
             float angle = i * Mathf.Tau / segments;
-            shadowPoly[i] = shadowCenter + new Vector2(Mathf.Cos(angle) * 8.5f, Mathf.Sin(angle) * 3.8f);
+            shadowPoly[i] = shadowCenter + new Vector2(Mathf.Cos(angle) * 5.2f, Mathf.Sin(angle) * 2.2f);
         }
         DrawColoredPolygon(shadowPoly, shadowColor);
 
-        // 2. Movement / turn readiness gem on head
-        Vector2 gemCenter = new(0f, -12.5f);
+        // 2. Movement / turn readiness gem on head (floating above 1.5x character height)
+        Vector2 gemCenter = new(0f, -44.0f);
         Color gemColor;
         if (IsSurrendered)
         {

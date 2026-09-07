@@ -16,7 +16,7 @@ public partial class HexSelectionIndicator : Line2D
 
     public override void _Ready()
     {
-        Width = 2.0f;
+        Width = 1.4f;
         JointMode = LineJointMode.Round;
         BeginCapMode = LineCapMode.Round;
         EndCapMode = LineCapMode.Round;

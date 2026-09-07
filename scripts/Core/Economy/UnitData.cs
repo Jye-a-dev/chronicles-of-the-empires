@@ -11,7 +11,16 @@ namespace ChroniclesOfTheEmpires.Core.Economy;
 /// </summary>
 public class UnitData
 {
+    private static int _nextNumericId = 1;
+    public int UnitId { get; set; } = System.Threading.Interlocked.Increment(ref _nextNumericId);
+
     public string Id { get; init; } = "";
+    private string? _unitType;
+    public string UnitType
+    {
+        get => !string.IsNullOrEmpty(_unitType) ? _unitType : Id;
+        init => _unitType = value;
+    }
     public string Name { get; init; } = "";
     public string Description { get; init; } = "";
     public int FactionId { get; private set; }

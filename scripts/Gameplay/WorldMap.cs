@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Combat;
 using ChroniclesOfTheEmpires.Core.Config;
 using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Core.Game;
 using ChroniclesOfTheEmpires.Gameplay.AI;
 using ChroniclesOfTheEmpires.Gameplay.Economy;
 using ChroniclesOfTheEmpires.UI.Components;
 using ChroniclesOfTheEmpires.UI.Controllers;
+using ChroniclesOfTheEmpires.UI.Modals;
 
 #nullable enable
 
@@ -39,6 +42,8 @@ public partial class WorldMap : Node2D
 
     private BoardBackdrop? _boardBackdrop;
     private Line2D? _hoverIndicator;
+    private EndGameModal? _endGameModal;
+    private int _enemiesEliminated = 0;
 
     private readonly UnitRegistry _unitRegistry = new();
     private readonly AsyncPacer _asyncPacer = new();
@@ -113,6 +118,7 @@ public partial class WorldMap : Node2D
                 _playerFaction.ControlledTiles.Add(coord);
                 var cell = _gridMapManager.GetCell(coord);
                 if (cell != null) cell.OwnerFactionId = 0;
+                _gridMapManager.RefreshTileOwnerVisual(coord, 0);
             }
         }
         _economyManager.RegisterFaction(_playerFaction);
@@ -134,6 +140,9 @@ public partial class WorldMap : Node2D
 
         _economyHUDController.Bind(_economyManager, _hud, _turnManager);
         _turnManager.Initialize(_playerFaction, _economyManager, _unitRegistry);
+
+        // Verification: Audit unit sprite assets across all 18 factions (0..17)
+        UnitTextureManager.ValidateFactionAssets(17);
 
         // 7. Initialize MapInputHandler
         _inputHandler = new MapInputHandler { Name = "MapInputHandler" };
@@ -185,6 +194,89 @@ public partial class WorldMap : Node2D
     {
         _asyncPacer.Cancel();
         GetTree().ChangeSceneToFile("res://scenes/ui/screens/main_menu.tscn");
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (State != MapInteractionState.Idle) return;
+
+        if (@event is InputEventMouseButton mb && mb.Pressed)
+        {
+            Vector2 mouseGlobalPos = GetGlobalMousePosition();
+            Vector2I targetGrid = GridMapManager.WorldToGrid(mouseGlobalPos);
+            HexCell? targetCell = _gridMapManager.GetCellAt(targetGrid);
+
+            if (!_gridMapManager.IsWithinBounds(targetGrid) || targetCell == null)
+            {
+                if (mb.ButtonIndex == MouseButton.Left)
+                {
+                    DeselectAll();
+                }
+                return;
+            }
+
+            if (targetCell.OccupyingUnit != null)
+            {
+                var clickedUnit = targetCell.OccupyingUnit as UnitController;
+                if (clickedUnit != null && GodotObject.IsInstanceValid(clickedUnit) && clickedUnit.Visible)
+                {
+                    if (mb.ButtonIndex == MouseButton.Left)
+                    {
+                        SelectUnit(clickedUnit);
+                    }
+                    else if (mb.ButtonIndex == MouseButton.Right && _selectedUnit != null && !_selectedUnit.IsMoving && _selectedUnit != clickedUnit)
+                    {
+                        int distance = _gridMapManager.GetNeighbors(_selectedUnit.GridPosition).Contains(targetGrid) ? 1 : 2;
+                        if (distance == 1)
+                        {
+                            RequestCombatAnalysis(_selectedUnit, clickedUnit);
+                            if (clickedUnit.IsSurrendered)
+                            {
+                                ExecuteRecaptureOrder(_selectedUnit, clickedUnit);
+                            }
+                            else if (clickedUnit.FactionId != _selectedUnit.FactionId)
+                            {
+                                HandleCombatTarget(_selectedUnit, clickedUnit, targetGrid);
+                            }
+                            else
+                            {
+                                SelectUnit(clickedUnit);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (mb.ButtonIndex == MouseButton.Left)
+                {
+                    OnCellSelected(targetGrid, targetCell);
+                }
+                else if (mb.ButtonIndex == MouseButton.Right && _selectedUnit != null && !_selectedUnit.IsMoving && _selectedUnit.FactionId == 0 && !_selectedUnit.IsSurrendered)
+                {
+                    ExecuteSafeMove(_selectedUnit, targetGrid);
+                }
+            }
+        }
+    }
+
+    public BattlePayload? RequestCombatAnalysis(UnitController attacker, UnitController defender)
+    {
+        int distance = _gridMapManager.GetNeighbors(attacker.GridPosition).Contains(defender.GridPosition) ? 1 : 2;
+        if (distance == 1)
+        {
+            return BuildBattlePayload(attacker, defender);
+        }
+        return null;
+    }
+
+    public void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, Action? onComplete = null)
+    {
+        var targetCell = _gridMapManager.GetCell(targetGrid);
+        if (targetCell != null)
+        {
+            ExecuteSafeMove(unit, targetGrid, targetCell, onComplete);
+        }
     }
 
     private void OnCellSelected(Vector2I gridPos, HexCell? hexCell)
@@ -276,6 +368,9 @@ public partial class WorldMap : Node2D
             _hexIndicator.SelectHex(unit.Position);
             _hud.RefreshUnitInfo();
 
+            // Territory Claiming: Claim destination cell if permitted
+            ExecuteClaimTile(unit.FactionId, targetGrid);
+
             if (unit.FactionId == 0)
             {
                 _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
@@ -363,9 +458,15 @@ public partial class WorldMap : Node2D
         {
             _hud.RefreshUnitInfo();
             RefreshEconomyUI();
+
+            if (result.DefenderDied && !attacker.Data.IsRanged)
+            {
+                ExecuteClaimTile(attacker.FactionId, defender.GridPosition);
+            }
         }
 
         if (wasIdle) State = MapInteractionState.Idle;
+        EvaluateAndTriggerGameOver();
     }
 
     public void ExecuteRecaptureOrder(UnitController actor, UnitController target)
@@ -471,6 +572,7 @@ public partial class WorldMap : Node2D
         if (cell != null) cell.OccupyingUnit = unit;
 
         unit.UnitDestroyed += HandleUnitDestroyed;
+        unit.UnitClicked += SelectUnit;
         unit.UnitMoved += (u, oldPos, newPos) =>
         {
             _hexIndicator.SelectHex(u.Position);
@@ -480,6 +582,11 @@ public partial class WorldMap : Node2D
 
     private void HandleUnitDestroyed(UnitController unit)
     {
+        if (unit.FactionId != 0)
+        {
+            _enemiesEliminated++;
+        }
+
         _pathfindingManager.SetPointSolid(unit.GridPosition, false);
 
         var cell = _gridMapManager.GetCell(unit.GridPosition);
@@ -492,6 +599,8 @@ public partial class WorldMap : Node2D
         {
             DeselectAll();
         }
+
+        EvaluateAndTriggerGameOver();
     }
 
     private async void OnEndTurnPressed()
@@ -578,8 +687,12 @@ public partial class WorldMap : Node2D
         }
         finally
         {
-            _hud.SetButtonsDisabled(false);
-            State = MapInteractionState.Idle;
+            if (State != MapInteractionState.Disabled)
+            {
+                _hud.SetButtonsDisabled(false);
+                State = MapInteractionState.Idle;
+                EvaluateAndTriggerGameOver();
+            }
         }
     }
 
@@ -593,6 +706,236 @@ public partial class WorldMap : Node2D
     {
         var (_, _, netIncome) = _economyManager.CalculateTurnIncome(_playerFaction);
         _hud.UpdateEconomy(_playerFaction.Treasury, netIncome, _turnManager.TurnCount);
+    }
+
+    // ======================================================================
+    // TERRITORY & EXPAND PIPELINE
+    // ======================================================================
+    public bool CanClaimTile(int factionId, Vector2I coord)
+    {
+        if (!_gridMapManager.IsWithinBounds(coord)) return false;
+        var cell = _gridMapManager.GetCell(coord);
+        if (cell == null || cell.IsSolid) return false;
+
+        // Cannot claim if occupied by active, non-surrendered hostile unit
+        if (cell.OccupyingUnit is UnitController occupier && IsInstanceValid(occupier) &&
+            occupier.FactionId != factionId && !occupier.IsSurrendered && occupier.Data.IsActive)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void ExecuteClaimTile(int factionId, Vector2I coord)
+    {
+        if (!CanClaimTile(factionId, coord)) return;
+
+        var cell = _gridMapManager.GetCell(coord);
+        if (cell == null) return;
+
+        int oldOwner = cell.OwnerFactionId;
+        if (oldOwner == factionId) return;
+
+        if (oldOwner >= 0)
+        {
+            var oldFaction = FindFactionData(oldOwner);
+            oldFaction?.ControlledTiles.Remove(coord);
+        }
+
+        var newFaction = FindFactionData(factionId);
+        if (newFaction != null)
+        {
+            newFaction.ControlledTiles.Add(coord);
+            cell.OwnerFactionId = factionId;
+
+            _gridMapManager.RefreshTileOwnerVisual(coord, factionId);
+            _economyManager.NotifyTerritoryChanged(newFaction);
+            RefreshEconomyUI();
+        }
+    }
+
+    // ======================================================================
+    // VICTORY / DEFEAT PIPELINE
+    // ======================================================================
+    public GameResult CheckGameOverConditions(out VictoryType victoryType)
+    {
+        // 1. Defeat Condition: Player has 0 active unsurrendered units OR lost all territory
+        var playerUnits = _unitRegistry.GetUnitsForFaction(0);
+        int activePlayerUnits = 0;
+        for (int i = 0; i < playerUnits.Count; i++)
+        {
+            var u = playerUnits[i];
+            if (IsInstanceValid(u) && u.Data.IsActive && !u.IsSurrendered && u.HpCurrent > 0)
+            {
+                activePlayerUnits++;
+            }
+        }
+
+        if (activePlayerUnits == 0)
+        {
+            victoryType = VictoryType.Conquest;
+            return GameResult.Defeat;
+        }
+
+        if (_playerFaction.ControlledTiles.Count == 0)
+        {
+            victoryType = VictoryType.Domination;
+            return GameResult.Defeat;
+        }
+
+        // 2. Victory Condition (Conquest): All rival factions have 0 active units
+        bool anyRivalAlive = false;
+        var factions = _economyManager.Factions;
+        for (int f = 0; f < factions.Count; f++)
+        {
+            var faction = factions[f];
+            if (faction.FactionId == 0) continue;
+
+            var rivalUnits = _unitRegistry.GetUnitsForFaction(faction.FactionId);
+            for (int u = 0; u < rivalUnits.Count; u++)
+            {
+                var ru = rivalUnits[u];
+                if (IsInstanceValid(ru) && ru.Data.IsActive && !ru.IsSurrendered && ru.HpCurrent > 0)
+                {
+                    anyRivalAlive = true;
+                    break;
+                }
+            }
+            if (anyRivalAlive) break;
+        }
+
+        if (!anyRivalAlive && factions.Count > 1)
+        {
+            victoryType = VictoryType.Conquest;
+            return GameResult.Victory;
+        }
+
+        victoryType = VictoryType.None;
+        return GameResult.Undecided;
+    }
+
+    public bool EvaluateAndTriggerGameOver()
+    {
+        if (State == MapInteractionState.Disabled) return true;
+
+        var result = CheckGameOverConditions(out var victoryType);
+        if (result == GameResult.Undecided) return false;
+
+        State = MapInteractionState.Disabled;
+        _hud.SetButtonsDisabled(true);
+        DeselectAll();
+
+        if (_endGameModal == null)
+        {
+            var modalScene = GD.Load<PackedScene>("res://scenes/ui/end_game_modal.tscn");
+            if (modalScene != null)
+            {
+                _endGameModal = modalScene.Instantiate<EndGameModal>();
+                AddChild(_endGameModal);
+            }
+        }
+
+        _endGameModal?.ShowResult(result, victoryType, _turnManager.TurnCount, _enemiesEliminated);
+        return true;
+    }
+
+    // ======================================================================
+    // BATTLEPAYLOAD & SUSPEND / RESUME CONTRACT
+    // ======================================================================
+    public BattlePayload BuildBattlePayload(UnitController attacker, UnitController defender)
+    {
+        var cell = _gridMapManager.GetCell(defender.GridPosition);
+        var biome = cell?.TerrainData.Biome ?? BiomeType.Plains;
+
+        var atkSnapshot = new UnitCombatSnapshot(
+            unitId: attacker.Data.UnitId,
+            factionId: attacker.FactionId,
+            unitType: attacker.Data.UnitType,
+            hpCurrent: attacker.HpCurrent,
+            hpMax: attacker.HpMax,
+            attack: attacker.Attack,
+            defense: attacker.Defense,
+            moraleCurrent: attacker.MoraleCurrent,
+            moraleMax: attacker.MoraleMax,
+            isRanged: attacker.Data.IsRanged
+        );
+
+        var defSnapshot = new UnitCombatSnapshot(
+            unitId: defender.Data.UnitId,
+            factionId: defender.FactionId,
+            unitType: defender.Data.UnitType,
+            hpCurrent: defender.HpCurrent,
+            hpMax: defender.HpMax,
+            attack: defender.Attack,
+            defense: defender.Defense,
+            moraleCurrent: defender.MoraleCurrent,
+            moraleMax: defender.MoraleMax,
+            isRanged: defender.Data.IsRanged
+        );
+
+        return new BattlePayload(
+            battleId: Guid.NewGuid().ToString("N"),
+            hexPosition: defender.GridPosition,
+            terrainType: biome,
+            attackers: new List<UnitCombatSnapshot> { atkSnapshot },
+            defenders: new List<UnitCombatSnapshot> { defSnapshot }
+        );
+    }
+
+    public void ApplyBattleResolution(BattleResolutionResult result)
+    {
+        // 1. Update surviving units state
+        for (int i = 0; i < result.SurvivingUnits.Count; i++)
+        {
+            var snapshot = result.SurvivingUnits[i];
+            var unit = FindUnitByNumericId(snapshot.UnitId);
+            if (unit != null && IsInstanceValid(unit))
+            {
+                int hpDiff = unit.Data.CurrentHp - snapshot.HpCurrent;
+                if (hpDiff > 0)
+                {
+                    unit.Data.ApplyDamage(hpDiff);
+                }
+                int moraleDiff = snapshot.MoraleCurrent - unit.Data.MoraleCurrent;
+                if (moraleDiff != 0)
+                {
+                    unit.Data.ModifyMorale(moraleDiff);
+                }
+            }
+        }
+
+        // 2. Eliminate destroyed units
+        for (int i = 0; i < result.DestroyedUnitIds.Count; i++)
+        {
+            int destroyedId = result.DestroyedUnitIds[i];
+            var unit = FindUnitByNumericId(destroyedId);
+            if (unit != null && IsInstanceValid(unit))
+            {
+                unit.Data.Disband();
+            }
+        }
+
+        _hud.RefreshUnitInfo();
+        RefreshEconomyUI();
+        _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
+
+        State = MapInteractionState.Idle;
+        EvaluateAndTriggerGameOver();
+    }
+
+    private UnitController? FindUnitByNumericId(int unitId)
+    {
+        var all = _unitRegistry.AllUnits;
+        for (int i = 0; i < all.Count; i++)
+        {
+            var u = all[i];
+            if (IsInstanceValid(u) && u.Data.UnitId == unitId)
+            {
+                return u;
+            }
+        }
+        return null;
     }
 
     public FactionData? FindFactionData(int factionId)

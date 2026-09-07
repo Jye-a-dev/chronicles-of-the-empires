@@ -15,6 +15,8 @@ public partial class GridMapManager
         if (_tileMapLayer == null) return;
         if (_tileMapLayer.TileSet != null) return;
 
+        _tileMapLayer.TextureFilter = CanvasItem.TextureFilterEnum.Nearest;
+
         GameConfigManager.EnsureLoaded();
 
         // Create a 128x32 atlas texture containing 4 colored 32x32 pointy-topped hexagons
@@ -23,6 +25,59 @@ public partial class GridMapManager
         for (int tileIdx = 0; tileIdx < 4; tileIdx++)
         {
             var terrain = (TerrainType)tileIdx;
+            int startX = tileIdx * CellDimension;
+
+            // Load finalized terrain sprite asset if available (plains, forest, water)
+            var terrainTex = UnitTextureManager.GetTerrainTexture(terrain);
+            if (terrainTex != null)
+            {
+                var srcImg = terrainTex.GetImage();
+                if (srcImg != null)
+                {
+                    srcImg.Convert(Image.Format.Rgba8);
+                    if (srcImg.GetWidth() != CellDimension || srcImg.GetHeight() != CellDimension)
+                    {
+                        srcImg.Resize(CellDimension, CellDimension, Image.Interpolation.Nearest);
+                    }
+
+                    // Apply recessed / sunken depth shading (làm tile hơi chìm xuống sa bàn)
+                    for (int py = 0; py < CellDimension; py++)
+                    {
+                        float dy = Mathf.Abs(py - 15.5f);
+                        for (int px = 0; px < CellDimension; px++)
+                        {
+                            Color pCol = srcImg.GetPixel(px, py);
+                            if (pCol.A <= 0.01f) continue;
+
+                            float dx = Mathf.Abs(px - 15.5f);
+                            float diag = 0.5f * dx + dy;
+                            float distToEdge = Mathf.Min(15.7f - diag, 15.5f - dx);
+
+                            // 1. Subdued depth: slightly lower brightness to push ground plane into background
+                            float depthFactor = 0.86f;
+
+                            // 2. Top-down sunken lip shadow from upper tray rim
+                            if (py < 6 && distToEdge < 5.0f)
+                            {
+                                depthFactor *= Mathf.Lerp(0.58f, 0.95f, (float)py / 6f);
+                            }
+
+                            // 3. Inset perimeter bevel / ambient occlusion groove
+                            if (distToEdge < 1.8f)
+                            {
+                                depthFactor *= Mathf.Lerp(0.50f, 0.92f, distToEdge / 1.8f);
+                            }
+
+                            pCol = new Color(pCol.R * depthFactor, pCol.G * depthFactor, pCol.B * depthFactor, pCol.A);
+                            srcImg.SetPixel(px, py, pCol);
+                        }
+                    }
+
+                    img.BlitRect(srcImg, new Rect2I(0, 0, CellDimension, CellDimension), new Vector2I(startX, 0));
+                    continue;
+                }
+            }
+
             var cfg = GameConfigManager.GetHexConfig(terrain);
 
             Color baseCol = cfg?.BaseColor ?? terrain switch
@@ -30,14 +85,12 @@ public partial class GridMapManager
                 TerrainType.Plains => new Color(0.25f, 0.48f, 0.20f),
                 TerrainType.Forest => new Color(0.12f, 0.30f, 0.11f),
                 TerrainType.River => new Color(0.17f, 0.36f, 0.56f),
-                TerrainType.Mountain => new Color(0.35f, 0.38f, 0.41f),
+                TerrainType.Mountain => new Color(0.48f, 0.50f, 0.54f),
                 _ => new Color(0.2f, 0.2f, 0.2f)
             };
 
             // Soft grid line: low alpha overlay to avoid graph-paper look
             Color borderCol = cfg?.BorderColor ?? baseCol.Darkened(0.14f);
-
-            int startX = tileIdx * CellDimension;
 
             for (int y = 0; y < CellDimension; y++)
             {
@@ -113,8 +166,8 @@ public partial class GridMapManager
                         }
                         else // Mountain
                         {
-                            Color peakCol = cfg?.ExtraColors.GetValueOrDefault("peak_color", new Color(0.71f, 0.76f, 0.81f)) ?? new Color(0.71f, 0.76f, 0.81f);
-                            Color baseDarkCol = cfg?.ExtraColors.GetValueOrDefault("base_dark_color", new Color(0.12f, 0.13f, 0.15f)) ?? new Color(0.12f, 0.13f, 0.15f);
+                            Color peakCol = cfg?.ExtraColors.GetValueOrDefault("peak_color", new Color(0.78f, 0.82f, 0.86f)) ?? new Color(0.78f, 0.82f, 0.86f);
+                            Color baseDarkCol = cfg?.ExtraColors.GetValueOrDefault("base_dark_color", new Color(0.28f, 0.30f, 0.34f)) ?? new Color(0.28f, 0.30f, 0.34f);
 
                             if (y <= 7 && distToEdge >= 2.0f)
                             {
@@ -247,10 +300,10 @@ public partial class GridMapManager
                 return TerrainType.River;
             }
 
-            if ((x < 3 && y < MapHeight / 2) || (y < 3 && x < MapWidth / 2) || (x > MapWidth - 4 && y > MapHeight - 4))
+            if (x < 1 || y < 1 || (x > MapWidth - 2 && y > MapHeight - 2))
             {
-                if (rand.NextDouble() < 0.7) return TerrainType.Mountain;
-                if (rand.NextDouble() < 0.20) return TerrainType.Forest;
+                if (rand.NextDouble() < 0.35) return TerrainType.Mountain;
+                if (rand.NextDouble() < 0.25) return TerrainType.Forest;
                 return TerrainType.Plains;
             }
 

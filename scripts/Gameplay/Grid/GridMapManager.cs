@@ -43,6 +43,7 @@ public partial class GridMapManager : Node2D
     public string ActiveBiome { get; private set; } = "red_river";
 
     private HexCell[,] _cells = new HexCell[0, 0];
+    private readonly Dictionary<Vector2I, HexTile> _tileInstances = new();
     private TileMapLayer? _tileMapLayer;
     private Node2D? _tileContainer;
 
@@ -136,6 +137,7 @@ public partial class GridMapManager : Node2D
         TileScene ??= GD.Load<PackedScene>("res://scenes/gameplay/tile.tscn");
         if (TileScene == null) return;
 
+        _tileInstances.Clear();
         foreach (Node child in _tileContainer.GetChildren())
         {
             child.QueueFree();
@@ -154,9 +156,25 @@ public partial class GridMapManager : Node2D
                 tile.Terrain = cell.Terrain;
                 tile.AssociatedCell = cell;
 
+                _tileInstances[cell.Coords] = tile;
                 _tileContainer.AddChild(tile);
             }
         }
+    }
+
+    public HexTile? GetTileInstance(Vector2I pos)
+    {
+        if (_tileInstances.TryGetValue(pos, out var tile) && GodotObject.IsInstanceValid(tile))
+        {
+            return tile;
+        }
+        return null;
+    }
+
+    public void RefreshTileOwnerVisual(Vector2I pos, int ownerFactionId)
+    {
+        var tile = GetTileInstance(pos);
+        tile?.UpdateOwnerVisual(ownerFactionId);
     }
 
     private void RenderTileMap()
@@ -182,6 +200,8 @@ public partial class GridMapManager : Node2D
         if (!IsWithinBounds(pos)) return null;
         return _cells[pos.X, pos.Y];
     }
+
+    public HexCell? GetCellAt(Vector2I pos) => GetCell(pos);
 
     public HexCell? GetCellAtWorld(Vector2 worldPos)
     {

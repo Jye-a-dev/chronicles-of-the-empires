@@ -58,18 +58,7 @@ public partial class MapInputHandler : Node2D
     {
         if (_getState() != MapInteractionState.Idle) return;
 
-        if (@event is InputEventMouseButton mb && mb.Pressed)
-        {
-            if (mb.ButtonIndex == MouseButton.Right)
-            {
-                HandleRightClickAction();
-            }
-            else if (mb.ButtonIndex == MouseButton.Left)
-            {
-                HandleLeftClickInspect();
-            }
-        }
-        else if (@event is InputEventMouseMotion)
+        if (@event is InputEventMouseMotion)
         {
             HandleMouseHoverPreview();
         }

@@ -3,85 +3,336 @@
 [ext_resource type="Script" path="res://scripts/UI/Modals/TileInfoModal.cs" id="1_tilemodal"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
-bg_color = Color(0.08, 0.08, 0.1, 0.94)
+bg_color = Color(0.0706, 0.0627, 0.0824, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4784, 0.3451, 0.1176, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inner_rim"]
+bg_color = Color(0, 0, 0, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.45, 0.38, 0.22, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-shadow_color = Color(0, 0, 0, 0.4)
-shadow_size = 4
+border_color = Color(0.1647, 0.1216, 0.0706, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_close_normal"]
+bg_color = Color(0.1176, 0.0941, 0.0784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4784, 0.3451, 0.1176, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_close_hover"]
+bg_color = Color(0.2353, 0.1765, 0.102, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9608, 0.7843, 0.2588, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_close_pressed"]
+bg_color = Color(0.0784, 0.0588, 0.0392, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.702, 0.4941, 0.102, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sep"]
+color = Color(0.3294, 0.2353, 0.0863, 0.8)
+thickness = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+content_margin_left = 6.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0902, 0.0784, 0.102, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2784, 0.2, 0.102, 0.8)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_action_normal"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1765, 0.1216, 0.0588, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4784, 0.3451, 0.1176, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_action_hover"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+bg_color = Color(0.2784, 0.1961, 0.102, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9608, 0.7843, 0.2588, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_action_pressed"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+content_margin_bottom = 1.0
+bg_color = Color(0.1098, 0.0784, 0.0392, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.702, 0.4941, 0.102, 1)
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
 
 [node name="TileInfoModal" type="PanelContainer"]
-custom_minimum_size = Vector2(230, 0)
-offset_right = 230.0
-offset_bottom = 110.0
+custom_minimum_size = Vector2(236, 0)
+offset_right = 236.0
+offset_bottom = 140.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
 script = ExtResource("1_tilemodal")
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="InnerRim" type="PanelContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_inner_rim")
+
+[node name="Margin" type="MarginContainer" parent="InnerRim"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
+theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="VBox" type="VBoxContainer" parent="Margin"]
+[node name="VBox" type="VBoxContainer" parent="InnerRim/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
-[node name="Header" type="HBoxContainer" parent="Margin/VBox"]
+[node name="HeaderSection" type="VBoxContainer" parent="InnerRim/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TopRow" type="HBoxContainer" parent="InnerRim/Margin/VBox/HeaderSection"]
 layout_mode = 2
 
-[node name="TileTitle" type="Label" parent="Margin/VBox/Header"]
+[node name="TileTitle" type="Label" parent="InnerRim/Margin/VBox/HeaderSection/TopRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.96, 0.82, 0.35, 1)
-theme_override_font_sizes/font_size = 11
-text = "ĐỒNG BẰNG PHÙ SA"
+theme_override_colors/font_color = Color(0.9608, 0.7843, 0.2588, 1)
+theme_override_font_sizes/font_size = 12
+text = "ĐỒNG BẰNG PHÙ SA (0, 0)"
 text_overrun_behavior = 3
 
-[node name="BtnCloseTile" type="Button" parent="Margin/VBox/Header"]
+[node name="BtnCloseTile" type="Button" parent="InnerRim/Margin/VBox/HeaderSection/TopRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 16)
+custom_minimum_size = Vector2(14, 14)
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
-text = "✕"
+theme_override_colors/font_color = Color(0.8745, 0.8471, 0.7961, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_close_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_close_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_close_pressed")
+text = "×"
 
-[node name="HSeparator" type="HSeparator" parent="Margin/VBox"]
-layout_mode = 2
-
-[node name="TileDesc" type="Label" parent="Margin/VBox"]
+[node name="TileDesc" type="Label" parent="InnerRim/Margin/VBox/HeaderSection"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.549, 0.5216, 0.4824, 1)
+theme_override_font_sizes/font_size = 8
 text = "Đất đai màu mỡ thích hợp canh tác lúa nước."
 autowrap_mode = 2
 
-[node name="TileYields" type="Label" parent="Margin/VBox"]
+[node name="YieldBadgesRow" type="HBoxContainer" parent="InnerRim/Margin/VBox/HeaderSection"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.88, 0.6, 1)
-theme_override_font_sizes/font_size = 9
-text = "🌾 Lương thực: +2  |  🔨 Sản xuất: +0  |  🪙 Vàng: +1"
+theme_override_constants/separation = 5
 
-[node name="TileTraversal" type="Label" parent="Margin/VBox"]
-unique_name_in_owner = true
+[node name="StatusSection" type="VBoxContainer" parent="InnerRim/Margin/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
-theme_override_font_sizes/font_size = 9
-text = "Tiêu hao: 1 Điểm  |  Trạng thái: Thông thoáng"
+theme_override_constants/separation = 4
 
-[node name="TileCoords" type="Label" parent="Margin/VBox"]
+[node name="StatusBar" type="HBoxContainer" parent="InnerRim/Margin/VBox/StatusSection"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MoveCostLabel" type="Label" parent="InnerRim/Margin/VBox/StatusSection/StatusBar"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_colors/font_color = Color(0.8745, 0.8471, 0.7961, 1)
 theme_override_font_sizes/font_size = 8
-text = "Tọa độ Lục giác: [0, 0]"
+text = "Tiêu hao: 1"
+
+[node name="Sep1" type="Label" parent="InnerRim/Margin/VBox/StatusSection/StatusBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3294, 0.2353, 0.0863, 1)
+theme_override_font_sizes/font_size = 8
+text = "|"
+
+[node name="TerrainStateLabel" type="Label" parent="InnerRim/Margin/VBox/StatusSection/StatusBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745, 0.8471, 0.7961, 1)
+theme_override_font_sizes/font_size = 8
+text = "Thông thoáng"
+
+[node name="Sep2" type="Label" parent="InnerRim/Margin/VBox/StatusSection/StatusBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3294, 0.2353, 0.0863, 1)
+theme_override_font_sizes/font_size = 8
+text = "|"
+
+[node name="FactionOwnerLabel" type="Label" parent="InnerRim/Margin/VBox/StatusSection/StatusBar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745, 0.8471, 0.7961, 1)
+theme_override_font_sizes/font_size = 8
+text = "Phe 0"
+
+[node name="HSeparator" type="HSeparator" parent="InnerRim/Margin/VBox/StatusSection"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_sep")
+
+[node name="ImprovementCard" type="PanelContainer" parent="InnerRim/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="CardVBox" type="VBoxContainer" parent="InnerRim/Margin/VBox/ImprovementCard"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="FeatureHeader" type="HBoxContainer" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox"]
+layout_mode = 2
+
+[node name="FeatureNameLabel" type="Label" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox/FeatureHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9608, 0.7843, 0.2588, 1)
+theme_override_font_sizes/font_size = 9
+text = "Thửa Ruộng Màu Mỡ"
+text_overrun_behavior = 3
+
+[node name="FeatureStatusLabel" type="Label" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox/FeatureHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.902, 0.4941, 0.1333, 1)
+theme_override_font_sizes/font_size = 8
+text = "[Chưa khai thác]"
+
+[node name="FeatureYieldRow" type="HBoxContainer" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="FeatureYieldLabel" type="Label" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox/FeatureYieldRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4078, 0.7216, 0.4902, 1)
+theme_override_font_sizes/font_size = 8
+text = "+4 Lương, +1 Vàng"
+
+[node name="BtnBuildImprovement" type="Button" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_action_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_action_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_action_pressed")
+
+[node name="BtnBuildContent" type="HBoxContainer" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox/BtnBuildImprovement"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="BtnBuildLabel" type="Label" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox/BtnBuildImprovement/BtnBuildContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.8745, 0.8471, 0.7961, 1)
+theme_override_font_sizes/font_size = 8
+text = "Xây Vựa Thóc"
+
+[node name="BtnBuildCostRow" type="HBoxContainer" parent="InnerRim/Margin/VBox/ImprovementCard/CardVBox/BtnBuildImprovement/BtnBuildContent"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="RecruitSection" type="VBoxContainer" parent="InnerRim/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="RecruitHeader" type="Label" parent="InnerRim/Margin/VBox/RecruitSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.702, 0.4941, 0.102, 1)
+theme_override_font_sizes/font_size = 8
+text = "CHIÊU MỘ QUÂN ĐỘI"
+
+[node name="RecruitGrid" type="GridContainer" parent="InnerRim/Margin/VBox/RecruitSection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 2
 

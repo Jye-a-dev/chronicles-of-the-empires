@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Core.UI;
 using ChroniclesOfTheEmpires.UI;
 
 #nullable enable
@@ -51,10 +52,42 @@ public partial class TacticalResourceBar : PanelContainer
         ConfigureLabel(_sciLabel);
         ConfigureLabel(_faithLabel);
 
+        // Construct TextureRect + Label pairs for each strategic resource
+        WrapResourceWidget(hbox, _foodLabel, ResourceType.Food);
+        WrapResourceWidget(hbox, _prodLabel, ResourceType.Production);
+        WrapResourceWidget(hbox, _goldLabel, ResourceType.Gold);
+        WrapResourceWidget(hbox, _sciLabel, ResourceType.Science);
+        WrapResourceWidget(hbox, _faithLabel, ResourceType.Faith);
+
         ApplyPlateStyling();
 
         LocalizationManager.LanguageChanged += UpdateLocalizedTexts;
         UpdateLocalizedTexts();
+    }
+
+    private static void WrapResourceWidget(HBoxContainer? hbox, RichTextLabel? label, ResourceType type)
+    {
+        if (hbox == null || label == null || label.GetParent() != hbox) return;
+
+        int originalIndex = label.GetIndex();
+        hbox.RemoveChild(label);
+
+        var pair = new HBoxContainer
+        {
+            Name = $"{type}Badge",
+            MouseFilter = MouseFilterEnum.Ignore,
+            Alignment = BoxContainer.AlignmentMode.Center
+        };
+        pair.AddThemeConstantOverride("separation", 3);
+
+        var iconRect = IconManager.CreateResourceIconRect(type, 18);
+        iconRect.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+
+        pair.AddChild(iconRect);
+        pair.AddChild(label);
+
+        hbox.AddChild(pair);
+        hbox.MoveChild(pair, originalIndex);
     }
 
     private static void ConfigureLabel(RichTextLabel? label)
@@ -75,11 +108,11 @@ public partial class TacticalResourceBar : PanelContainer
 
     public void UpdateEconomy(in ResourceBundle treasury, in ResourceBundle netIncome, int turn)
     {
-        UpdateResourceLabel(_foodLabel, "🌾", treasury.Food, netIncome.Food);
-        UpdateResourceLabel(_prodLabel, "🔨", treasury.Production, netIncome.Production);
-        UpdateResourceLabel(_goldLabel, "🪙", treasury.Gold, netIncome.Gold);
-        UpdateResourceLabel(_sciLabel, "🔬", treasury.Science, netIncome.Science);
-        UpdateResourceLabel(_faithLabel, "📿", treasury.Faith, netIncome.Faith);
+        UpdateResourceLabel(_foodLabel, treasury.Food, netIncome.Food);
+        UpdateResourceLabel(_prodLabel, treasury.Production, netIncome.Production);
+        UpdateResourceLabel(_goldLabel, treasury.Gold, netIncome.Gold);
+        UpdateResourceLabel(_sciLabel, treasury.Science, netIncome.Science);
+        UpdateResourceLabel(_faithLabel, treasury.Faith, netIncome.Faith);
 
         if (_turnLabel != null)
         {
@@ -96,7 +129,7 @@ public partial class TacticalResourceBar : PanelContainer
         );
     }
 
-    private static void UpdateResourceLabel(RichTextLabel? label, string icon, int current, int delta)
+    private static void UpdateResourceLabel(RichTextLabel? label, int current, int delta)
     {
         if (label == null) return;
         string deltaText = delta switch
@@ -105,7 +138,7 @@ public partial class TacticalResourceBar : PanelContainer
             < 0 => $"[color=#e03b24]{delta}[/color]",
             _ => "[color=#888888]+0[/color]"
         };
-        label.Text = $"[font_size=9]{icon} {current} {deltaText}[/font_size]";
+        label.Text = $"[font_size=9]{current} {deltaText}[/font_size]";
     }
 
     private void UpdateSessionTitle()

@@ -27,6 +27,16 @@ public partial class EconomyManager : Node
     /// </summary>
     public event Action<FactionData, string>? OnDeficitTriggered;
 
+    /// <summary>
+    /// Event broadcast when a faction claims or forfeits a territorial tile.
+    /// </summary>
+    public event Action<FactionData>? OnTerritoryChanged;
+
+    public void NotifyTerritoryChanged(FactionData faction)
+    {
+        OnTerritoryChanged?.Invoke(faction);
+    }
+
     private readonly List<FactionData> _factions = new();
     private Func<Vector2I, TileTerrainData?>? _tileDataProvider;
 

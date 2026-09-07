@@ -116,13 +116,46 @@ public partial class HexTile : Node2D
         if (_polygon != null)
         {
             _polygon.Polygon = HexVertices;
-            _polygon.Color = baseCol;
+            // Keep transparent at runtime so TileMapLayer sprite textures show through cleanly
+            _polygon.Color = Engine.IsEditorHint() ? baseCol : new Color(0, 0, 0, 0);
         }
 
         if (_border != null)
         {
             _border.Points = HexOutlinePoints;
-            _border.DefaultColor = borderCol;
+            _border.Width = 1.0f;
+            _border.DefaultColor = new Color(0.06f, 0.08f, 0.06f, 0.52f);
+        }
+
+        if (AssociatedCell != null && AssociatedCell.OwnerFactionId != -1)
+        {
+            UpdateOwnerVisual(AssociatedCell.OwnerFactionId);
+        }
+    }
+
+    /// <summary>
+    /// Dynamically tints the hex border according to the controlling faction.
+    /// Imperial Gold for Player (0), Crimson Red for Rivals (>0), Muted Gray for Neutral (-1).
+    /// </summary>
+    public void UpdateOwnerVisual(int ownerFactionId)
+    {
+        _border ??= GetNodeOrNull<Line2D>("HexBorder");
+        if (_border == null) return;
+
+        if (ownerFactionId == 0)
+        {
+            _border.DefaultColor = new Color(0.96f, 0.78f, 0.26f, 0.75f);
+            _border.Width = 1.5f;
+        }
+        else if (ownerFactionId > 0)
+        {
+            _border.DefaultColor = new Color(0.88f, 0.23f, 0.14f, 0.75f);
+            _border.Width = 1.5f;
+        }
+        else
+        {
+            _border.DefaultColor = new Color(0.06f, 0.08f, 0.06f, 0.52f);
+            _border.Width = 1.0f;
         }
     }
 
