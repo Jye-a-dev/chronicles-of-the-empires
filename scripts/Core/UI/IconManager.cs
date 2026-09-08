@@ -182,6 +182,16 @@ public static class IconManager
             "recruit" => new Color("#ffd54f"),
             "city" => new Color("#ff7043"),
             "improvement" => new Color("#8d6e63"),
+            "mountain" => new Color("#6c757d"),
+            "copper" => new Color("#d35400"),
+            "iron" => new Color("#7f8c8d"),
+            "herbs" => new Color("#27ae60"),
+            "jade" => new Color("#1abc9c"),
+            "farm" => new Color("#f39c12"),
+            "mine" => new Color("#95a5a6"),
+            "lumber" or "lumbermill" => new Color("#a0522d"),
+            "watchtower" => new Color("#4a69bd"),
+            "ownership" or "owner" or "flag" => new Color("#f5c842"),
             _ => new Color("#888888")
         };
     }

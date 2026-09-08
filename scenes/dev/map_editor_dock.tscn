@@ -1,0 +1,402 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/UI/Dev/MapEditorDock.cs" id="1_editor_dock"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dock"]
+bg_color = Color(0.08, 0.08, 0.1, 0.95)
+border_width_left = 2
+border_color = Color(0.85, 0.7, 0.25, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brush"]
+bg_color = Color(0.14, 0.14, 0.18, 0.9)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+
+[node name="MapEditorDock" type="PanelContainer"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -165.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dock")
+script = ExtResource("1_editor_dock")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HeaderLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+theme_override_colors/font_color = Color(0.95, 0.8, 0.3, 1)
+text = "MAP EDITOR DEV"
+horizontal_alignment = 1
+
+[node name="HoverInfoLabel" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Hex: (0, 0) | Biome"
+autowrap_mode = 2
+
+[node name="HSeparator1" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="DimHeaderRow" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="DimTitle" type="Label" parent="Margin/VBox/DimHeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "Kích Thước Bản Đồ"
+
+[node name="BtnToggleDim" type="Button" parent="Margin/VBox/DimHeaderRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Ẩn W-H"
+
+[node name="DimRow" type="HBoxContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WLabel" type="Label" parent="Margin/VBox/DimRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "W:"
+
+[node name="WidthSpinBox" type="SpinBox" parent="Margin/VBox/DimRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 16.0
+max_value = 128.0
+value = 32.0
+editable = false
+
+[node name="HLabel" type="Label" parent="Margin/VBox/DimRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "H:"
+
+[node name="HeightSpinBox" type="SpinBox" parent="Margin/VBox/DimRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 16.0
+max_value = 128.0
+value = 32.0
+editable = false
+
+[node name="ActionRow" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="BtnClearMap" type="Button" parent="Margin/VBox/ActionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "Clear"
+
+[node name="BtnExportJson" type="Button" parent="Margin/VBox/ActionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "Export"
+
+[node name="BtnImportJson" type="Button" parent="Margin/VBox/ActionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "Import"
+
+[node name="HSeparator2" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="ActiveBrushPanel" type="PanelContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_brush")
+
+[node name="BrushHBox" type="HBoxContainer" parent="Margin/VBox/ActiveBrushPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ActiveBrushIcon" type="TextureRect" parent="Margin/VBox/ActiveBrushPanel/BrushHBox"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ActiveBrushLabel" type="Label" parent="Margin/VBox/ActiveBrushPanel/BrushHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
+text = "Cọ: Đồng Bằng"
+clip_text = true
+
+[node name="TabContainer" type="TabContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 7
+current_tab = 0
+
+[node name="Terrain" type="VBoxContainer" parent="Margin/VBox/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="TerrainLabel" type="Label" parent="Margin/VBox/TabContainer/Terrain"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Loại Đất:"
+
+[node name="BtnPlains" type="Button" parent="Margin/VBox/TabContainer/Terrain"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Đồng Bằng (Plains)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnForest" type="Button" parent="Margin/VBox/TabContainer/Terrain"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Rừng Rậm (Forest)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnRiver" type="Button" parent="Margin/VBox/TabContainer/Terrain"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Sông Nước (River)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnMountain" type="Button" parent="Margin/VBox/TabContainer/Terrain"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Núi Đá (Mountain)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="ShapeLabel" type="Label" parent="Margin/VBox/TabContainer/Terrain"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Cọ Vẽ:"
+
+[node name="ShapeRow" type="HBoxContainer" parent="Margin/VBox/TabContainer/Terrain"]
+layout_mode = 2
+
+[node name="BtnShapeSingle" type="Button" parent="Margin/VBox/TabContainer/Terrain/ShapeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "1 Ô"
+
+[node name="BtnShapeCluster" type="Button" parent="Margin/VBox/TabContainer/Terrain/ShapeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "Cụm 7"
+
+[node name="BtnShapeFlood" type="Button" parent="Margin/VBox/TabContainer/Terrain/ShapeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "Flood"
+
+[node name="Features" type="VBoxContainer" parent="Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="DepositLabel" type="Label" parent="Margin/VBox/TabContainer/Features"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Mỏ Tài Nguyên:"
+
+[node name="BtnDepositCopper" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Mỏ Đồng (Copper)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnDepositIron" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Mỏ Sắt (Iron)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnDepositHerbs" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Thảo Dược (Herbs)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnDepositJade" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Ngọc Bích (Jade)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="ImpLabel" type="Label" parent="Margin/VBox/TabContainer/Features"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Công Trình:"
+
+[node name="BtnImpFarm" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Nông Trại (Farm)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnImpMine" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Mỏ Quặng (Mine)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnImpLumber" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Trại Gỗ (Lumber)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnImpWatchtower" type="Button" parent="Margin/VBox/TabContainer/Features"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Tiêu Đồn (Watchtower)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="Units" type="VBoxContainer" parent="Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="FactionRow" type="HBoxContainer" parent="Margin/VBox/TabContainer/Units"]
+layout_mode = 2
+
+[node name="FLabel" type="Label" parent="Margin/VBox/TabContainer/Units/FactionRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Phe:"
+
+[node name="FactionOptionButton" type="OptionButton" parent="Margin/VBox/TabContainer/Units/FactionRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+clip_text = true
+fit_to_longest_item = false
+
+[node name="UnitLabel" type="Label" parent="Margin/VBox/TabContainer/Units"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Chọn Đơn Vị:"
+
+[node name="BtnUnitGuard" type="Button" parent="Margin/VBox/TabContainer/Units"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Cấm Vệ Quân"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnUnitArcher" type="Button" parent="Margin/VBox/TabContainer/Units"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Cung Thủ"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnUnitVanguard" type="Button" parent="Margin/VBox/TabContainer/Units"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Tiên Phong Địch"
+icon_alignment = 0
+expand_icon = true
+
+[node name="Ownership" type="VBoxContainer" parent="Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="OwnerHelp" type="Label" parent="Margin/VBox/TabContainer/Ownership"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Gán chủ quyền ô đất theo Phe chọn ở Tab Units."
+autowrap_mode = 2
+
+[node name="BtnPaintOwner" type="Button" parent="Margin/VBox/TabContainer/Ownership"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Bật Cọ Gán Chủ Quyền"
+icon_alignment = 0
+expand_icon = true

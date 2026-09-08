@@ -213,7 +213,48 @@ public partial class TileInfoModal : PanelContainer
     {
         if (_improvementCard == null) return;
 
-        if (cell.Deposit != null)
+        if (cell.TerrainData.Improvement != ImprovementType.None)
+        {
+            _improvementCard.Visible = true;
+            string impName = cell.TerrainData.Improvement switch
+            {
+                ImprovementType.Farm => "Nông Trại",
+                ImprovementType.Mine => "Mỏ Quặng",
+                ImprovementType.LumberMill => "Trại Cưa",
+                ImprovementType.Watchtower => "Tiêu Đồn",
+                _ => cell.TerrainData.Improvement.ToString()
+            };
+
+            if (_featureNameLabel != null)
+            {
+                _featureNameLabel.Text = impName;
+            }
+
+            if (_featureStatusLabel != null)
+            {
+                if (cell.TerrainData.IsConstructed)
+                {
+                    _featureStatusLabel.Text = "[Đã hoàn tất]";
+                    _featureStatusLabel.AddThemeColorOverride("font_color", PositiveYieldColor);
+                }
+                else
+                {
+                    _featureStatusLabel.Text = $"[Đang xây: còn {cell.TerrainData.ConstructionTurnsRemaining} lượt]";
+                    _featureStatusLabel.AddThemeColorOverride("font_color", OrangeStatusColor);
+                }
+            }
+
+            if (_featureYieldLabel != null)
+            {
+                _featureYieldLabel.Text = FormatBundle(cell.TerrainData.ImprovementBonusYield);
+            }
+
+            if (_btnBuildImprovement != null)
+            {
+                _btnBuildImprovement.Visible = false;
+            }
+        }
+        else if (cell.Deposit != null)
         {
             _improvementCard.Visible = true;
             var dep = cell.Deposit;
@@ -296,27 +337,74 @@ public partial class TileInfoModal : PanelContainer
         {
             _improvementCard.Visible = true;
 
-            if (_featureNameLabel != null)
+            if (cell.OwnerFactionId == 0)
             {
-                _featureNameLabel.Text = "Địa hình tự nhiên";
-            }
+                // Can build basic terrain improvement on friendly territory
+                var (defaultImp, impName, cost) = GetDefaultImprovementForTile(cell.TerrainData.Biome);
+                _pendingImprovementId = defaultImp.ToString();
 
-            if (_featureStatusLabel != null)
-            {
-                _featureStatusLabel.Text = "[Không có mỏ]";
-                _featureStatusLabel.AddThemeColorOverride("font_color", DimFlavorColor);
-            }
+                if (_featureNameLabel != null)
+                {
+                    _featureNameLabel.Text = "Địa hình tự nhiên";
+                }
 
-            if (_featureYieldLabel != null)
-            {
-                _featureYieldLabel.Text = "Không có sản lượng thưởng";
-            }
+                if (_featureStatusLabel != null)
+                {
+                    _featureStatusLabel.Text = "[Có thể khai thác]";
+                    _featureStatusLabel.AddThemeColorOverride("font_color", DimBronzeColor);
+                }
 
-            if (_btnBuildImprovement != null)
+                if (_featureYieldLabel != null)
+                {
+                    _featureYieldLabel.Text = "Chưa có công trình";
+                }
+
+                if (_btnBuildLabel != null)
+                {
+                    _btnBuildLabel.Text = $"Xây {impName}";
+                }
+
+                PopulateCostBadges(_btnBuildCostRow, cost);
+
+                if (_btnBuildImprovement != null)
+                {
+                    _btnBuildImprovement.Visible = true;
+                }
+            }
+            else
             {
-                _btnBuildImprovement.Visible = false;
+                if (_featureNameLabel != null)
+                {
+                    _featureNameLabel.Text = "Địa hình tự nhiên";
+                }
+
+                if (_featureStatusLabel != null)
+                {
+                    _featureStatusLabel.Text = "[Không có mỏ]";
+                    _featureStatusLabel.AddThemeColorOverride("font_color", DimFlavorColor);
+                }
+
+                if (_featureYieldLabel != null)
+                {
+                    _featureYieldLabel.Text = "Không có sản lượng thưởng";
+                }
+
+                if (_btnBuildImprovement != null)
+                {
+                    _btnBuildImprovement.Visible = false;
+                }
             }
         }
+    }
+
+    public static (ImprovementType Type, string Name, ResourceBundle Cost) GetDefaultImprovementForTile(BiomeType biome)
+    {
+        return biome switch
+        {
+            BiomeType.Forest => (ImprovementType.LumberMill, "Trại Gỗ", new ResourceBundle(0, 20, 10, 0, 0)),
+            BiomeType.Mountain or BiomeType.Highlands => (ImprovementType.Mine, "Mỏ Quặng", new ResourceBundle(0, 30, 15, 0, 0)),
+            _ => (ImprovementType.Farm, "Nông Trại", new ResourceBundle(15, 25, 0, 0, 0))
+        };
     }
 
     private static void PopulateCostBadges(HBoxContainer? targetRow, in ResourceBundle cost)

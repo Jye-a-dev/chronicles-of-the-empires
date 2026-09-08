@@ -57,6 +57,11 @@ public sealed class PathfindingManager
         }
     }
 
+    public void ResetGraph(int width, int height, GridMapManager gridMap)
+    {
+        Initialize(width, height, gridMap);
+    }
+
     /// <summary>
     /// Synchronizes terrain obstacles and movement costs from HexCell objects.
     /// </summary>

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Gameplay.Economy;
 
 #nullable enable
 
@@ -82,7 +84,8 @@ public sealed class UnitRegistry
             _unitsByPosition.Remove(unit.GridPosition);
         }
 
-        faction?.Units.Remove(unit.Data);
+        var ownerFaction = faction ?? EconomyManager.Instance?.Factions.FirstOrDefault(f => f.FactionId == unit.FactionId);
+        ownerFaction?.Units.Remove(unit.Data);
 
         unit.UnitMoved -= HandleUnitMoved;
         unit.UnitDestroyed -= HandleUnitDestroyed;

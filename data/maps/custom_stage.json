@@ -1,0 +1,8260 @@
+{
+  "Header": {
+    "Width": 32,
+    "Height": 32,
+    "Biome": "red_river",
+    "StageTitle": "Stage 1"
+  },
+  "Cells": [
+    {
+      "Q": 0,
+      "R": 0,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 0,
+      "R": 1,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 0,
+      "R": 2,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 0,
+      "R": 3,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 0,
+      "R": 4,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 0,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 7,
+      "Terrain": 3,
+      "Deposit": "gold_vein",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 9,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 10,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 14,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 16,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 24,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 25,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 26,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 27,
+      "Terrain": 3,
+      "Deposit": "iron_mine",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 29,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 30,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 0,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 1,
+      "R": 1,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 1,
+      "R": 2,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 1,
+      "R": 3,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 1,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 1,
+      "R": 5,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 7,
+      "Terrain": 3,
+      "Deposit": "iron_mine",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 8,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 9,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 10,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 11,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 13,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 23,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 1,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 0,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 2,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 2,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 2,
+      "R": 3,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 2,
+      "R": 4,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 2,
+      "R": 5,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 6,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 8,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 14,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 2,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 0,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 3,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 3,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 3,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 3,
+      "R": 4,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 3,
+      "R": 5,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 6,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 8,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 14,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 3,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 4,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 4,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 4,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 4,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": 0
+    },
+    {
+      "Q": 4,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 6,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 7,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 8,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 23,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 27,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 4,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 0,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 7,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 8,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 10,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 16,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 5,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 7,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 8,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 9,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 10,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 16,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 23,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 27,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 6,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 8,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 9,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 21,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 24,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 7,
+      "R": 31,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 0,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 3,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 4,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 8,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 21,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 29,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 8,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 3,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 26,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 28,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 9,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 2,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 6,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 8,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 9,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 15,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 24,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 25,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 10,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 3,
+      "Terrain": 1,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 6,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 8,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 9,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 10,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 11,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 9,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 10,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 11,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 12,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 4,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 10,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 11,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 26,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 13,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 2,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 10,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 11,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 12,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 19,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 28,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 14,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 1,
+      "Terrain": 3,
+      "Deposit": "iron_mine",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 2,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 12,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 13,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 14,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 15,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 10,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 14,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 15,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 16,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 16,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 4,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 8,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 10,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 15,
+      "Terrain": 2,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 16,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 17,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 29,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 17,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 4,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 6,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 17,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 18,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 19,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 28,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 18,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 3,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 4,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 5,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 19,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 20,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 21,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 27,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 19,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 1,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 21,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 22,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 23,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 29,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 20,
+      "R": 31,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 16,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 22,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 23,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 24,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 21,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 19,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 24,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 25,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 29,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 22,
+      "R": 31,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 9,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 19,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 25,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 27,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 29,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 23,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 25,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 28,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 24,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 2,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 6,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 15,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 19,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 28,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 25,
+      "R": 31,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 9,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 15,
+      "Terrain": 1,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 18,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 28,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 26,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 4,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 6,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 21,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 24,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 28,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 29,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 27,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 12,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 13,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 19,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 20,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 24,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 28,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 28,
+      "R": 31,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 0,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 22,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 26,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 28,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 29,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 29,
+      "R": 31,
+      "Terrain": 3,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 0,
+      "Terrain": 3,
+      "Deposit": "iron_mine",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 7,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 8,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 11,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 14,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 16,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 17,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 24,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 26,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 27,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 28,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 29,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 30,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 30,
+      "R": 31,
+      "Terrain": 3,
+      "Deposit": "iron_mine",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 0,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 1,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 2,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 3,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 4,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 5,
+      "Terrain": 0,
+      "Deposit": "paddy_field",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 6,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 7,
+      "Terrain": 1,
+      "Deposit": "ancient_forest",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 8,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 9,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 10,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 11,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 12,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 13,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 14,
+      "Terrain": 0,
+      "Deposit": "sacred_spring",
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 15,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 16,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 17,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 18,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 19,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 20,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 21,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 22,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 23,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 24,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 25,
+      "Terrain": 0,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 26,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 27,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 28,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 29,
+      "Terrain": 2,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 30,
+      "Terrain": 1,
+      "Deposit": null,
+      "Improvement": 0,
+      "Owner": -1
+    },
+    {
+      "Q": 31,
+      "R": 31,
+      "Terrain": 3,
+      "Deposit": "iron_mine",
+      "Improvement": 0,
+      "Owner": -1
+    }
+  ],
+  "Units": [
+    {
+      "Type": "cam_ve_quan",
+      "Q": 2,
+      "R": 2,
+      "Faction": 0,
+      "Hp": 25
+    },
+    {
+      "Type": "cung_thu",
+      "Q": 3,
+      "R": 3,
+      "Faction": 0,
+      "Hp": 18
+    },
+    {
+      "Type": "tien_phong_dich",
+      "Q": 27,
+      "R": 29,
+      "Faction": 1,
+      "Hp": 22
+    },
+    {
+      "Type": "tien_phong_dich",
+      "Q": 8,
+      "R": 5,
+      "Faction": 0,
+      "Hp": 22
+    },
+    {
+      "Type": "tien_phong_dich",
+      "Q": 10,
+      "R": 6,
+      "Faction": 0,
+      "Hp": 22
+    },
+    {
+      "Type": "tien_phong_dich",
+      "Q": 9,
+      "R": 5,
+      "Faction": 0,
+      "Hp": 22
+    },
+    {
+      "Type": "cung_thu",
+      "Q": 4,
+      "R": 2,
+      "Faction": 0,
+      "Hp": 18
+    },
+    {
+      "Type": "cung_thu",
+      "Q": 4,
+      "R": 3,
+      "Faction": 0,
+      "Hp": 18
+    }
+  ]
+}

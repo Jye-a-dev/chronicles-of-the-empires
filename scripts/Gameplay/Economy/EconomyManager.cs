@@ -98,6 +98,11 @@ public partial class EconomyManager : Node
                 {
                     grossYield += deposit.BonusYield;
                 }
+
+                if (tile.Improvement != ImprovementType.None && tile.IsConstructed)
+                {
+                    grossYield += tile.ImprovementBonusYield;
+                }
             }
         }
 
@@ -134,6 +139,23 @@ public partial class EconomyManager : Node
     /// </summary>
     public void ProcessFactionEndTurn(FactionData faction)
     {
+        // Advance in-progress tile improvement construction
+        if (_tileDataProvider != null && faction.ControlledTiles.Count > 0)
+        {
+            foreach (var coord in faction.ControlledTiles)
+            {
+                var tile = _tileDataProvider(coord);
+                if (tile != null && tile.Improvement != ImprovementType.None && !tile.IsConstructed && tile.ConstructionTurnsRemaining > 0)
+                {
+                    tile.ConstructionTurnsRemaining--;
+                    if (tile.ConstructionTurnsRemaining <= 0)
+                    {
+                        tile.IsConstructed = true;
+                    }
+                }
+            }
+        }
+
         var (gross, upkeep, net) = CalculateTurnIncome(faction);
 
         // Update Treasury

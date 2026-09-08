@@ -42,6 +42,18 @@ public partial class UnitController : Node2D
     public bool IsMoving => Data?.IsMoving ?? false;
     public bool IsSelected { get; private set; } = false;
 
+    private static readonly Vector2[] CachedShadowPoly = new Vector2[16];
+
+    static UnitController()
+    {
+        Vector2 shadowCenter = new(0f, 6.0f);
+        for (int i = 0; i < 16; i++)
+        {
+            float angle = i * Mathf.Tau / 16;
+            CachedShadowPoly[i] = shadowCenter + new Vector2(Mathf.Cos(angle) * 5.2f, Mathf.Sin(angle) * 2.2f);
+        }
+    }
+
     private Polygon2D? _hexHitboxIndicator;
     private ColorRect? _visualRect;
     private ColorRect? _borderRect;
@@ -397,13 +409,14 @@ public partial class UnitController : Node2D
 
     public void MoveAlongPath(ReadOnlySpan<Vector2I> path, int totalCost, Action? onComplete = null)
     {
-        if (Data == null || IsSurrendered || path.Length <= 1 || IsMoving) return;
+        if (Data == null || IsSurrendered || path.Length <= 1) return;
+        if (_movementTween != null && _movementTween.IsRunning()) return;
 
         Data.IsMoving = true;
         _movementTween?.Kill();
         _movementTween = CreateTween();
 
-        Vector2I oldPos = GridPosition;
+        Vector2I oldPos = path[0];
 
         // Step-by-step tile movement animation
         for (int i = 1; i < path.Length; i++)
@@ -449,16 +462,8 @@ public partial class UnitController : Node2D
     public override void _Draw()
     {
         // 1. Drop shadow: compact subtle ellipse under feet
-        Vector2 shadowCenter = new(0f, 6.0f);
         Color shadowColor = new(0f, 0f, 0f, 0.28f);
-        const int segments = 16;
-        var shadowPoly = new Vector2[segments];
-        for (int i = 0; i < segments; i++)
-        {
-            float angle = i * Mathf.Tau / segments;
-            shadowPoly[i] = shadowCenter + new Vector2(Mathf.Cos(angle) * 5.2f, Mathf.Sin(angle) * 2.2f);
-        }
-        DrawColoredPolygon(shadowPoly, shadowColor);
+        DrawColoredPolygon(CachedShadowPoly, shadowColor);
 
         // 2. Movement / turn readiness gem on head (floating above 1.5x character height)
         Vector2 gemCenter = new(0f, -44.0f);

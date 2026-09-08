@@ -86,6 +86,14 @@ public partial class HexTile : Node2D
         UpdateVisuals();
     }
 
+    public void Configure(HexCell cell)
+    {
+        AssociatedCell = cell;
+        GridPosition = cell.Coords;
+        Position = cell.WorldPosition;
+        SetTerrain(cell.Terrain);
+    }
+
     public void SetTerrain(TerrainType terrain)
     {
         _terrain = terrain;

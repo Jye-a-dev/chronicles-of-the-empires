@@ -10,6 +10,15 @@ public enum BiomeType
     Swamp = 5
 }
 
+public enum ImprovementType
+{
+    None = 0,
+    Farm = 1,
+    Mine = 2,
+    LumberMill = 3,
+    Watchtower = 4
+}
+
 /// <summary>
 /// Level 1 Map Entity: Pure data representation of terrain cell properties,
 /// movement costs, barrier collision, and baseline periodic yield bundles.
@@ -25,5 +34,11 @@ public record TileTerrainData
 
     // Reference to Level 2 Deposit
     public ResourceDepositData? Deposit { get; set; }
+
+    // Level 3 Tile Improvement / Exploitation
+    public ImprovementType Improvement { get; set; } = ImprovementType.None;
+    public bool IsConstructed { get; set; } = false;
+    public int ConstructionTurnsRemaining { get; set; } = 0;
+    public ResourceBundle ImprovementBonusYield { get; set; } = ResourceBundle.Zero;
 }
 

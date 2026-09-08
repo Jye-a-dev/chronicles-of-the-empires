@@ -54,13 +54,61 @@ public partial class MapInputHandler : Node2D
         _closeSettings = closeSettings;
     }
 
+    public Func<bool>? IsBlockingUIHovered { get; set; }
+    public Func<bool>? IsEditorActive { get; set; }
+    public Action<Vector2I>? OnEditorPaint { get; set; }
+    public Action<Vector2I>? OnEditorErase { get; set; }
+    private bool _isLeftMouseDown = false;
+
     public override void _UnhandledInput(InputEvent @event)
     {
         if (_getState() != MapInteractionState.Idle) return;
 
+        if (IsBlockingUIHovered?.Invoke() == true)
+            return;
+
         if (@event is InputEventMouseMotion)
         {
             HandleMouseHoverPreview();
+            if (_isLeftMouseDown && (IsEditorActive?.Invoke() == true))
+            {
+                Vector2 mouseWorld = GetGlobalMousePosition();
+                Vector2I gridPos = GridMapManager.WorldToGrid(mouseWorld);
+                OnEditorPaint?.Invoke(gridPos);
+            }
+        }
+        else if (@event is InputEventMouseButton mb)
+        {
+            if (mb.ButtonIndex == MouseButton.Left)
+            {
+                _isLeftMouseDown = mb.Pressed;
+                if (mb.Pressed)
+                {
+                    if (IsEditorActive?.Invoke() == true)
+                    {
+                        Vector2 mouseWorld = GetGlobalMousePosition();
+                        Vector2I gridPos = GridMapManager.WorldToGrid(mouseWorld);
+                        OnEditorPaint?.Invoke(gridPos);
+                    }
+                    else
+                    {
+                        HandleLeftClickInspect();
+                    }
+                }
+            }
+            else if (mb.ButtonIndex == MouseButton.Right && mb.Pressed)
+            {
+                if (IsEditorActive?.Invoke() == true)
+                {
+                    Vector2 mouseWorld = GetGlobalMousePosition();
+                    Vector2I gridPos = GridMapManager.WorldToGrid(mouseWorld);
+                    OnEditorErase?.Invoke(gridPos);
+                }
+                else
+                {
+                    HandleRightClickAction();
+                }
+            }
         }
         else if (@event is InputEventKey key && key.Pressed)
         {
@@ -110,8 +158,41 @@ public partial class MapInputHandler : Node2D
         var clickedUnit = _unitRegistry.GetUnitAt(gridPos) ?? hexCell.OccupyingUnit as UnitController;
         if (clickedUnit != null && GodotObject.IsInstanceValid(clickedUnit) && clickedUnit.Visible)
         {
+            if (selected != null && selected != clickedUnit && selected.FactionId == 0 && !selected.IsSurrendered)
+            {
+                if (clickedUnit.IsSurrendered)
+                {
+                    UnitRecaptureRequested?.Invoke(selected, clickedUnit);
+                    return;
+                }
+
+                if (clickedUnit.FactionId != selected.FactionId)
+                {
+                    UnitAttackRequested?.Invoke(selected, clickedUnit, gridPos);
+                    return;
+                }
+            }
+
             UnitSelected?.Invoke(clickedUnit);
             return;
+        }
+
+        // Selected unit move order on reachable empty hex
+        if (selected != null && selected.FactionId == 0 && !selected.IsSurrendered && gridPos != selected.GridPosition)
+        {
+            _pathfinding.SetPointSolid(selected.GridPosition, false);
+            var pathSpan = _pathfinding.FindPathSpan(selected.GridPosition, gridPos);
+            _pathfinding.SetPointSolid(selected.GridPosition, true);
+
+            if (pathSpan.Length > 1)
+            {
+                int cost = _pathfinding.CalculatePathCost(pathSpan, _gridMap);
+                if (cost <= selected.MovementRangeRemaining)
+                {
+                    UnitMoveRequested?.Invoke(selected, gridPos, hexCell);
+                    return;
+                }
+            }
         }
 
         // Empty hex clicked: clear unit selection and inspect cell

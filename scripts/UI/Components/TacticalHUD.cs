@@ -24,6 +24,9 @@ public partial class TacticalHUD : Control
     [Signal]
     public delegate void RecruitRequestedEventHandler(string unitConfigId, Vector2I coords);
 
+    [Signal]
+    public delegate void UpgradeRequestedEventHandler(string buildingConfigId, Vector2I coords);
+
     private TacticalResourceBar? _resourceBar;
     private TacticalFunctionBar? _functionBar;
     private TileInfoModal? _tileInfoModal;
@@ -44,6 +47,8 @@ public partial class TacticalHUD : Control
         {
             _tileInfoModal.RecruitRequested += (unitConfigId, coords) =>
                 EmitSignal(SignalName.RecruitRequested, unitConfigId, coords);
+            _tileInfoModal.UpgradeRequested += (buildingConfigId, coords) =>
+                EmitSignal(SignalName.UpgradeRequested, buildingConfigId, coords);
         }
 
         if (_functionBar != null)

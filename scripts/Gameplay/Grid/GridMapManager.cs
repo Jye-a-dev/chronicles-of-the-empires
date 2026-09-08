@@ -45,6 +45,7 @@ public partial class GridMapManager : Node2D
     private HexCell[,] _cells = new HexCell[0, 0];
     private readonly Dictionary<Vector2I, HexTile> _tileInstances = new();
     private TileMapLayer? _tileMapLayer;
+    public TileMapLayer? TileMapLayer => _tileMapLayer;
     private Node2D? _tileContainer;
 
     public static GridMapManager? Instance { get; private set; }
@@ -194,6 +195,38 @@ public partial class GridMapManager : Node2D
 
     public bool IsWithinBounds(Vector2I pos) =>
         pos.X >= 0 && pos.X < MapWidth && pos.Y >= 0 && pos.Y < MapHeight;
+
+    public void SetCellTerrain(Vector2I pos, TerrainType terrain)
+    {
+        if (!IsWithinBounds(pos)) return;
+        var cell = _cells[pos.X, pos.Y];
+        if (cell == null) return;
+
+        cell.ConfigureTerrainDefaults(terrain);
+        _tileMapLayer?.SetCell(pos, sourceId: 0, atlasCoords: new Vector2I((int)terrain, 0));
+        if (_tileInstances.TryGetValue(pos, out var tileView) && GodotObject.IsInstanceValid(tileView))
+        {
+            tileView.Configure(cell);
+        }
+    }
+
+    public void ResetCells(int width, int height)
+    {
+        MapWidth = width;
+        MapHeight = height;
+        _cells = new HexCell[width, height];
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                var coords = new Vector2I(x, y);
+                Vector2 worldPos = GridToWorldCenter(coords);
+                _cells[x, y] = new HexCell(coords, worldPos, TerrainType.Plains);
+            }
+        }
+        RenderTileMap();
+        SpawnOrSyncTiles();
+    }
 
     public HexCell? GetCell(Vector2I pos)
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using ChroniclesOfTheEmpires.Core.Combat;
 using ChroniclesOfTheEmpires.Core.Config;
@@ -7,8 +8,10 @@ using ChroniclesOfTheEmpires.Core.Economy;
 using ChroniclesOfTheEmpires.Core.Game;
 using ChroniclesOfTheEmpires.Gameplay.AI;
 using ChroniclesOfTheEmpires.Gameplay.Economy;
+using ChroniclesOfTheEmpires.Gameplay.Editor;
 using ChroniclesOfTheEmpires.UI.Components;
 using ChroniclesOfTheEmpires.UI.Controllers;
+using ChroniclesOfTheEmpires.UI.Dev;
 using ChroniclesOfTheEmpires.UI.Modals;
 
 #nullable enable
@@ -33,11 +36,11 @@ public partial class WorldMap : Node2D
     private TurnManager _turnManager = null!;
     private Node2D _unitContainer = null!;
     private TacticalHUD _hud = null!;
-
     private EconomyManager _economyManager = null!;
     private EconomyHUDController _economyHUDController = null!;
     private FactionData _playerFaction = null!;
     private FogOfWarManager _fogOfWarManager = null!;
+    public FogOfWarManager FogOfWarManager => _fogOfWarManager;
     private readonly SimpleAITurnExecutor _aiTurnExecutor = new();
 
     private BoardBackdrop? _boardBackdrop;
@@ -49,6 +52,9 @@ public partial class WorldMap : Node2D
     private readonly AsyncPacer _asyncPacer = new();
     private MapInputHandler _inputHandler = null!;
     private UnitController? _selectedUnit;
+
+    private MapEditorController? _mapEditorController;
+    private MapEditorDock? _mapEditorDock;
 
     public UnitRegistry UnitRegistry => _unitRegistry;
 
@@ -167,18 +173,60 @@ public partial class WorldMap : Node2D
         _inputHandler.DeselectRequested += DeselectAll;
         _inputHandler.EndTurnRequested += OnEndTurnPressed;
 
-        // 8. Spawn Initial Units
+        // 8. Initialize Map Editor Controller & Dev Dock
+        _mapEditorController = new MapEditorController(this, _gridMapManager, _unitRegistry, _pathfindingManager);
+        var dockScene = GD.Load<PackedScene>("res://scenes/dev/map_editor_dock.tscn");
+        if (dockScene != null)
+        {
+            _mapEditorDock = dockScene.Instantiate<MapEditorDock>();
+            _mapEditorDock.Controller = _mapEditorController;
+            _mapEditorDock.SetMapDimensions(_gridMapManager.MapWidth, _gridMapManager.MapHeight);
+            _mapEditorDock.Visible = false;
+
+            var devLayer = new CanvasLayer { Name = "MapEditorLayer", Layer = 22 };
+            AddChild(devLayer);
+            devLayer.AddChild(_mapEditorDock);
+
+            _mapEditorDock.ExportRequested += () =>
+            {
+                MapSerializer.ExportToJson(_gridMapManager, _unitRegistry, _mapEditorDock.MapWidth, _mapEditorDock.MapHeight, _gridMapManager.ActiveBiome, "Stage 1", "res://data/maps/custom_stage.json");
+            };
+
+            _mapEditorDock.ImportRequested += () =>
+            {
+                MapSerializer.LoadFromJson("res://data/maps/custom_stage.json", this, _gridMapManager, _unitRegistry, _pathfindingManager);
+                _mapEditorDock.SetMapDimensions(_gridMapManager.MapWidth, _gridMapManager.MapHeight);
+            };
+
+            _mapEditorDock.ClearRequested += () =>
+            {
+                ClearAllUnits();
+                _gridMapManager.ResetCells(_mapEditorDock.MapWidth, _mapEditorDock.MapHeight);
+                _pathfindingManager.ResetGraph(_mapEditorDock.MapWidth, _mapEditorDock.MapHeight, _gridMapManager);
+                _fogOfWarManager.Initialize(_mapEditorDock.MapWidth, _mapEditorDock.MapHeight, _gridMapManager);
+                RefreshEconomyUI();
+            };
+        }
+
+        _inputHandler.IsBlockingUIHovered = () => _hud.IsSettingsOpen || (_mapEditorDock != null && _mapEditorDock.IsMouseOverDock());
+        _inputHandler.IsEditorActive = () => _mapEditorController?.IsEditorActive ?? false;
+        _inputHandler.OnEditorPaint = (pos) => _mapEditorController?.ApplyPaint(pos);
+        _inputHandler.OnEditorErase = (pos) => _mapEditorController?.ApplyErase(pos);
+        _inputHandler.TileHovered += (pos) => _mapEditorDock?.UpdateHoverInfo(pos, _gridMapManager.GetCell(pos));
+
+        // 9. Spawn Initial Units
         SpawnInitialUnits();
 
-        // 9. Connect UI Events & Turn Manager
+        // 10. Connect UI Events & Turn Manager
         _hud.Initialize(session.StageTitle);
         _hud.EndTurnRequested += OnEndTurnPressed;
         _hud.ExitToMenuRequested += OnExitToMenu;
         _hud.RecruitRequested += (unitId, coords) => ExecuteRecruitUnit(_playerFaction, unitId, coords);
+        _hud.UpgradeRequested += OnTileUpgradeRequested;
 
         _turnManager.TurnChanged += OnTurnChanged;
 
-        // 10. Initial UI Refresh & Vision illumination
+        // 11. Initial UI Refresh & Vision illumination
         RefreshEconomyUI();
         _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
     }
@@ -198,65 +246,62 @@ public partial class WorldMap : Node2D
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (State != MapInteractionState.Idle) return;
-
-        if (@event is InputEventMouseButton mb && mb.Pressed)
+        if (@event is InputEventKey key && key.Pressed)
         {
-            Vector2 mouseGlobalPos = GetGlobalMousePosition();
-            Vector2I targetGrid = GridMapManager.WorldToGrid(mouseGlobalPos);
-            HexCell? targetCell = _gridMapManager.GetCellAt(targetGrid);
-
-            if (!_gridMapManager.IsWithinBounds(targetGrid) || targetCell == null)
+            if (key.Keycode == Key.F1 || key.Keycode == Key.Quoteleft)
             {
-                if (mb.ButtonIndex == MouseButton.Left)
-                {
-                    DeselectAll();
-                }
-                return;
+                ToggleMapEditor();
             }
-
-            if (targetCell.OccupyingUnit != null)
+            else if (key.Keycode == Key.F5)
             {
-                var clickedUnit = targetCell.OccupyingUnit as UnitController;
-                if (clickedUnit != null && GodotObject.IsInstanceValid(clickedUnit) && clickedUnit.Visible)
-                {
-                    if (mb.ButtonIndex == MouseButton.Left)
-                    {
-                        SelectUnit(clickedUnit);
-                    }
-                    else if (mb.ButtonIndex == MouseButton.Right && _selectedUnit != null && !_selectedUnit.IsMoving && _selectedUnit != clickedUnit)
-                    {
-                        int distance = _gridMapManager.GetNeighbors(_selectedUnit.GridPosition).Contains(targetGrid) ? 1 : 2;
-                        if (distance == 1)
-                        {
-                            RequestCombatAnalysis(_selectedUnit, clickedUnit);
-                            if (clickedUnit.IsSurrendered)
-                            {
-                                ExecuteRecaptureOrder(_selectedUnit, clickedUnit);
-                            }
-                            else if (clickedUnit.FactionId != _selectedUnit.FactionId)
-                            {
-                                HandleCombatTarget(_selectedUnit, clickedUnit, targetGrid);
-                            }
-                            else
-                            {
-                                SelectUnit(clickedUnit);
-                            }
-                        }
-                    }
-                }
+                SetPlaytestMode(true);
+            }
+            else if (key.Keycode == Key.F6)
+            {
+                SetPlaytestMode(false);
+            }
+        }
+    }
+
+    private void ToggleMapEditor()
+    {
+        if (_mapEditorDock == null) return;
+        _mapEditorDock.Visible = !_mapEditorDock.Visible;
+        if (_mapEditorController != null)
+        {
+            _mapEditorController.IsEditorActive = _mapEditorDock.Visible;
+            if (_mapEditorDock.Visible)
+            {
+                _fogOfWarManager.RevealAll(_unitRegistry.AllUnits);
             }
             else
             {
-                if (mb.ButtonIndex == MouseButton.Left)
-                {
-                    OnCellSelected(targetGrid, targetCell);
-                }
-                else if (mb.ButtonIndex == MouseButton.Right && _selectedUnit != null && !_selectedUnit.IsMoving && _selectedUnit.FactionId == 0 && !_selectedUnit.IsSurrendered)
-                {
-                    ExecuteSafeMove(_selectedUnit, targetGrid);
-                }
+                _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
             }
+        }
+    }
+
+    public void SetPlaytestMode(bool isPlaytest)
+    {
+        if (_mapEditorDock != null)
+        {
+            _mapEditorDock.Visible = !isPlaytest;
+        }
+
+        if (_mapEditorController != null)
+        {
+            _mapEditorController.IsEditorActive = !isPlaytest;
+        }
+
+        if (isPlaytest)
+        {
+            State = MapInteractionState.Idle;
+            _fogOfWarManager.ResetFog(_gridMapManager);
+            _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
+        }
+        else
+        {
+            _fogOfWarManager.RevealAll(_unitRegistry.AllUnits);
         }
     }
 
@@ -300,7 +345,7 @@ public partial class WorldMap : Node2D
         _selectedUnit = unit;
         _selectedUnit.SetSelected(true);
 
-        _hexIndicator.SelectHex(unit.Position);
+        _hexIndicator.SelectHex(unit.GlobalPosition);
         _hud.DisplayUnit(unit);
     }
 
@@ -328,6 +373,9 @@ public partial class WorldMap : Node2D
     public void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, HexCell targetCell, Action? onComplete = null)
     {
         if (State != MapInteractionState.Idle && State != MapInteractionState.AITurnProcessing) return;
+        if (unit.IsMoving || unit.Data.IsMoving) return;
+
+        unit.Data.IsMoving = true;
         bool wasIdle = State == MapInteractionState.Idle;
         if (wasIdle) State = MapInteractionState.UnitMoving;
 
@@ -336,6 +384,7 @@ public partial class WorldMap : Node2D
 
         if (pathSpan.Length <= 1)
         {
+            unit.Data.IsMoving = false;
             _pathfindingManager.SetPointSolid(unit.GridPosition, true);
             if (wasIdle) State = MapInteractionState.Idle;
             return;
@@ -344,6 +393,7 @@ public partial class WorldMap : Node2D
         int cost = _pathfindingManager.CalculatePathCost(pathSpan, _gridMapManager);
         if (cost > unit.MovementRangeRemaining)
         {
+            unit.Data.IsMoving = false;
             _pathfindingManager.SetPointSolid(unit.GridPosition, true);
             if (wasIdle) State = MapInteractionState.Idle;
             return;
@@ -365,7 +415,7 @@ public partial class WorldMap : Node2D
 
         unit.MoveAlongPath(pathSpan, cost, () =>
         {
-            _hexIndicator.SelectHex(unit.Position);
+            _hexIndicator.SelectHex(unit.GlobalPosition);
             _hud.RefreshUnitInfo();
 
             // Territory Claiming: Claim destination cell if permitted
@@ -573,15 +623,21 @@ public partial class WorldMap : Node2D
 
         unit.UnitDestroyed += HandleUnitDestroyed;
         unit.UnitClicked += SelectUnit;
-        unit.UnitMoved += (u, oldPos, newPos) =>
-        {
-            _hexIndicator.SelectHex(u.Position);
-            _hud.RefreshUnitInfo();
-        };
+        unit.UnitMoved += HandleUnitMovedVisualSync;
+    }
+
+    private void HandleUnitMovedVisualSync(UnitController u, Vector2I oldPos, Vector2I newPos)
+    {
+        _hexIndicator.SelectHex(u.GlobalPosition);
+        _hud.RefreshUnitInfo();
     }
 
     private void HandleUnitDestroyed(UnitController unit)
     {
+        unit.UnitDestroyed -= HandleUnitDestroyed;
+        unit.UnitClicked -= SelectUnit;
+        unit.UnitMoved -= HandleUnitMovedVisualSync;
+
         if (unit.FactionId != 0)
         {
             _enemiesEliminated++;
@@ -601,6 +657,119 @@ public partial class WorldMap : Node2D
         }
 
         EvaluateAndTriggerGameOver();
+    }
+
+    public void ClearAllUnits()
+    {
+        var units = _unitRegistry.AllUnits.ToArray();
+        for (int i = 0; i < units.Length; i++)
+        {
+            var u = units[i];
+            if (GodotObject.IsInstanceValid(u))
+            {
+                _pathfindingManager.SetPointSolid(u.GridPosition, false);
+                var cell = _gridMapManager.GetCell(u.GridPosition);
+                if (cell != null) cell.OccupyingUnit = null;
+
+                _unitRegistry.Unregister(u);
+                u.QueueFree();
+            }
+        }
+        _unitRegistry.Clear();
+    }
+
+    public UnitController? SpawnCustomUnit(string configId, int factionId, Vector2I gridPos, int hp = -1)
+    {
+        var unitScene = GD.Load<PackedScene>("res://scenes/gameplay/unit.tscn");
+        if (unitScene == null) return null;
+
+        var uCfg = GameConfigManager.GetUnitConfig(configId);
+        bool isRanged = configId.Contains("cung_thu", StringComparison.OrdinalIgnoreCase);
+
+        int maxHp = uCfg?.HpMax ?? 20;
+        var data = new UnitData(
+            id: configId,
+            name: uCfg?.Name ?? "Chiến Binh",
+            factionId: factionId,
+            hpMax: maxHp,
+            attack: uCfg?.Attack ?? 6,
+            defense: uCfg?.Defense ?? 3,
+            movementMax: uCfg?.MovementMax ?? 4,
+            gridPosition: gridPos,
+            upkeep: uCfg?.Upkeep ?? ResourceBundle.Zero,
+            cost: uCfg?.Cost ?? ResourceBundle.Zero,
+            description: uCfg?.Description ?? "",
+            isRanged: isRanged,
+            attackRange: isRanged ? 2 : 1
+        );
+
+        if (hp > 0 && hp < maxHp)
+        {
+            data.ApplyDamage(maxHp - hp);
+        }
+
+        var controller = unitScene.Instantiate<UnitController>();
+        _unitContainer.AddChild(controller);
+        controller.Bind(data);
+        RegisterUnit(controller, FindFactionData(factionId));
+        return controller;
+    }
+
+    private void OnTileUpgradeRequested(string improvementId, Vector2I coords)
+    {
+        var cell = _gridMapManager.GetCell(coords);
+        if (cell == null || cell.OwnerFactionId != 0) return;
+
+        ResourceBundle cost;
+        ImprovementType impType;
+        ResourceBundle bonusYield;
+        int buildTurns = 2;
+
+        if (cell.Deposit != null && !cell.Deposit.IsExploited)
+        {
+            var bldCfg = GameConfigManager.GetBuildingConfig(cell.Deposit.RequiredImprovement);
+            cost = bldCfg?.Cost ?? new ResourceBundle(0, 30, 20, 0, 0);
+            impType = cell.Deposit.Category switch
+            {
+                DepositCategory.Mineral => ImprovementType.Mine,
+                DepositCategory.Agricultural => ImprovementType.Farm,
+                _ => ImprovementType.Mine
+            };
+            bonusYield = cell.Deposit.BonusYield;
+        }
+        else
+        {
+            var (defaultImp, _, impCost) = TileInfoModal.GetDefaultImprovementForTile(cell.TerrainData.Biome);
+            impType = defaultImp;
+            cost = impCost;
+            bonusYield = impType switch
+            {
+                ImprovementType.Farm => new ResourceBundle(2, 0, 0, 0, 0),
+                ImprovementType.LumberMill => new ResourceBundle(0, 2, 0, 0, 0),
+                ImprovementType.Mine => new ResourceBundle(0, 2, 1, 0, 0),
+                ImprovementType.Watchtower => new ResourceBundle(0, 0, 0, 0, 1),
+                _ => ResourceBundle.Zero
+            };
+        }
+
+        if (!_playerFaction.Treasury.HasEnough(cost))
+        {
+            return;
+        }
+
+        _playerFaction.Treasury -= cost;
+        cell.TerrainData.Improvement = impType;
+        cell.TerrainData.ImprovementBonusYield = bonusYield;
+        cell.TerrainData.ConstructionTurnsRemaining = buildTurns;
+        cell.TerrainData.IsConstructed = false;
+
+        if (cell.Deposit != null)
+        {
+            cell.Deposit.IsExploited = true;
+        }
+
+        RefreshEconomyUI();
+        _hud.DisplayTile(cell);
     }
 
     private async void OnEndTurnPressed()
@@ -702,7 +871,7 @@ public partial class WorldMap : Node2D
         _hud.RefreshUnitInfo();
     }
 
-    private void RefreshEconomyUI()
+    public void RefreshEconomyUI()
     {
         var (_, _, netIncome) = _economyManager.CalculateTurnIncome(_playerFaction);
         _hud.UpdateEconomy(_playerFaction.Treasury, netIncome, _turnManager.TurnCount);
