@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Godot;
 using ChroniclesOfTheEmpires.Core.Config;
 using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Core.Entities;
+using ChroniclesOfTheEmpires.Gameplay.Economy;
 
 #nullable enable
 
@@ -81,15 +83,11 @@ public class MapEditorController
     {
         if (!_gridMap.IsWithinBounds(gridPos)) return;
 
-        // Erase any unit present
+        // Erase any unit present atomically
         var unit = _unitRegistry.GetUnitAt(gridPos);
         if (unit != null && GodotObject.IsInstanceValid(unit))
         {
-            _pathfinding.SetPointSolid(gridPos, false);
-            var cell = _gridMap.GetCell(gridPos);
-            if (cell != null) cell.OccupyingUnit = null;
-            _unitRegistry.Unregister(unit);
-            unit.QueueFree();
+            UnitLifecycleManager.TerminateUnit(unit, _unitRegistry, _pathfinding, _gridMap, EconomyManager.Instance);
             return;
         }
 

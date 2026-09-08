@@ -29,7 +29,7 @@ public partial class GridMapManager : Node2D
     [Export] public NodePath? TileContainerPath;
     [Export] public PackedScene? TileScene;
     [Export] public bool UseManualMap = false;
-    [Export] public bool SpawnTileInstances = true;
+    [Export] public bool SpawnTileInstances = false;
 
     /// <summary>
     /// Custom map layout array editable directly in the Godot inspector.

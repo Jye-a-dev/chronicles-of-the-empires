@@ -407,38 +407,63 @@ public partial class UnitController : Node2D
         }
     }
 
-    public void MoveAlongPath(ReadOnlySpan<Vector2I> path, int totalCost, Action? onComplete = null)
+    public void MoveAlongPath(ReadOnlySpan<Vector2I> path, Action? onComplete = null)
     {
-        if (Data == null || IsSurrendered || path.Length <= 1) return;
-        if (_movementTween != null && _movementTween.IsRunning()) return;
+        if (Data == null || IsSurrendered)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        if (path.Length <= 1)
+        {
+            Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
+            onComplete?.Invoke();
+            return;
+        }
+
+        if (_movementTween != null && _movementTween.IsRunning())
+        {
+            _movementTween.Kill();
+        }
 
         Data.IsMoving = true;
-        _movementTween?.Kill();
-        _movementTween = CreateTween();
+        _movementTween = CreateTween().SetTrans(Tween.TransitionType.Linear);
 
-        Vector2I oldPos = path[0];
+        Vector2I originPos = path[0];
 
-        // Step-by-step tile movement animation
+        // Step-by-step tile movement animation starting from first next step
         for (int i = 1; i < path.Length; i++)
         {
             Vector2 targetWorld = GridMapManager.GridToWorldCenter(path[i]);
-            _movementTween.TweenProperty(this, "position", targetWorld, 0.12);
+            _movementTween.TweenProperty(this, "position", targetWorld, 0.12f);
         }
 
-        _movementTween.Finished += () =>
+        _movementTween.TweenCallback(Callable.From(() =>
         {
-            Data.MovementRemaining = Math.Max(0, Data.MovementRemaining - totalCost);
             Data.IsMoving = false;
-            Position = GridMapManager.GridToWorldCenter(Data.GridPosition); // Snap strictly to exact cell center
+            Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
             QueueRedraw();
 
-            EmitSignal(SignalName.UnitMoved, this, oldPos, Data.GridPosition);
+            EmitSignal(SignalName.UnitMoved, this, originPos, Data.GridPosition);
             if (Data.MovementRemaining == 0)
             {
                 EmitSignal(SignalName.MovementDepleted, this);
             }
             onComplete?.Invoke();
-        };
+        }));
+    }
+
+    public void MoveAlongPath(Vector2I[] path, Action? onComplete = null) =>
+        MoveAlongPath(new ReadOnlySpan<Vector2I>(path), onComplete);
+
+    public void MoveAlongPath(ReadOnlySpan<Vector2I> path, int totalCost, Action? onComplete = null)
+    {
+        if (Data != null)
+        {
+            Data.MovementRemaining = Math.Max(0, Data.MovementRemaining - totalCost);
+        }
+        MoveAlongPath(path, onComplete);
     }
 
     public void MoveAlongPath(Vector2I[] path, int totalCost, Action? onComplete = null) =>

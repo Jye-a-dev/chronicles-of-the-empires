@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using ChroniclesOfTheEmpires.Core.Mathematics;
 
 #nullable enable
 
@@ -20,6 +21,7 @@ public partial class FogOfWarManager : Node2D
     private int _height;
     private FogState[,] _fogMap = new FogState[0, 0];
     private readonly HashSet<Vector2I> _activeVisibleTiles = new();
+    private readonly HashSet<Vector2I> _nextVisibleTiles = new();
 
     private TileMapLayer? _fogTileMapLayer;
     public TileMapLayer? FogTileMapLayer => _fogTileMapLayer;
@@ -149,7 +151,10 @@ public partial class FogOfWarManager : Node2D
     {
         if (_width <= 0 || _height <= 0 || _fogTileMapLayer == null) return;
 
-        var newVisibleTiles = new HashSet<Vector2I>();
+        _nextVisibleTiles.Clear();
+
+        Span<Vector2I> ring1 = stackalloc Vector2I[6];
+        Span<Vector2I> ring2 = stackalloc Vector2I[6];
 
         // 1. Collect vision perimeter (2-hex sight radius) for all active player units
         for (int i = 0; i < allUnits.Count; i++)
@@ -160,27 +165,27 @@ public partial class FogOfWarManager : Node2D
             Vector2I center = unit.GridPosition;
             if (gridMap.IsWithinBounds(center))
             {
-                newVisibleTiles.Add(center);
+                _nextVisibleTiles.Add(center);
             }
 
             // Ring 1
-            var ring1 = gridMap.GetNeighbors(center);
-            for (int r1 = 0; r1 < ring1.Count; r1++)
+            HexMath.GetNeighborsNonAlloc(center, ring1);
+            for (int r1 = 0; r1 < 6; r1++)
             {
                 var p1 = ring1[r1];
                 if (gridMap.IsWithinBounds(p1))
                 {
-                    newVisibleTiles.Add(p1);
+                    _nextVisibleTiles.Add(p1);
                 }
 
                 // Ring 2
-                var ring2 = gridMap.GetNeighbors(p1);
-                for (int r2 = 0; r2 < ring2.Count; r2++)
+                HexMath.GetNeighborsNonAlloc(p1, ring2);
+                for (int r2 = 0; r2 < 6; r2++)
                 {
                     var p2 = ring2[r2];
                     if (gridMap.IsWithinBounds(p2))
                     {
-                        newVisibleTiles.Add(p2);
+                        _nextVisibleTiles.Add(p2);
                     }
                 }
             }
@@ -189,7 +194,7 @@ public partial class FogOfWarManager : Node2D
         // 2. Demote tiles that were visible but now lost sight: Visible -> Fogged
         foreach (var pos in _activeVisibleTiles)
         {
-            if (!newVisibleTiles.Contains(pos))
+            if (!_nextVisibleTiles.Contains(pos))
             {
                 _fogMap[pos.X, pos.Y] = FogState.Fogged;
                 _fogTileMapLayer.SetCell(pos, sourceId: 0, atlasCoords: new Vector2I(1, 0)); // Tile 1: Fogged
@@ -200,7 +205,7 @@ public partial class FogOfWarManager : Node2D
         }
 
         // 3. Promote newly visible tiles: Unexplored/Fogged -> Visible
-        foreach (var pos in newVisibleTiles)
+        foreach (var pos in _nextVisibleTiles)
         {
             if (!_activeVisibleTiles.Contains(pos))
             {
@@ -213,7 +218,7 @@ public partial class FogOfWarManager : Node2D
         }
 
         _activeVisibleTiles.Clear();
-        foreach (var pos in newVisibleTiles)
+        foreach (var pos in _nextVisibleTiles)
         {
             _activeVisibleTiles.Add(pos);
         }

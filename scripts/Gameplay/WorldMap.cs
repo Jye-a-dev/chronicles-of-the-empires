@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using System.Threading.Tasks;
 using ChroniclesOfTheEmpires.Core.Combat;
 using ChroniclesOfTheEmpires.Core.Config;
 using ChroniclesOfTheEmpires.Core.Economy;
+using ChroniclesOfTheEmpires.Core.Entities;
 using ChroniclesOfTheEmpires.Core.Game;
+using ChroniclesOfTheEmpires.Core.Mathematics;
 using ChroniclesOfTheEmpires.Gameplay.AI;
 using ChroniclesOfTheEmpires.Gameplay.Economy;
 using ChroniclesOfTheEmpires.Gameplay.Editor;
@@ -315,12 +318,13 @@ public partial class WorldMap : Node2D
         return null;
     }
 
-    public void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, Action? onComplete = null)
+    public async void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, Action? onComplete = null)
     {
         var targetCell = _gridMapManager.GetCell(targetGrid);
         if (targetCell != null)
         {
-            ExecuteSafeMove(unit, targetGrid, targetCell, onComplete);
+            await ExecuteSafeMoveAsync(unit, targetGrid, targetCell);
+            onComplete?.Invoke();
         }
     }
 
@@ -366,59 +370,103 @@ public partial class WorldMap : Node2D
         _hud.DeselectAll();
     }
 
-    /// <summary>
-    /// Executes movement and pre-locks target cell in A* and HexCell occupancy BEFORE the Tween begins,
-    /// eliminating A* solid race conditions. Includes transactional fallback if aborted.
-    /// </summary>
-    public void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, HexCell targetCell, Action? onComplete = null)
+    public async void ExecuteSafeMove(UnitController unit, Vector2I targetGrid, HexCell targetCell, Action? onComplete = null)
     {
-        if (State != MapInteractionState.Idle && State != MapInteractionState.AITurnProcessing) return;
-        if (unit.IsMoving || unit.Data.IsMoving) return;
+        await ExecuteSafeMoveAsync(unit, targetGrid, targetCell);
+        onComplete?.Invoke();
+    }
 
+    public async Task<bool> ExecuteSafeMoveAsync(UnitController unit, Vector2I targetGrid, HexCell targetCell)
+    {
+        if (State != MapInteractionState.Idle && State != MapInteractionState.AITurnProcessing) return false;
+        if (unit.IsMoving || unit.Data.IsMoving) return false;
+
+        _pathfindingManager.SetPointSolid(unit.GridPosition, false);
+        var path = _pathfindingManager.FindPath(unit.GridPosition, targetGrid);
+
+        if (path.Length <= 1)
+        {
+            _pathfindingManager.SetPointSolid(unit.GridPosition, true);
+            return false;
+        }
+
+        int cost = _pathfindingManager.CalculatePathCost(path, _gridMapManager);
+        if (cost > unit.MovementRangeRemaining)
+        {
+            _pathfindingManager.SetPointSolid(unit.GridPosition, true);
+            return false;
+        }
+
+        // Re-lock origin until transactional commit
+        _pathfindingManager.SetPointSolid(unit.GridPosition, true);
+        _pathVisualizer.ClearPath();
+
+        return await ExecuteSafeMoveTransactionalAsync(unit, targetGrid, path, cost);
+    }
+
+    /// <summary>
+    /// Executes transactional movement: Pre-locks destination, preserves origin obstacle until arrival,
+    /// and uses a 5-second safety timeout to eliminate softlocks.
+    /// </summary>
+    public async Task<bool> ExecuteSafeMoveTransactionalAsync(
+        UnitController unit,
+        Vector2I targetGrid,
+        Vector2I[] path,
+        int totalCost)
+    {
+        if (State != MapInteractionState.Idle && State != MapInteractionState.AITurnProcessing)
+            return false;
+        if (unit.IsMoving || unit.Data.IsMoving)
+            return false;
+
+        Vector2I originGrid = unit.Data.GridPosition;
+
+        // 1. Transactional Pre-Lock: Lock target destination, keep origin solid during transit
+        _pathfindingManager.SetPointSolid(targetGrid, true);
         unit.Data.IsMoving = true;
+        unit.Data.MovementRemaining = Math.Max(0, unit.Data.MovementRemaining - totalCost);
+
         bool wasIdle = State == MapInteractionState.Idle;
         if (wasIdle) State = MapInteractionState.UnitMoving;
 
-        _pathfindingManager.SetPointSolid(unit.GridPosition, false);
-        var pathSpan = _pathfindingManager.FindPathSpan(unit.GridPosition, targetGrid);
+        var tcs = new TaskCompletionSource<bool>();
+        using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(5.0)); // Anti-softlock guard
 
-        if (pathSpan.Length <= 1)
+        // 2. Trigger step-by-step movement animation
+        unit.MoveAlongPath(path.ToArray(), () => tcs.TrySetResult(true));
+
+        using (cts.Token.Register(() => tcs.TrySetResult(false)))
         {
+            bool success = await tcs.Task;
+
+            // 3. Commit Phase: Release origin cell obstacle, transfer occupancy and logic coordinates
+            _pathfindingManager.SetPointSolid(originGrid, false);
+
+            var originCell = _gridMapManager.GetCell(originGrid);
+            if (originCell != null && originCell.OccupyingUnit == unit)
+            {
+                originCell.OccupyingUnit = null;
+            }
+
+            var targetCell = _gridMapManager.GetCell(targetGrid);
+            if (targetCell != null)
+            {
+                targetCell.OccupyingUnit = unit;
+            }
+
+            unit.Data.GridPosition = targetGrid;
             unit.Data.IsMoving = false;
-            _pathfindingManager.SetPointSolid(unit.GridPosition, true);
-            if (wasIdle) State = MapInteractionState.Idle;
-            return;
-        }
+            _unitRegistry.UpdatePosition(unit, originGrid, targetGrid);
 
-        int cost = _pathfindingManager.CalculatePathCost(pathSpan, _gridMapManager);
-        if (cost > unit.MovementRangeRemaining)
-        {
-            unit.Data.IsMoving = false;
-            _pathfindingManager.SetPointSolid(unit.GridPosition, true);
-            if (wasIdle) State = MapInteractionState.Idle;
-            return;
-        }
+            if (!success)
+            {
+                // Fallback emergency snap if tween was aborted or timed out
+                unit.Position = GridMapManager.GridToWorldCenter(targetGrid);
+            }
 
-        // PRE-LOCK OCCUPANCY (Transactional state sync)
-        Vector2I oldPos = unit.GridPosition;
-        _pathfindingManager.SetPointSolid(oldPos, false);
-        _pathfindingManager.SetPointSolid(targetGrid, true);
-
-        var oldCell = _gridMapManager.GetCell(oldPos);
-        if (oldCell != null) oldCell.OccupyingUnit = null;
-
-        targetCell.OccupyingUnit = unit;
-        unit.Data.GridPosition = targetGrid;
-        _unitRegistry.UpdatePosition(unit, oldPos, targetGrid);
-
-        _pathVisualizer.ClearPath();
-
-        unit.MoveAlongPath(pathSpan, cost, () =>
-        {
             _hexIndicator.SelectHex(unit.GlobalPosition);
             _hud.RefreshUnitInfo();
 
-            // Territory Claiming: Claim destination cell if permitted
             ExecuteClaimTile(unit.FactionId, targetGrid);
 
             if (unit.FactionId == 0)
@@ -427,8 +475,8 @@ public partial class WorldMap : Node2D
             }
 
             if (wasIdle) State = MapInteractionState.Idle;
-            onComplete?.Invoke();
-        });
+            return success;
+        }
     }
 
     private void HandleCombatTarget(UnitController attacker, UnitController defender, Vector2I targetGrid)
@@ -643,13 +691,7 @@ public partial class WorldMap : Node2D
             _enemiesEliminated++;
         }
 
-        _pathfindingManager.SetPointSolid(unit.GridPosition, false);
-
-        var cell = _gridMapManager.GetCell(unit.GridPosition);
-        if (cell?.OccupyingUnit == unit)
-        {
-            cell.OccupyingUnit = null;
-        }
+        UnitLifecycleManager.TerminateUnit(unit, _unitRegistry, _pathfindingManager, _gridMapManager, _economyManager);
 
         if (_selectedUnit == unit)
         {
@@ -667,12 +709,10 @@ public partial class WorldMap : Node2D
             var u = units[i];
             if (GodotObject.IsInstanceValid(u))
             {
-                _pathfindingManager.SetPointSolid(u.GridPosition, false);
-                var cell = _gridMapManager.GetCell(u.GridPosition);
-                if (cell != null) cell.OccupyingUnit = null;
-
-                _unitRegistry.Unregister(u);
-                u.QueueFree();
+                u.UnitDestroyed -= HandleUnitDestroyed;
+                u.UnitClicked -= SelectUnit;
+                u.UnitMoved -= HandleUnitMovedVisualSync;
+                UnitLifecycleManager.TerminateUnit(u, _unitRegistry, _pathfindingManager, _gridMapManager, _economyManager);
             }
         }
         _unitRegistry.Clear();

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using static Godot.GodotObject;
+using ChroniclesOfTheEmpires.Core.Mathematics;
 using ChroniclesOfTheEmpires.Gameplay.Economy;
 
 #nullable enable
@@ -69,7 +70,7 @@ public class SimpleAITurnExecutor
                             continue;
                         }
 
-                        int dist = GetHexDistance(aiUnit.GridPosition, playerCandidate.GridPosition, gridMap);
+                        int dist = HexMath.GetDistance(aiUnit.GridPosition, playerCandidate.GridPosition);
                         if (dist < minDistance)
                         {
                             minDistance = dist;
@@ -92,14 +93,14 @@ public class SimpleAITurnExecutor
                     else
                     {
                         // Case B: Outside attack range -> Approach target
-                        var neighbors = gridMap.GetNeighbors(target.GridPosition);
+                        var neighborOffsets = HexMath.GetNeighborOffsets(target.GridPosition.Y);
                         Vector2I[] bestPath = Array.Empty<Vector2I>();
                         int bestPathCost = int.MaxValue;
 
                         pathfinding.SetPointSolid(aiUnit.GridPosition, false);
-                        for (int n = 0; n < neighbors.Count; n++)
+                        for (int n = 0; n < neighborOffsets.Length; n++)
                         {
-                            var neighbor = neighbors[n];
+                            var neighbor = target.GridPosition + neighborOffsets[n];
                             if (!gridMap.IsWithinBounds(neighbor) || pathfinding.IsPointSolid(neighbor)) continue;
 
                             var testPath = pathfinding.FindPath(aiUnit.GridPosition, neighbor);
@@ -160,16 +161,14 @@ public class SimpleAITurnExecutor
 
                                 if (destCell != null)
                                 {
-                                    var tcs = new TaskCompletionSource<bool>();
-                                    worldMap.ExecuteSafeMove(aiUnit, destGrid, destCell, () => tcs.TrySetResult(true));
-
-                                    await tcs.Task;
+                                    int moveCost = pathfinding.CalculatePathCost(slicedPath, gridMap);
+                                    await worldMap.ExecuteSafeMoveTransactionalAsync(aiUnit, destGrid, slicedPath, moveCost);
                                     await pacer.DelayAsync(worldMap.GetTree(), 0.18f, ct);
 
                                     // Post-move attack opportunity check
                                     if (IsInstanceValid(target) && target.Data.CurrentHp > 0 && !target.IsSurrendered)
                                     {
-                                        int postDist = GetHexDistance(aiUnit.GridPosition, target.GridPosition, gridMap);
+                                        int postDist = HexMath.GetDistance(aiUnit.GridPosition, target.GridPosition);
                                         if (postDist <= attackRange)
                                         {
                                             worldMap.ExecuteCombatResolution(aiUnit, target);
@@ -192,19 +191,6 @@ public class SimpleAITurnExecutor
         }
     }
 
-    public static int GetHexDistance(Vector2I a, Vector2I b, GridMapManager gridMap)
-    {
-        if (a == b) return 0;
-
-        var ring1 = gridMap.GetNeighbors(a);
-        if (ring1.Contains(b)) return 1;
-
-        for (int i = 0; i < ring1.Count; i++)
-        {
-            var ring2 = gridMap.GetNeighbors(ring1[i]);
-            if (ring2.Contains(b)) return 2;
-        }
-
-        return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
-    }
+    public static int GetHexDistance(Vector2I a, Vector2I b, GridMapManager? gridMap = null) =>
+        HexMath.GetDistance(a, b);
 }
