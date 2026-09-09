@@ -433,45 +433,53 @@ public partial class WorldMap : Node2D
         using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(5.0)); // Anti-softlock guard
 
         // 2. Trigger step-by-step movement animation
-        unit.MoveAlongPath(path.ToArray(), () => tcs.TrySetResult(true));
+        unit.MoveAlongPath(path, () => tcs.TrySetResult(true));
 
         using (cts.Token.Register(() => tcs.TrySetResult(false)))
         {
             bool success = await tcs.Task;
 
-            // 3. Commit Phase: Release origin cell obstacle, transfer occupancy and logic coordinates
-            _pathfindingManager.SetPointSolid(originGrid, false);
-
-            var originCell = _gridMapManager.GetCell(originGrid);
-            if (originCell != null && originCell.OccupyingUnit == unit)
+            if (success)
             {
-                originCell.OccupyingUnit = null;
-            }
+                // 3. Commit Phase: Release origin cell obstacle, transfer occupancy and logic coordinates
+                _pathfindingManager.SetPointSolid(originGrid, false);
 
-            var targetCell = _gridMapManager.GetCell(targetGrid);
-            if (targetCell != null)
-            {
-                targetCell.OccupyingUnit = unit;
-            }
+                var originCell = _gridMapManager.GetCell(originGrid);
+                if (originCell != null && originCell.OccupyingUnit == unit)
+                {
+                    originCell.OccupyingUnit = null;
+                }
 
-            unit.Data.GridPosition = targetGrid;
-            unit.Data.IsMoving = false;
-            _unitRegistry.UpdatePosition(unit, originGrid, targetGrid);
+                var targetCell = _gridMapManager.GetCell(targetGrid);
+                if (targetCell != null)
+                {
+                    targetCell.OccupyingUnit = unit;
+                }
 
-            if (!success)
-            {
-                // Fallback emergency snap if tween was aborted or timed out
+                unit.Data.GridPosition = targetGrid;
+                unit.Data.IsMoving = false;
                 unit.Position = GridMapManager.GridToWorldCenter(targetGrid);
+                _unitRegistry.UpdatePosition(unit, originGrid, targetGrid);
+
+                _hexIndicator.SelectHex(unit.GlobalPosition);
+                _hud.RefreshUnitInfo();
+
+                ExecuteClaimTile(unit.FactionId, targetGrid);
+
+                if (unit.FactionId == 0)
+                {
+                    _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
+                }
             }
-
-            _hexIndicator.SelectHex(unit.GlobalPosition);
-            _hud.RefreshUnitInfo();
-
-            ExecuteClaimTile(unit.FactionId, targetGrid);
-
-            if (unit.FactionId == 0)
+            else
             {
-                _fogOfWarManager.UpdatePlayerVisibility(_unitRegistry.AllUnits, _gridMapManager);
+                // Fallback / Rollback Phase: Movement tween was aborted, timed out, or interrupted
+                _pathfindingManager.SetPointSolid(targetGrid, false);
+                _pathfindingManager.SetPointSolid(originGrid, true);
+
+                unit.CancelMovement();
+                unit.Data.MovementRemaining = Math.Min(unit.Data.MovementMax, unit.Data.MovementRemaining + totalCost);
+                _unitRegistry.UpdatePosition(unit, originGrid, unit.Data.GridPosition);
             }
 
             if (wasIdle) State = MapInteractionState.Idle;

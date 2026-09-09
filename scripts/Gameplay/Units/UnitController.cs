@@ -119,18 +119,12 @@ public partial class UnitController : Node2D
 
     public override void _ExitTree()
     {
+        CancelMovement();
         if (Data != null)
         {
-            // Fallback emergency snap if tree was exited during movement
-            if (Data.IsMoving)
-            {
-                Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
-                Data.IsMoving = false;
-            }
             Unbind();
         }
 
-        _movementTween?.Kill();
         _surrenderTween?.Kill();
         _flagBobTween?.Kill();
         _selectionBounceTween?.Kill();
@@ -365,11 +359,16 @@ public partial class UnitController : Node2D
 
     private void PlayLowMoraleJitter()
     {
-        var tween = CreateTween();
-        Vector2 origin = GridMapManager.GridToWorldCenter(GridPosition);
-        tween.TweenProperty(this, "position", origin + new Vector2(1.5f, 0), 0.05);
-        tween.TweenProperty(this, "position", origin - new Vector2(1.5f, 0), 0.05);
-        tween.TweenProperty(this, "position", origin, 0.05);
+        if (IsMoving || (Data != null && Data.IsMoving)) return;
+
+        if (_unitSprite != null)
+        {
+            Vector2 basePos = new(0f, -20.0f);
+            var tween = CreateTween();
+            tween.TweenProperty(_unitSprite, "position", basePos + new Vector2(1.5f, 0), 0.05);
+            tween.TweenProperty(_unitSprite, "position", basePos - new Vector2(1.5f, 0), 0.05);
+            tween.TweenProperty(_unitSprite, "position", basePos, 0.05);
+        }
     }
 
     public void PlayRecaptureFlash()
@@ -390,7 +389,6 @@ public partial class UnitController : Node2D
             _hexHitboxIndicator.Visible = isSelected;
         }
 
-
         _selectionBounceTween?.Kill();
         if (isSelected)
         {
@@ -407,6 +405,25 @@ public partial class UnitController : Node2D
         }
     }
 
+    /// <summary>
+    /// Cancels active movement tween and immediately snaps visual transform to the current Data.GridPosition center.
+    /// </summary>
+    public void CancelMovement()
+    {
+        if (_movementTween != null && _movementTween.IsRunning())
+        {
+            _movementTween.Kill();
+            _movementTween = null;
+        }
+
+        if (Data != null)
+        {
+            Data.IsMoving = false;
+            Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
+        }
+        QueueRedraw();
+    }
+
     public void MoveAlongPath(ReadOnlySpan<Vector2I> path, Action? onComplete = null)
     {
         if (Data == null || IsSurrendered)
@@ -417,35 +434,44 @@ public partial class UnitController : Node2D
 
         if (path.Length <= 1)
         {
-            Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
+            Vector2I fallbackPos = path.Length == 1 ? path[0] : Data.GridPosition;
+            Position = GridMapManager.GridToWorldCenter(fallbackPos);
             onComplete?.Invoke();
             return;
         }
 
+        // Cancel previous running movement tween safely with fallback snap
         if (_movementTween != null && _movementTween.IsRunning())
         {
             _movementTween.Kill();
+            _movementTween = null;
+            Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
         }
 
         Data.IsMoving = true;
         _movementTween = CreateTween().SetTrans(Tween.TransitionType.Linear);
 
         Vector2I originPos = path[0];
+        Vector2I destinationPos = path[^1];
+        Vector2 destinationWorldPos = GridMapManager.GridToWorldCenter(destinationPos);
+
+        // Ensure starting position is aligned to origin tile center
+        Position = GridMapManager.GridToWorldCenter(originPos);
 
         // Step-by-step tile movement animation starting from first next step
         for (int i = 1; i < path.Length; i++)
         {
-            Vector2 targetWorld = GridMapManager.GridToWorldCenter(path[i]);
+            Vector2 targetWorld = (i == path.Length - 1) ? destinationWorldPos : GridMapManager.GridToWorldCenter(path[i]);
             _movementTween.TweenProperty(this, "position", targetWorld, 0.12f);
         }
 
         _movementTween.TweenCallback(Callable.From(() =>
         {
             Data.IsMoving = false;
-            Position = GridMapManager.GridToWorldCenter(Data.GridPosition);
+            Position = destinationWorldPos; // Presentation View anchor only; WorldMap orchestrates Data.GridPosition
             QueueRedraw();
 
-            EmitSignal(SignalName.UnitMoved, this, originPos, Data.GridPosition);
+            EmitSignal(SignalName.UnitMoved, this, originPos, destinationPos);
             if (Data.MovementRemaining == 0)
             {
                 EmitSignal(SignalName.MovementDepleted, this);
