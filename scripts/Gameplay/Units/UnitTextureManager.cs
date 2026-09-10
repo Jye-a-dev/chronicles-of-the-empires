@@ -108,6 +108,8 @@ public static class UnitTextureManager
             BiomeType.Forest => "tile_forest.png",
             BiomeType.River => "tile_water.png",
             BiomeType.Mountain => "tile_mountain.png",
+            BiomeType.Ocean => "tile_ocean.png",
+            BiomeType.Hill => "tile_hill.png",
             _ => "tile_plains.png"
         };
 
@@ -133,6 +135,8 @@ public static class UnitTextureManager
             TerrainType.Forest => BiomeType.Forest,
             TerrainType.River => BiomeType.River,
             TerrainType.Mountain => BiomeType.Mountain,
+            TerrainType.Ocean => BiomeType.Ocean,
+            TerrainType.Hill => BiomeType.Hill,
             _ => BiomeType.Plains
         };
         return GetTerrainTexture(biome);

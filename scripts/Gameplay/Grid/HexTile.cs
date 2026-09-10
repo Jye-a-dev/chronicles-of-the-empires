@@ -111,6 +111,8 @@ public partial class HexTile : Node2D
             TerrainType.Forest => new Color(0.12f, 0.30f, 0.11f),
             TerrainType.River => new Color(0.17f, 0.36f, 0.56f),
             TerrainType.Mountain => new Color(0.35f, 0.38f, 0.41f),
+            TerrainType.Ocean => new Color(0.09f, 0.23f, 0.41f),
+            TerrainType.Hill => new Color(0.32f, 0.40f, 0.20f),
             _ => new Color(0.2f, 0.2f, 0.2f)
         };
 
@@ -118,6 +120,8 @@ public partial class HexTile : Node2D
         {
             TerrainType.River => new Color(0.45f, 0.29f, 0.13f, 0.6f),
             TerrainType.Mountain => new Color(0.55f, 0.58f, 0.61f, 0.6f),
+            TerrainType.Ocean => new Color(0.05f, 0.14f, 0.26f, 0.6f),
+            TerrainType.Hill => new Color(0.25f, 0.30f, 0.15f, 0.5f),
             _ => new Color(0.15f, 0.18f, 0.12f, 0.4f)
         };
 

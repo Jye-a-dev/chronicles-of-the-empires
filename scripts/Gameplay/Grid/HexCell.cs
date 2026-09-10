@@ -61,6 +61,8 @@ public partial class HexCell : GodotObject
             TerrainType.Forest => BiomeType.Forest,
             TerrainType.River => BiomeType.River,
             TerrainType.Mountain => BiomeType.Mountain,
+            TerrainType.Ocean => BiomeType.Ocean,
+            TerrainType.Hill => BiomeType.Hill,
             _ => BiomeType.Plains
         };
 
@@ -117,6 +119,24 @@ public partial class HexCell : GodotObject
                 MoveCost = 99,
                 IsBlocked = true,
                 BaseYield = new ResourceBundle(0, 3, 1, 1, 2)
+            },
+            TerrainType.Ocean => new TileTerrainData
+            {
+                Biome = BiomeType.Ocean,
+                Name = "Biển Khơi",
+                Description = "Vùng biển sâu mênh mông bão táp, ranh giới hải phận tự nhiên giàu nguồn lợi thủy hải sản và muối biển.",
+                MoveCost = 99,
+                IsBlocked = true,
+                BaseYield = new ResourceBundle(1, 0, 1, 0, 0)
+            },
+            TerrainType.Hill => new TileTerrainData
+            {
+                Biome = BiomeType.Hill,
+                Name = "Gò Đồi",
+                Description = "Địa hình đồi thoải chiến lược dễ thủ khó công, dồi dào khoáng sản và thổ nhưỡng thuận lợi dựng tiêu đồn.",
+                MoveCost = 2,
+                IsBlocked = false,
+                BaseYield = new ResourceBundle(1, 1, 0, 0, 0)
             },
             _ => new TileTerrainData()
         };

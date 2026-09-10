@@ -212,6 +212,24 @@ text = "Núi Đá (Mountain)"
 icon_alignment = 0
 expand_icon = true
 
+[node name="BtnOcean" type="Button" parent="Margin/VBox/TabContainer/Terrain"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Biển Khơi (Ocean)"
+icon_alignment = 0
+expand_icon = true
+
+[node name="BtnHill" type="Button" parent="Margin/VBox/TabContainer/Terrain"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Gò Đồi (Hill)"
+icon_alignment = 0
+expand_icon = true
+
 [node name="ShapeLabel" type="Label" parent="Margin/VBox/TabContainer/Terrain"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 7

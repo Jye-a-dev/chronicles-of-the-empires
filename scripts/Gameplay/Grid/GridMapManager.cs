@@ -13,7 +13,9 @@ public enum TerrainType
     Plains = 0,
     Forest = 1,
     River = 2,
-    Mountain = 3
+    Mountain = 3,
+    Ocean = 4,
+    Hill = 5
 }
 
 /// <summary>
@@ -34,7 +36,7 @@ public partial class GridMapManager : Node2D
     /// <summary>
     /// Custom map layout array editable directly in the Godot inspector.
     /// Format: Each row contains characters separated by spaces or continuous:
-    /// 'P' = Plains (Đồng Bằng), 'F' = Forest (Rừng Rậm), 'R' = River (Đại Hà), 'M' = Mountain (Núi)
+    /// 'P' = Plains (Đồng Bằng), 'F' = Forest (Rừng Rậm), 'R' = River (Đại Hà), 'M' = Mountain (Núi), 'O' = Ocean (Biển Khơi), 'H' = Hill (Gò Đồi)
     /// </summary>
     [Export] public Godot.Collections.Array<string> ManualMapLayout = new();
 

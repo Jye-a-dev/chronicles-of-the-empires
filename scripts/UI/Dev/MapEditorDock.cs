@@ -39,6 +39,8 @@ public partial class MapEditorDock : PanelContainer
     private Button? _btnForest;
     private Button? _btnRiver;
     private Button? _btnMountain;
+    private Button? _btnOcean;
+    private Button? _btnHill;
 
     private Button? _btnDepositCopper;
     private Button? _btnDepositIron;
@@ -82,6 +84,8 @@ public partial class MapEditorDock : PanelContainer
         _btnForest = GetNodeOrNull<Button>("%BtnForest");
         _btnRiver = GetNodeOrNull<Button>("%BtnRiver");
         _btnMountain = GetNodeOrNull<Button>("%BtnMountain");
+        _btnOcean = GetNodeOrNull<Button>("%BtnOcean");
+        _btnHill = GetNodeOrNull<Button>("%BtnHill");
 
         _btnDepositCopper = GetNodeOrNull<Button>("%BtnDepositCopper");
         _btnDepositIron = GetNodeOrNull<Button>("%BtnDepositIron");
@@ -225,6 +229,8 @@ public partial class MapEditorDock : PanelContainer
         if (_btnForest != null) _btnForest.Icon = UnitTextureManager.GetTerrainTexture(TerrainType.Forest);
         if (_btnRiver != null) _btnRiver.Icon = UnitTextureManager.GetTerrainTexture(TerrainType.River);
         if (_btnMountain != null) _btnMountain.Icon = UnitTextureManager.GetTerrainTexture(TerrainType.Mountain) ?? IconManager.GetIcon("mountain");
+        if (_btnOcean != null) _btnOcean.Icon = UnitTextureManager.GetTerrainTexture(TerrainType.Ocean);
+        if (_btnHill != null) _btnHill.Icon = UnitTextureManager.GetTerrainTexture(TerrainType.Hill);
 
         // Deposits icons
         if (_btnDepositCopper != null) _btnDepositCopper.Icon = IconManager.GetIcon("copper");
@@ -265,6 +271,8 @@ public partial class MapEditorDock : PanelContainer
         _btnForest?.Connect("pressed", Callable.From(() => SetTerrain(TerrainType.Forest, "Rừng Rậm")));
         _btnRiver?.Connect("pressed", Callable.From(() => SetTerrain(TerrainType.River, "Sông Nước")));
         _btnMountain?.Connect("pressed", Callable.From(() => SetTerrain(TerrainType.Mountain, "Núi Đá")));
+        _btnOcean?.Connect("pressed", Callable.From(() => SetTerrain(TerrainType.Ocean, "Biển Khơi")));
+        _btnHill?.Connect("pressed", Callable.From(() => SetTerrain(TerrainType.Hill, "Gò Đồi")));
 
         // Brush Shapes
         GetNodeOrNull<Button>("%BtnShapeSingle")?.Connect("pressed", Callable.From(() => SetShape(BrushShape.Single)));

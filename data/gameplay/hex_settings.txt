@@ -87,3 +87,38 @@ base_color = #545c63
 peak_color = #b4c2ce
 base_dark_color = #1f2225
 border_color = #383d42
+
+[ocean]
+name = Biển Khơi
+description = Vùng biển sâu mênh mông bão táp, ranh giới hải phận tự nhiên giàu nguồn lợi thủy hải sản và muối biển.
+biome = Ocean
+move_cost = 99
+food_yield = 1
+prod_yield = 0
+gold_yield = 1
+sci_yield = 0
+faith_yield = 0
+is_solid = true
+is_blocked = true
+base_color = #163a69
+deep_water_color = #0f284a
+wave_color = #2b61a3
+border_color = #0d2442
+
+[hill]
+name = Gò Đồi
+description = Địa hình đồi thoải chiến lược dễ thủ khó công, dồi dào khoáng sản và thổ nhưỡng thuận lợi dựng tiêu đồn.
+biome = Hill
+move_cost = 2
+food_yield = 1
+prod_yield = 1
+gold_yield = 0
+sci_yield = 0
+faith_yield = 0
+is_solid = false
+is_blocked = false
+base_color = #526633
+slope_color = #6a8244
+shade_color = #3c4b25
+border_color = #3f4d27
+

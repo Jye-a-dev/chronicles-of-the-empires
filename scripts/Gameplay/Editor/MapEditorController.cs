@@ -167,8 +167,8 @@ public class MapEditorController
                 _gridMap.SetCellTerrain(pos, SelectedTerrain);
                 _pathfinding.UpdateCellObstacle(pos, cell);
 
-                // Clear deposit if water or mountain
-                if (SelectedTerrain == TerrainType.River || SelectedTerrain == TerrainType.Mountain)
+                // Clear deposit if water, ocean or mountain
+                if (SelectedTerrain == TerrainType.River || SelectedTerrain == TerrainType.Mountain || SelectedTerrain == TerrainType.Ocean)
                 {
                     cell.Deposit = null;
                     cell.TerrainData.Improvement = ImprovementType.None;
@@ -176,7 +176,7 @@ public class MapEditorController
                 break;
 
             case EditorBrushCategory.Deposit:
-                if (cell.Terrain != TerrainType.River && cell.Terrain != TerrainType.Mountain)
+                if (cell.Terrain != TerrainType.River && cell.Terrain != TerrainType.Mountain && cell.Terrain != TerrainType.Ocean)
                 {
                     var depCfg = GameConfigManager.GetDepositConfig(SelectedDepositId);
                     cell.Deposit = new ResourceDepositData
@@ -193,7 +193,7 @@ public class MapEditorController
                 break;
 
             case EditorBrushCategory.Improvement:
-                if (cell.Terrain != TerrainType.River)
+                if (cell.Terrain != TerrainType.River && cell.Terrain != TerrainType.Ocean)
                 {
                     cell.TerrainData.Improvement = SelectedImprovement;
                     cell.TerrainData.IsConstructed = true;

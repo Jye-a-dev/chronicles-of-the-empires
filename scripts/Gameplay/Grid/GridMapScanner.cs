@@ -95,7 +95,7 @@ public partial class GridMapManager
                 if (_tileMapLayer.GetCellSourceId(coords) != -1)
                 {
                     int atlasX = _tileMapLayer.GetCellAtlasCoords(coords).X;
-                    terrain = (TerrainType)Math.Clamp(atlasX, 0, 3);
+                    terrain = (TerrainType)Math.Clamp(atlasX, 0, 5);
                 }
 
                 Vector2 worldPos = GridToWorldCenter(coords);
@@ -132,6 +132,8 @@ public partial class GridMapManager
         'F' or '1' => TerrainType.Forest,
         'R' or '2' => TerrainType.River,
         'M' or '3' => TerrainType.Mountain,
+        'O' or '4' => TerrainType.Ocean,
+        'H' or '5' => TerrainType.Hill,
         _ => TerrainType.Plains
     };
 }

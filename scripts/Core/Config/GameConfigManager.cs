@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using ChroniclesOfTheEmpires.Core.Economy;
@@ -67,6 +67,8 @@ public static partial class GameConfigManager
             TerrainType.Forest => "forest",
             TerrainType.River => "river",
             TerrainType.Mountain => "mountain",
+            TerrainType.Ocean => "ocean",
+            TerrainType.Hill => "hill",
             _ => "plains"
         };
         return _hexConfigs.TryGetValue(key, out var config) ? config : null;

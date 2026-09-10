@@ -19,15 +19,15 @@ public partial class GridMapManager
 
         GameConfigManager.EnsureLoaded();
 
-        // Create a 128x32 atlas texture containing 4 colored 32x32 pointy-topped hexagons
-        var img = Image.CreateEmpty(CellDimension * 4, CellDimension, false, Image.Format.Rgba8);
+        // Create a 192x32 atlas texture containing 6 colored 32x32 pointy-topped hexagons
+        var img = Image.CreateEmpty(CellDimension * 6, CellDimension, false, Image.Format.Rgba8);
 
-        for (int tileIdx = 0; tileIdx < 4; tileIdx++)
+        for (int tileIdx = 0; tileIdx < 6; tileIdx++)
         {
             var terrain = (TerrainType)tileIdx;
             int startX = tileIdx * CellDimension;
 
-            // Load finalized terrain sprite asset if available (plains, forest, water)
+            // Load finalized terrain sprite asset if available (plains, forest, water, ocean, hill)
             var terrainTex = UnitTextureManager.GetTerrainTexture(terrain);
             if (terrainTex != null)
             {
@@ -86,6 +86,8 @@ public partial class GridMapManager
                 TerrainType.Forest => new Color(0.12f, 0.30f, 0.11f),
                 TerrainType.River => new Color(0.17f, 0.36f, 0.56f),
                 TerrainType.Mountain => new Color(0.48f, 0.50f, 0.54f),
+                TerrainType.Ocean => new Color(0.09f, 0.23f, 0.41f),
+                TerrainType.Hill => new Color(0.32f, 0.40f, 0.20f),
                 _ => new Color(0.2f, 0.2f, 0.2f)
             };
 
@@ -128,6 +130,21 @@ public partial class GridMapManager
                                 pixelCol = isWave ? waveCol : baseCol;
                             }
                         }
+                        else if (terrain == TerrainType.Ocean)
+                        {
+                            Color deepCol = cfg?.ExtraColors.GetValueOrDefault("deep_water_color", new Color(0.06f, 0.16f, 0.29f)) ?? new Color(0.06f, 0.16f, 0.29f);
+                            Color waveCol = cfg?.ExtraColors.GetValueOrDefault("wave_color", new Color(0.17f, 0.38f, 0.64f)) ?? new Color(0.17f, 0.38f, 0.64f);
+
+                            if (isBorder)
+                            {
+                                pixelCol = borderCol;
+                            }
+                            else
+                            {
+                                bool isWave = ((x * 3 + y * 2) % 11 == 0) && distToEdge > 3.0f;
+                                pixelCol = isWave ? waveCol : (distToEdge > 5.0f ? deepCol : baseCol);
+                            }
+                        }
                         else if (terrain == TerrainType.Plains)
                         {
                             if (isBorder)
@@ -162,6 +179,28 @@ public partial class GridMapManager
                                 if (hash % 6 == 0) pixelCol = canopyLight;
                                 else if (hash % 8 == 0) pixelCol = canopyDark;
                                 else pixelCol = baseCol;
+                            }
+                        }
+                        else if (terrain == TerrainType.Hill)
+                        {
+                            Color slopeCol = cfg?.ExtraColors.GetValueOrDefault("slope_color", new Color(0.42f, 0.51f, 0.27f)) ?? new Color(0.42f, 0.51f, 0.27f);
+                            Color shadeCol = cfg?.ExtraColors.GetValueOrDefault("shade_color", new Color(0.24f, 0.29f, 0.15f)) ?? new Color(0.24f, 0.29f, 0.15f);
+
+                            if (isBorder)
+                            {
+                                pixelCol = borderCol;
+                            }
+                            else if (y < 12 && distToEdge >= 2.5f)
+                            {
+                                pixelCol = slopeCol;
+                            }
+                            else if (y >= 20)
+                            {
+                                pixelCol = shadeCol;
+                            }
+                            else
+                            {
+                                pixelCol = baseCol;
                             }
                         }
                         else // Mountain
@@ -207,7 +246,7 @@ public partial class GridMapManager
             TextureRegionSize = new Vector2I(CellDimension, CellDimension)
         };
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 6; i++)
         {
             atlasSource.CreateTile(new Vector2I(i, 0));
         }
@@ -264,6 +303,10 @@ public partial class GridMapManager
                 {
                     depositKey = rand.NextDouble() < 0.6 ? "iron_mine" : "gold_vein";
                 }
+                else if (cell.Terrain == TerrainType.Hill && rand.NextDouble() < 0.22)
+                {
+                    depositKey = rand.NextDouble() < 0.6 ? "iron_mine" : "gold_vein";
+                }
                 else if (rand.NextDouble() < 0.02)
                 {
                     depositKey = "sacred_spring";
@@ -300,9 +343,15 @@ public partial class GridMapManager
                 return TerrainType.River;
             }
 
+            if (x > MapWidth - 3 && rand.NextDouble() < 0.45)
+            {
+                return TerrainType.Ocean;
+            }
+
             if (x < 1 || y < 1 || (x > MapWidth - 2 && y > MapHeight - 2))
             {
                 if (rand.NextDouble() < 0.35) return TerrainType.Mountain;
+                if (rand.NextDouble() < 0.25) return TerrainType.Hill;
                 if (rand.NextDouble() < 0.25) return TerrainType.Forest;
                 return TerrainType.Plains;
             }
@@ -310,11 +359,17 @@ public partial class GridMapManager
             if ((x < 2 && y >= 5 && y < MapHeight / 2) || (y < 2 && x >= 5 && x < MapWidth / 2) || (x > MapWidth - 4 && y > MapHeight - 4))
             {
                 if (rand.NextDouble() < 0.45) return TerrainType.Mountain;
+                if (rand.NextDouble() < 0.30) return TerrainType.Hill;
             }
 
             if (rand.NextDouble() < 0.18)
             {
                 return TerrainType.Forest;
+            }
+
+            if (rand.NextDouble() < 0.10)
+            {
+                return TerrainType.Hill;
             }
 
             return TerrainType.Plains;
@@ -323,20 +378,23 @@ public partial class GridMapManager
         if (ActiveBiome == "jungle")
         {
             if (rand.NextDouble() < 0.08) return TerrainType.River;
-            if (rand.NextDouble() < 0.55) return TerrainType.Forest;
+            if (rand.NextDouble() < 0.50) return TerrainType.Forest;
+            if (rand.NextDouble() < 0.12) return TerrainType.Hill;
             if (rand.NextDouble() < 0.08) return TerrainType.Mountain;
             return TerrainType.Plains;
         }
 
         if (ActiveBiome == "highlands")
         {
-            if (rand.NextDouble() < 0.28) return TerrainType.Mountain;
-            if (rand.NextDouble() < 0.30) return TerrainType.Forest;
+            if (rand.NextDouble() < 0.25) return TerrainType.Mountain;
+            if (rand.NextDouble() < 0.25) return TerrainType.Hill;
+            if (rand.NextDouble() < 0.25) return TerrainType.Forest;
             if (rand.NextDouble() < 0.06) return TerrainType.River;
             return TerrainType.Plains;
         }
 
         if (rand.NextDouble() < 0.10) return TerrainType.Forest;
+        if (rand.NextDouble() < 0.08) return TerrainType.Hill;
         if (rand.NextDouble() < 0.04) return TerrainType.River;
         if (rand.NextDouble() < 0.05) return TerrainType.Mountain;
         return TerrainType.Plains;

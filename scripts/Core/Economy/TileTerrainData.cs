@@ -7,7 +7,9 @@ public enum BiomeType
     River = 2,
     Mountain = 3,
     Highlands = 4,
-    Swamp = 5
+    Swamp = 5,
+    Ocean = 6,
+    Hill = 7
 }
 
 public enum ImprovementType
